@@ -4,7 +4,8 @@
     "defaultPosition": {
       "x": 45,
       "y": 41,
-      "z": 20
+      "z": 20,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -15,7 +16,8 @@
     "defaultPosition": {
       "x": 138,
       "y": 410,
-      "z": 19
+      "z": 19,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -26,7 +28,8 @@
     "defaultPosition": {
       "x": 1200,
       "y": 186,
-      "z": 18
+      "z": 18,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -37,7 +40,8 @@
     "defaultPosition": {
       "x": 1222,
       "y": 342,
-      "z": 17
+      "z": 17,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -48,7 +52,8 @@
     "defaultPosition": {
       "x": 143,
       "y": 160,
-      "z": 16
+      "z": 16,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -59,7 +64,8 @@
     "defaultPosition": {
       "x": 588,
       "y": 390,
-      "z": 15
+      "z": 15,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -70,7 +76,8 @@
     "defaultPosition": {
       "x": 339,
       "y": 372,
-      "z": 14
+      "z": 14,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -81,7 +88,8 @@
     "defaultPosition": {
       "x": 215,
       "y": 36,
-      "z": 13
+      "z": 13,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -92,7 +100,8 @@
     "defaultPosition": {
       "x": 1234,
       "y": 63,
-      "z": 12
+      "z": 12,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -103,7 +112,8 @@
     "defaultPosition": {
       "x": 1135,
       "y": 298,
-      "z": 11
+      "z": 11,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -114,7 +124,8 @@
     "defaultPosition": {
       "x": 923,
       "y": 282,
-      "z": 10
+      "z": 26,
+      "rotated": -17
     },
     "width": 200,
     "height": 200,
@@ -125,7 +136,8 @@
     "defaultPosition": {
       "x": 739,
       "y": 311,
-      "z": 9
+      "z": 9,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -136,7 +148,8 @@
     "defaultPosition": {
       "x": 477,
       "y": 282,
-      "z": 8
+      "z": 8,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -147,7 +160,8 @@
     "defaultPosition": {
       "x": 244,
       "y": 256,
-      "z": 7
+      "z": 7,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -158,7 +172,8 @@
     "defaultPosition": {
       "x": 26,
       "y": 318,
-      "z": 6
+      "z": 6,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -169,7 +184,8 @@
     "defaultPosition": {
       "x": 1050,
       "y": 101,
-      "z": 5
+      "z": 5,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -180,7 +196,8 @@
     "defaultPosition": {
       "x": 847,
       "y": 87,
-      "z": 4
+      "z": 4,
+      "rotated": 0
     },
     "width": 200,
     "height": 200,
@@ -191,7 +208,8 @@
     "defaultPosition": {
       "x": 569,
       "y": 106,
-      "z": 3
+      "z": 22,
+      "rotated": 63
     },
     "width": 200,
     "height": 200,
@@ -202,7 +220,8 @@
     "defaultPosition": {
       "x": 363,
       "y": 23,
-      "z": 2
+      "z": 24,
+      "rotated": 68
     },
     "width": 200,
     "height": 200,
