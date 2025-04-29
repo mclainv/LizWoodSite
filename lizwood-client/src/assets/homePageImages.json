@@ -1,72 +1,211 @@
 [
   {
-    "path": "/assets/candy hearts shirt.png",
-    "defaultPosition": { "x": 20, "y": 30 },
+    "path": "/assets/bag-portrait.png",
+    "defaultPosition": {
+      "x": 45,
+      "y": 41,
+      "z": 20
+    },
     "width": 200,
     "height": 200,
-    "alt": "Candy Hearts Shirt"
+    "alt": "Bag Portrait"
   },
   {
-    "path": "/assets/IMG_4584.JPG",
-    "defaultPosition": { "x": 50, "y": 0 },
+    "path": "/assets/band-portrait.png",
+    "defaultPosition": {
+      "x": 138,
+      "y": 410,
+      "z": 19
+    },
     "width": 200,
     "height": 200,
-    "alt": "Image 4584"
+    "alt": "Band Portrait"
   },
   {
-    "path": "/assets/IMG_0071.jpg",
-    "defaultPosition": { "x": 100, "y": 0 },
+    "path": "/assets/candy-hearts.png",
+    "defaultPosition": {
+      "x": 1200,
+      "y": 186,
+      "z": 18
+    },
     "width": 200,
     "height": 200,
-    "alt": "Image 0071"
+    "alt": "Candy Hearts"
   },
   {
-    "path": "/assets/slots.png",
-    "defaultPosition": { "x": 150, "y": 0 },
+    "path": "/assets/car-portrait.png",
+    "defaultPosition": {
+      "x": 1222,
+      "y": 342,
+      "z": 17
+    },
     "width": 200,
     "height": 200,
-    "alt": "Slots"
+    "alt": "Car Portrait"
   },
   {
-    "path": "assets/Screenshot 2025-04-06 at 8.58.14 PM.png",
-    "defaultPosition": { "x": 50, "y": 50 },
+    "path": "/assets/collage.jpg",
+    "defaultPosition": {
+      "x": 143,
+      "y": 160,
+      "z": 16
+    },
+    "width": 200,
+    "height": 200,
+    "alt": "Collage"
+  },
+  {
+    "path": "/assets/CONTACT.PNG",
+    "defaultPosition": {
+      "x": 588,
+      "y": 390,
+      "z": 15
+    },
+    "width": 200,
+    "height": 200,
+    "alt": "Contact"
+  },
+  {
+    "path": "/assets/doily-shirt.png",
+    "defaultPosition": {
+      "x": 339,
+      "y": 372,
+      "z": 14
+    },
+    "width": 200,
+    "height": 200,
+    "alt": "Doily Shirt"
+  },
+  {
+    "path": "/assets/EXPLORE.PNG",
+    "defaultPosition": {
+      "x": 215,
+      "y": 36,
+      "z": 13
+    },
+    "width": 200,
+    "height": 200,
+    "alt": "Explore"
+  },
+  {
+    "path": "/assets/floor-portrait.png",
+    "defaultPosition": {
+      "x": 1234,
+      "y": 63,
+      "z": 12
+    },
+    "width": 200,
+    "height": 200,
+    "alt": "Floor Portrait"
+  },
+  {
+    "path": "/assets/gate-portrait.png",
+    "defaultPosition": {
+      "x": 1135,
+      "y": 298,
+      "z": 11
+    },
+    "width": 200,
+    "height": 200,
+    "alt": "Gate Portrait"
+  },
+  {
+    "path": "/assets/lettering.png",
+    "defaultPosition": {
+      "x": 923,
+      "y": 282,
+      "z": 10
+    },
+    "width": 200,
+    "height": 200,
+    "alt": "Lettering"
+  },
+  {
+    "path": "/assets/liz-gif.gif",
+    "defaultPosition": {
+      "x": 739,
+      "y": 311,
+      "z": 9
+    },
     "width": 200,
     "height": 200,
     "alt": "Liz Gif"
   },
   {
-    "path": "/assets/LW LOGO.PNG",
-    "defaultPosition": { "x": 50, "y": 50 },
+    "path": "/assets/LW-LOGO.PNG",
+    "defaultPosition": {
+      "x": 477,
+      "y": 282,
+      "z": 8
+    },
     "width": 200,
     "height": 200,
     "alt": "LW Logo"
   },
   {
-    "path": "/assets/pages.PNG",
-    "defaultPosition": { "x": 50, "y": 50 },
+    "path": "/assets/polaroid.jpg",
+    "defaultPosition": {
+      "x": 244,
+      "y": 256,
+      "z": 7
+    },
     "width": 200,
     "height": 200,
-    "alt": "Pages"
+    "alt": "Polaroid"
   },
   {
-    "path": "/assets/Screenshot 2025-04-06 at 8.56.34 PM.png",
-    "defaultPosition": { "x": 50, "y": 50 },
+    "path": "/assets/singer-portrait.png",
+    "defaultPosition": {
+      "x": 26,
+      "y": 318,
+      "z": 6
+    },
     "width": 200,
     "height": 200,
-    "alt": "Screenshot 8.56.34"
+    "alt": "Singer Portrait"
   },
   {
-    "path": "/assets/Screenshot 2025-04-06 at 8.56.52 PM.png",
-    "defaultPosition": { "x": 50, "y": 50 },
+    "path": "/assets/skateboard.jpg",
+    "defaultPosition": {
+      "x": 1050,
+      "y": 101,
+      "z": 5
+    },
     "width": 200,
     "height": 200,
-    "alt": "Screenshot 8.56.52"
+    "alt": "Skateboard"
   },
   {
-    "path": "/assets/Screenshot 2025-04-06 at 8.58.14 PM.png",
-    "defaultPosition": { "x": 50, "y": 50 },
+    "path": "/assets/slots.png",
+    "defaultPosition": {
+      "x": 847,
+      "y": 87,
+      "z": 4
+    },
     "width": 200,
     "height": 200,
-    "alt": "Screenshot 8.58.14"
+    "alt": "Slots"
+  },
+  {
+    "path": "/assets/staircase.JPG",
+    "defaultPosition": {
+      "x": 569,
+      "y": 106,
+      "z": 3
+    },
+    "width": 200,
+    "height": 200,
+    "alt": "Staircase"
+  },
+  {
+    "path": "/assets/warm-pattern.png",
+    "defaultPosition": {
+      "x": 363,
+      "y": 23,
+      "z": 2
+    },
+    "width": 200,
+    "height": 200,
+    "alt": "Warm Pattern"
   }
 ]
