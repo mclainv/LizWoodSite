@@ -1,0 +1,72 @@
+[
+  {
+    "path": "/assets/candy hearts shirt.png",
+    "defaultPosition": { "x": 20, "y": 30 },
+    "width": 200,
+    "height": 200,
+    "alt": "Candy Hearts Shirt"
+  },
+  {
+    "path": "/assets/IMG_4584.JPG",
+    "defaultPosition": { "x": 50, "y": 0 },
+    "width": 200,
+    "height": 200,
+    "alt": "Image 4584"
+  },
+  {
+    "path": "/assets/IMG_0071.jpg",
+    "defaultPosition": { "x": 100, "y": 0 },
+    "width": 200,
+    "height": 200,
+    "alt": "Image 0071"
+  },
+  {
+    "path": "/assets/slots.png",
+    "defaultPosition": { "x": 150, "y": 0 },
+    "width": 200,
+    "height": 200,
+    "alt": "Slots"
+  },
+  {
+    "path": "assets/Screenshot 2025-04-06 at 8.58.14 PM.png",
+    "defaultPosition": { "x": 50, "y": 50 },
+    "width": 200,
+    "height": 200,
+    "alt": "Liz Gif"
+  },
+  {
+    "path": "/assets/LW LOGO.PNG",
+    "defaultPosition": { "x": 50, "y": 50 },
+    "width": 200,
+    "height": 200,
+    "alt": "LW Logo"
+  },
+  {
+    "path": "/assets/pages.PNG",
+    "defaultPosition": { "x": 50, "y": 50 },
+    "width": 200,
+    "height": 200,
+    "alt": "Pages"
+  },
+  {
+    "path": "/assets/Screenshot 2025-04-06 at 8.56.34 PM.png",
+    "defaultPosition": { "x": 50, "y": 50 },
+    "width": 200,
+    "height": 200,
+    "alt": "Screenshot 8.56.34"
+  },
+  {
+    "path": "/assets/Screenshot 2025-04-06 at 8.56.52 PM.png",
+    "defaultPosition": { "x": 50, "y": 50 },
+    "width": 200,
+    "height": 200,
+    "alt": "Screenshot 8.56.52"
+  },
+  {
+    "path": "/assets/Screenshot 2025-04-06 at 8.58.14 PM.png",
+    "defaultPosition": { "x": 50, "y": 50 },
+    "width": 200,
+    "height": 200,
+    "alt": "Screenshot 8.58.14"
+  }
+]
