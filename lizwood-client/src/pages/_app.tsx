@@ -1,9 +1,6 @@
-import "@/utils/styles/globals.scss";
-import { AppPropsWithLayout } from "@/utils/types";
+import "@/styles/globals.css";
+import type { AppProps } from "next/app";
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  //return right hand side if left hand side is undefined
-  //could render default layout instead of just page => page
-  const getLayout = Component.getLayout ?? ((page) => page);
-  return getLayout(<Component as any {...pageProps} />);
+export default function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
 }
