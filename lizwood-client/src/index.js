@@ -2,11 +2,11 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import Home from './Home';
+import EditHome from './pages/EditHome';
 import PageLoader from './PageLoader';
 import EditLoader from './EditLoader';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import EditPage from './pages/EditHome';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -16,6 +16,7 @@ root.render(
       {/* root */}
       <Route path="/" element={<Home />} />
       {/* any “/foo” */}
+      <Route path="/edit" element={<EditHome />} />
       <Route path=":page" element={<PageLoader />} />
       {/* any “/foo/edit” */}
       <Route path=":page/edit" element={<EditLoader />} />
