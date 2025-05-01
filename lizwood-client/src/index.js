@@ -5,7 +5,7 @@ import Home from './Home';
 import EditHome from './pages/EditHome';
 import PageLoader from './PageLoader';
 import EditLoader from './EditLoader';
-import reportWebVitals from './reportWebVitals';
+// import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const container = document.getElementById('root');
