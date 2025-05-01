@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import Home from './Home'
 // import Music from './pages/Music'
 // import About from './pages/About'
-import NotFound from './pages/NotFound/NotFound'
+import NotFound from './pages/notfound/NotFound'
 
 const map = {home: Home}
 
