@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import DraggableResizeableImage from '../components/DraggableResizeable.tsx';
-import FixedImage from '../components/FixedImage.jsx';
 import './EditHome.css';
 import '../index.css';
 import paperBackground from '../assets/paper-background.JPG';
