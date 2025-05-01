@@ -1,6 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import DraggableResizeableImage from '../components/DraggableResizeable.tsx';
+import FixedImage from '../components/FixedImage.jsx';
 import './EditHome.css';
+import '../index.css';
+import paperBackground from '../assets/paper-background.JPG';
 // imageFiles will be loaded dynamically via Netlify Function
 import SavePositionsButton from '../components/SavePositionsButton.jsx';
 
@@ -33,7 +36,7 @@ export default function EditHome() {
   }, []);
 
   return (
-    <div className="EditPage">
+    <div className="EditHome" style={{ backgroundImage: `url(${paperBackground})` }}>
       <SavePositionsButton
         draggableImageFiles={draggableImageFiles}
         draggableImageRefs={draggableImageRefs}
@@ -51,6 +54,18 @@ export default function EditHome() {
             width={file.width} 
             height={file.height}
             rotated={file.defaultPosition.rotated}
+            initialPos={file.defaultPosition}
+            className="draggable-resizeable-image"
+          />
+        ))}
+        {Array.isArray(fixedImageFiles) && fixedImageFiles.map((file, index) => (
+          <DraggableResizeableImage
+            key={index}
+            ref={el => fixedImageRefs.current[index] = el}
+            src={file.path} 
+            alt={file.alt}
+            ogWidth={file.defaultPosition.width}
+            ogHeight={file.defaultPosition.height}
             initialPos={file.defaultPosition}
             className="draggable-resizeable-image"
           />

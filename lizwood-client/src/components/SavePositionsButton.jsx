@@ -18,13 +18,26 @@ export default function SavePositionsButton({
       };
       
     });
+    const fixedItems = fixedImageFiles.map((file, index) => {
+      const ref = fixedImageRefs.current[index];
+      const currentPos = ref && ref.getPosition ? ref.getPosition() : file.defaultPosition;
+      return {
+        path: file.path,
+        alt: file.alt,
+        ogWidth: file.ogWidth,
+        ogHeight: file.ogHeight,
+        defaultPosition: currentPos,
+      };
+    });
+    
+
     console.log("draggableItems are ", draggableItems);
     // send clean payload to Netlify Function
     try {
       const resp = await fetch('/.netlify/functions/savePositions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ modelType, draggableItems }),
+        body: JSON.stringify({ modelType, draggableItems, fixedItems }),
       });
       if (resp.ok) {
         alert('Positions saved successfully.');

@@ -48,16 +48,9 @@ export default function Home() {
             key={index}
             src={file.path} 
             alt={file.alt}
-            width={file.defaultPosition.width}
-            height={file.defaultPosition.height}
-            style={{ 
-              cursor: 'default',
-              position: 'absolute', 
-              left: file.defaultPosition.x, 
-              top: file.defaultPosition.y,
-              zIndex: file.defaultPosition.z,
-              transform: `rotate(${file.defaultPosition.rotated}deg)`
-            }}
+            ogWidth={file.defaultPosition.width}
+            ogHeight={file.defaultPosition.height}
+            initialPos={file.defaultPosition}
             className="fixed-image"
           />
         ))}

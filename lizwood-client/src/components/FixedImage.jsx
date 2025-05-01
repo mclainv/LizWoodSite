@@ -18,7 +18,7 @@ export default function FixedImage(
         left: initialPos.x,
         top: initialPos.y,
         zIndex: initialPos.z,
-        cursor: 'grab',
+        cursor: 'default',
         userSelect: 'none',
         transform: `rotate(${initialPos.rotated}deg)`
     }}
