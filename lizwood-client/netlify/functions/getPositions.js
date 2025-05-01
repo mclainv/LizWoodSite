@@ -23,10 +23,7 @@ module.exports.handler = async function(event, context) {
   context.callbackWaitsForEmptyEventLoop = false;
 
   if (!isConnected) {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGODB_URI);
     isConnected = true;
   }
 
