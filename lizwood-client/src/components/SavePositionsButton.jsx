@@ -1,27 +1,30 @@
 import React from 'react';
 // import { connectToDatabase, savePositionsDB } from '../database/db';
-export default function SavePositionsButton({ imageFiles, imageRefs, modelType }) {
+export default function SavePositionsButton({ 
+    draggableImageFiles, draggableImageRefs, fixedImageFiles, fixedImageRefs, modelType 
+  }) {
   const handleClick = async () => {
     // build items array by pulling latest position from each ref
-    const items = imageFiles.map((file, index) => {
-      const ref = imageRefs.current[index];
+    const draggableItems = draggableImageFiles.map((file, index) => {
+      const ref = draggableImageRefs.current[index];
       // getPosition returns { x, y, z, rotated }
       const currentPos = ref && ref.getPosition ? ref.getPosition() : file.defaultPosition;
       return {
         path:            file.path,
         alt:             file.alt,
-        ogWidth:           file.width,
-        ogHeight:          file.height,
+        ogWidth:           file.ogWidth,
+        ogHeight:          file.ogHeight,
         defaultPosition: currentPos,
       };
+      
     });
-
+    console.log("draggableItems are ", draggableItems);
     // send clean payload to Netlify Function
     try {
       const resp = await fetch('/.netlify/functions/savePositions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ modelType, items }),
+        body: JSON.stringify({ modelType, draggableItems }),
       });
       if (resp.ok) {
         alert('Positions saved successfully.');

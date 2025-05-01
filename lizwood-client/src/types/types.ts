@@ -1,16 +1,16 @@
 export interface Position {
-  _id: string;
-  path: string;
+  x: number; y: number; z: number; rotated: number; width: number; height: number;
+}
+
+export interface PositionHandle {
+  getPosition: () => Position;
+}
+
+export interface ImageProps {
+  src: string;
   alt: string;
   ogWidth: number;
   ogHeight: number;
-  defaultPosition: {
-    x: number;
-    y: number;
-    z: number;
-    rotated: number;
-    width: number;
-    height: number;
-  };
+  initialPos?: Position;
+  ref?: React.Ref<PositionHandle>;
 }
-

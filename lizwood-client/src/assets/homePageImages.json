@@ -1,268 +1,270 @@
-[
-  {
-    "path": "/assets/bag-portrait.png",
-    "alt": "Bag Portrait",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 534,
-      "y": 311,
-      "z": 24,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
+{
+  "draggable-images": [
+    {
+      "path": "/assets/bag-portrait.png",
+      "alt": "Bag Portrait",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 534,
+        "y": 311,
+        "z": 24,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/band-portrait.png",
+      "alt": "Band Portrait",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 556,
+        "y": 581,
+        "z": 30,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/candy-hearts.png",
+      "alt": "Candy Hearts",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 1200,
+        "y": 186,
+        "z": 18,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/car-portrait.png",
+      "alt": "Car Portrait",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 1222,
+        "y": 342,
+        "z": 17,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/collage.jpg",
+      "alt": "Collage",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": -627,
+        "y": 650,
+        "z": 29,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/CONTACT.PNG",
+      "alt": "Contact",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 588,
+        "y": 390,
+        "z": 15,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/doily-shirt.png",
+      "alt": "Doily Shirt",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 339,
+        "y": 372,
+        "z": 14,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/EXPLORE.PNG",
+      "alt": "Explore",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 215,
+        "y": 36,
+        "z": 13,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/floor-portrait.png",
+      "alt": "Floor Portrait",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 1234,
+        "y": 63,
+        "z": 12,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/gate-portrait.png",
+      "alt": "Gate Portrait",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 1135,
+        "y": 298,
+        "z": 11,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/lettering.png",
+      "alt": "Lettering",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 923,
+        "y": 282,
+        "z": 26,
+        "rotated": -17,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/liz-gif.gif",
+      "alt": "Liz Gif",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 739,
+        "y": 311,
+        "z": 9,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/LW-LOGO.PNG",
+      "alt": "LW Logo",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 477,
+        "y": 282,
+        "z": 8,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/polaroid.jpg",
+      "alt": "Polaroid",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 244,
+        "y": 256,
+        "z": 7,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/singer-portrait.png",
+      "alt": "Singer Portrait",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 115,
+        "y": 364,
+        "z": 32,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/skateboard.jpg",
+      "alt": "Skateboard",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 1050,
+        "y": 101,
+        "z": 5,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/slots.png",
+      "alt": "Slots",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 847,
+        "y": 87,
+        "z": 4,
+        "rotated": 0,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/staircase.JPG",
+      "alt": "Staircase",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 569,
+        "y": 106,
+        "z": 22,
+        "rotated": 63,
+        "width": 200,
+        "height": 200
+      }
+    },
+    {
+      "path": "/assets/warm-pattern.png",
+      "alt": "Warm Pattern",
+      "ogWidth": 200,
+      "ogHeight": 200,
+      "defaultPosition": {
+        "x": 224,
+        "y": 476,
+        "z": 31,
+        "rotated": 68,
+        "width": 200,
+        "height": 200
+      }
     }
-  },
-  {
-    "path": "/assets/band-portrait.png",
-    "alt": "Band Portrait",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 556,
-      "y": 581,
-      "z": 30,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/candy-hearts.png",
-    "alt": "Candy Hearts",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 1200,
-      "y": 186,
-      "z": 18,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/car-portrait.png",
-    "alt": "Car Portrait",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 1222,
-      "y": 342,
-      "z": 17,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/collage.jpg",
-    "alt": "Collage",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": -627,
-      "y": 650,
-      "z": 29,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/CONTACT.PNG",
-    "alt": "Contact",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 588,
-      "y": 390,
-      "z": 15,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/doily-shirt.png",
-    "alt": "Doily Shirt",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 339,
-      "y": 372,
-      "z": 14,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/EXPLORE.PNG",
-    "alt": "Explore",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 215,
-      "y": 36,
-      "z": 13,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/floor-portrait.png",
-    "alt": "Floor Portrait",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 1234,
-      "y": 63,
-      "z": 12,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/gate-portrait.png",
-    "alt": "Gate Portrait",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 1135,
-      "y": 298,
-      "z": 11,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/lettering.png",
-    "alt": "Lettering",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 923,
-      "y": 282,
-      "z": 26,
-      "rotated": -17,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/liz-gif.gif",
-    "alt": "Liz Gif",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 739,
-      "y": 311,
-      "z": 9,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/LW-LOGO.PNG",
-    "alt": "LW Logo",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 477,
-      "y": 282,
-      "z": 8,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/polaroid.jpg",
-    "alt": "Polaroid",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 244,
-      "y": 256,
-      "z": 7,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/singer-portrait.png",
-    "alt": "Singer Portrait",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 115,
-      "y": 364,
-      "z": 32,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/skateboard.jpg",
-    "alt": "Skateboard",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 1050,
-      "y": 101,
-      "z": 5,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/slots.png",
-    "alt": "Slots",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 847,
-      "y": 87,
-      "z": 4,
-      "rotated": 0,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/staircase.JPG",
-    "alt": "Staircase",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 569,
-      "y": 106,
-      "z": 22,
-      "rotated": 63,
-      "width": 200,
-      "height": 200
-    }
-  },
-  {
-    "path": "/assets/warm-pattern.png",
-    "alt": "Warm Pattern",
-    "ogWidth": 200,
-    "ogHeight": 200,
-    "defaultPosition": {
-      "x": 224,
-      "y": 476,
-      "z": 31,
-      "rotated": 68,
-      "width": 200,
-      "height": 200
-    }
-  }
-]
+  ]
+}

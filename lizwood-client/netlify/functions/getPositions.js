@@ -41,16 +41,17 @@ module.exports.handler = async function(event, context) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Missing modelType' }) };
   }
 
-  // get or compile the Mongoose model for this collection
-  const Position = mongoose.models[modelType]
-    ? mongoose.model(modelType)
-    : mongoose.model(modelType, PositionSchema, modelType);
-
-  // fetch all documents, excluding MongoDB's internal _id
-  const data = await Position.find({}).select('-_id').lean();
-
+  // fetch the single document with all image items
+  const collection = mongoose.connection.db.collection(modelType);
+  
+  const dragDoc = await collection.findOne({ _id: 'draggable-images' });
+  const fixedDoc = await collection.findOne({ _id: 'fixed-images' });
+  
+  const draggableImages = Array.isArray(dragDoc?.items) ? dragDoc.items : [];
+  const fixedImages = Array.isArray(fixedDoc?.items) ? fixedDoc.items : [];
   return {
     statusCode: 200,
-    body: JSON.stringify(data),
+    // return both arrays as named properties
+    body: JSON.stringify({ draggableImages, fixedImages }),
   };
 };

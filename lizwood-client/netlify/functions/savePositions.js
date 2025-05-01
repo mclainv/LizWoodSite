@@ -26,14 +26,19 @@ module.exports.handler = async function(event, context) {
     await mongoose.connect(process.env.MONGODB_URI);
     isConnected = true;
   }
-  const {modelType, items} = JSON.parse(event.body);
-  console.log('items: ', items, '\n\n');
-  // reuse existing model or compile a new one with explicit collection name
-  const Position = mongoose.models[modelType]
-    ? mongoose.model(modelType)
-    : mongoose.model(modelType, PositionSchema, modelType);
-  await Position.deleteMany({});
-  await Position.insertMany(items);
+  const { modelType, draggableItems, fixedItems } = JSON.parse(event.body);
+  // store all images in a single document called 'draggable-images'
+  const collection = mongoose.connection.db.collection(modelType);
+  await collection.updateOne(
+    { _id: 'draggable-images' },
+    { $set: { items: draggableItems } },
+    { upsert: true }
+  );
+  await collection.updateOne(
+    { _id: 'fixed-images' },
+    { $set: { items: fixedItems } },
+    { upsert: true }
+  );
 
   return {
     statusCode: 200,

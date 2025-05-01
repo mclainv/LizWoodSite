@@ -5,8 +5,10 @@ import './EditHome.css';
 import SavePositionsButton from '../components/SavePositionsButton.jsx';
 
 export default function EditHome() {
-  const imageRefs = useRef([]);
-  const [imageFiles, setImageFiles] = useState([]);
+  const draggableImageRefs = useRef([]);
+  const fixedImageRefs = useRef([]);
+  const [draggableImageFiles, setDraggableImageFiles] = useState([]);
+  const [fixedImageFiles, setFixedImageFiles] = useState([]);
 
   useEffect(() => {
     // fetch saved positions dynamically
@@ -19,7 +21,10 @@ export default function EditHome() {
         });
         if (!resp.ok) throw new Error(resp.statusText);
         const data = await resp.json();
-        setImageFiles(data);
+        const draggableImages = data.draggableImages;
+        const fixedImages = data.fixedImages;
+        setDraggableImageFiles(draggableImages);
+        setFixedImageFiles(fixedImages);
       } catch (err) {
         console.error('Error loading positions:', err);
       }
@@ -30,15 +35,17 @@ export default function EditHome() {
   return (
     <div className="EditPage">
       <SavePositionsButton
-        imageFiles={imageFiles}
-        imageRefs={imageRefs}
+        draggableImageFiles={draggableImageFiles}
+        draggableImageRefs={draggableImageRefs}
+        fixedImageFiles={fixedImageFiles}
+        fixedImageRefs={fixedImageRefs}
         modelType="HomePosition"
       />
       <div className="imageContainer">
-        {imageFiles.map((file, index) => (
+        {draggableImageFiles.map((file, index) => (
           <DraggableResizeableImage
             key={index}
-            ref={el => imageRefs.current[index] = el}
+            ref={el => draggableImageRefs.current[index] = el}
             src={file.path} 
             alt={file.alt}
             width={file.width} 

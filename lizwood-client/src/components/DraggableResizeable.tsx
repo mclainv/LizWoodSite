@@ -1,107 +1,113 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, useImperativeHandle } from 'react';
+import { ImageProps, Position } from '../types/types'; // Assuming Position exists
 
 // Module-scoped highest z-index counter
 let highestZ = 20;
 
-const DraggableResizeableImage = forwardRef(
-  ({ src, alt, ogWidth, ogHeight, initialPos = { x: 0, y: 0, z: 1, rotated: 0, width: ogWidth, height: ogHeight } }, ref) => {
-    // Draggable state
-    const [pos, setPos] = useState({ x: initialPos.x, y: initialPos.y });
-    const [zIndex, setZIndex] = useState(initialPos.z);
-    const [isResizing, setIsResizing] = useState(false);
+// No forwardRef needed; accept props directly
+export default function DraggableResizeableImage(
+  { src, 
+    alt, 
+    ogWidth, 
+    ogHeight, 
+    initialPos = { x: 0, y: 0, z: 1, rotated: 0, width: ogWidth, height: ogHeight }, 
+    ref }: ImageProps
+  ) {
+  // Draggable state
+  const [pos, setPos] = useState({ x: initialPos.x, y: initialPos.y });
+  const [zIndex, setZIndex] = useState(initialPos.z);
+  const [isResizing, setIsResizing] = useState(false);
 
-    // Resizable state
-    const [size, setSize] = useState({ x: initialPos.width, y: initialPos.height });
-    const [rotation, setRotation] = useState({ deg: initialPos.rotated });
+  // Resizable state
+  const [size, setSize] = useState({ x: initialPos.width, y: initialPos.height });
+  const [rotation, setRotation] = useState({ deg: initialPos.rotated });
 
-    // expose getPosition() on the ref
-    useImperativeHandle(ref, () => ({
-      getPosition: () => ({ 
-        x: pos.x, 
-        y: pos.y, 
-        z: zIndex, 
-        rotated: rotation.deg, 
-        width: size.x,
-        height: size.y
-      }),
-    }));
+  // Expose getPosition() via useImperativeHandle using the ref from props
+  useImperativeHandle(ref, () => ({
+    getPosition: (): Position => ({
+      x: pos.x,
+      y: pos.y,
+      z: zIndex,
+      rotated: rotation.deg,
+      width: size.x,
+      height: size.y
+    }),
+  }));
 
-    const onMouseDown = (e) => {
-      e.preventDefault();
-      // bring to front
-      highestZ += 1;
-      setZIndex(highestZ);
+  const onMouseDown = (e: React.MouseEvent<HTMLImageElement>) => {
+    e.preventDefault();
+    // bring to front
+    highestZ += 1;
+    setZIndex(highestZ);
 
-      let dragged = false;
-      const startX = e.pageX - pos.x;
-      const startY = e.pageY - pos.y;
+    let dragged = false;
+    const startX = e.pageX - pos.x;
+    const startY = e.pageY - pos.y;
 
-      const onMouseMoveDrag = (e) => {
-        dragged = true;
-        setPos({ x: e.pageX - startX, y: e.pageY - startY });
-      };
-
-      const onMouseUpDrag = () => {
-        document.removeEventListener('mousemove', onMouseMoveDrag);
-        document.removeEventListener('mouseup', onMouseUpDrag);
-        if (!dragged) {
-          // click without drag toggles resize mode
-          setIsResizing(prev => !prev);
-        }
-      };
-
-      document.addEventListener('mousemove', onMouseMoveDrag);
-      document.addEventListener('mouseup', onMouseUpDrag);
+    const onMouseMoveDrag = (moveEvent: MouseEvent) => {
+      dragged = true;
+      setPos({ x: moveEvent.pageX - startX, y: moveEvent.pageY - startY });
     };
-  //Resizable
 
-    const resizeHandler = (e) => {
-      e.preventDefault();
-      const startSize = { ...size };
-      const startX = e.pageX;
-      const startY = e.pageY;
-
-      const onMouseMoveResize = (e) => {
-        const newWidth = Math.max(30, startSize.x + (e.pageX - startX));
-        const newHeight = Math.max(30, startSize.y + (e.pageY - startY));
-        setSize({ x: newWidth, y: newHeight });
-      };
-      const onMouseUpResize = () => {
-        document.removeEventListener('mousemove', onMouseMoveResize);
-        document.removeEventListener('mouseup', onMouseUpResize);
-      };
-      document.addEventListener('mousemove', onMouseMoveResize);
-      document.addEventListener('mouseup', onMouseUpResize);
-    };
-    //Rotateable
-    const rotateHandler = (mouseDownEvent) => {
-      const startRotation = rotation;
-      const startPosition = { x: mouseDownEvent.pageX, y: mouseDownEvent.pageY };
-
-      function onMouseMoveRotate(mouseMoveEvent) {
-        // calculate raw angle change
-        const deltaX = mouseMoveEvent.pageX - startPosition.x;
-        const deltaY = mouseMoveEvent.pageY - startPosition.y;
-        let newDeg = (startRotation.deg + deltaX + deltaY) % 360;
-        if (mouseDownEvent.shiftKey) {
-          // quantize to 10° increments
-          newDeg = Math.round(newDeg / 10) * 10;
-        }
-        setRotation({ deg: newDeg });
+    const onMouseUpDrag = () => {
+      document.removeEventListener('mousemove', onMouseMoveDrag);
+      document.removeEventListener('mouseup', onMouseUpDrag);
+      if (!dragged) {
+        // click without drag toggles resize mode
+        setIsResizing(prev => !prev);
       }
-      function onMouseUpRotate() {
-          document.removeEventListener("mousemove", onMouseMoveRotate);
-          // uncomment the following line if not using `{ once: true }`
-          // document.body.removeEventListener("mouseup", onMouseUp);
+    };
+
+    document.addEventListener('mousemove', onMouseMoveDrag);
+    document.addEventListener('mouseup', onMouseUpDrag);
+  };
+
+  const resizeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const startSize = { ...size };
+    const startX = e.pageX;
+    const startY = e.pageY;
+
+    const onMouseMoveResize = (moveEvent: MouseEvent) => {
+      const newWidth = Math.max(30, startSize.x + (moveEvent.pageX - startX));
+      const newHeight = Math.max(30, startSize.y + (moveEvent.pageY - startY));
+      setSize({ x: newWidth, y: newHeight });
+    };
+    const onMouseUpResize = () => {
+      document.removeEventListener('mousemove', onMouseMoveResize);
+      document.removeEventListener('mouseup', onMouseUpResize);
+    };
+    document.addEventListener('mousemove', onMouseMoveResize);
+    document.addEventListener('mouseup', onMouseUpResize);
+  };
+
+  const rotateHandler = (mouseDownEvent: React.MouseEvent<HTMLButtonElement>) => {
+    const startRotation = rotation;
+    const startPosition = { x: mouseDownEvent.pageX, y: mouseDownEvent.pageY };
+
+    function onMouseMoveRotate(mouseMoveEvent: MouseEvent) {
+      const deltaX = mouseMoveEvent.pageX - startPosition.x;
+      const deltaY = mouseMoveEvent.pageY - startPosition.y;
+      let newDeg = (startRotation.deg + deltaX + deltaY) % 360;
+      if (mouseDownEvent.shiftKey) {
+        newDeg = Math.round(newDeg / 10) * 10;
       }
-      document.addEventListener("mousemove", onMouseMoveRotate);
-      document.addEventListener("mouseup", onMouseUpRotate, { once: true });
-    };
-    //Resetable
-    const resetHandler = () => {
-      setSize({ x: initialPos.width, y: initialPos.height });
-      setRotation({deg: initialPos.rotated})
-    };
+      setRotation({ deg: newDeg });
+    }
+    function onMouseUpRotate() {
+      document.removeEventListener("mousemove", onMouseMoveRotate);
+    }
+    document.addEventListener("mousemove", onMouseMoveRotate);
+    document.addEventListener("mouseup", onMouseUpRotate, { once: true });
+  };
+
+  const resetHandler = () => {
+    // Ensure initialPos is defined before accessing its properties
+    if (initialPos) {
+        setSize({ x: initialPos.width, y: initialPos.height });
+        setRotation({ deg: initialPos.rotated });
+    }
+  };
 
     // determine if buttons should shrink for small sizes
     const isSmall = size.x < 100 || size.y < 100;
@@ -225,7 +231,4 @@ const DraggableResizeableImage = forwardRef(
         </button>
       </div>
     );
-  }
-);
-
-export default DraggableResizeableImage;
+}
