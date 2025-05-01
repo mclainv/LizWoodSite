@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import EditHome from './pages/EditHome'
 // import EditMusic from './pages/Music/Edit'
 // import EditAbout from './pages/About/Edit'
-import NotFound from './pages/notfound/NotFound'
+import NotFound from './pages/notfound/NotFound.jsx'
 
 const map = { home: EditHome}
 
