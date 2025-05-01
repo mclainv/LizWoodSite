@@ -4,19 +4,26 @@ import React, { useState, forwardRef, useImperativeHandle } from 'react';
 let highestZ = 20;
 
 const DraggableResizeableImage = forwardRef(
-  ({ src, alt, width, height, rotated, initialPos = { x: 0, y: 0, z: 1 } }, ref) => {
+  ({ src, alt, ogWidth, ogHeight, initialPos = { x: 0, y: 0, z: 1, rotated: 0, width: ogWidth, height: ogHeight } }, ref) => {
     // Draggable state
     const [pos, setPos] = useState({ x: initialPos.x, y: initialPos.y });
     const [zIndex, setZIndex] = useState(initialPos.z);
     const [isResizing, setIsResizing] = useState(false);
 
     // Resizable state
-    const [size, setSize] = useState({ x: width, y: height });
-    const [rotation, setRotation] = useState({ deg: rotated });
+    const [size, setSize] = useState({ x: initialPos.width, y: initialPos.height });
+    const [rotation, setRotation] = useState({ deg: initialPos.rotated });
 
     // expose getPosition() on the ref
     useImperativeHandle(ref, () => ({
-      getPosition: () => ({ x: pos.x, y: pos.y, z: zIndex, rotated: rotation.deg }),
+      getPosition: () => ({ 
+        x: pos.x, 
+        y: pos.y, 
+        z: zIndex, 
+        rotated: rotation.deg, 
+        width: size.x,
+        height: size.y
+      }),
     }));
 
     const onMouseDown = (e) => {
@@ -92,8 +99,8 @@ const DraggableResizeableImage = forwardRef(
     };
     //Resetable
     const resetHandler = () => {
-      setSize({ x: width, y: height });
-      setRotation({deg: rotated})
+      setSize({ x: initialPos.width, y: initialPos.height });
+      setRotation({deg: initialPos.rotated})
     };
 
     // determine if buttons should shrink for small sizes

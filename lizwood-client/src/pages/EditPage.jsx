@@ -1,15 +1,39 @@
-import React, { useRef } from 'react';
-import DraggableResizeableImage from '../components/DraggableResizeable';
+import React, { useRef, useState, useEffect } from 'react';
+import DraggableResizeableImage from '../components/DraggableResizeable.tsx';
 import './EditPage.css';
-import imageFiles from '../assets/homePageImages.json';
+// imageFiles will be loaded dynamically via Netlify Function
 import SavePositionsButton from '../components/SavePositionsButton';
 
 function EditPage() {
   const imageRefs = useRef([]);
+  const [imageFiles, setImageFiles] = useState([]);
+
+  useEffect(() => {
+    // fetch saved positions dynamically
+    const fetchPositions = async () => {
+      try {
+        const resp = await fetch('/.netlify/functions/getPositions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ modelType: 'HomePosition' }),
+        });
+        if (!resp.ok) throw new Error(resp.statusText);
+        const data = await resp.json();
+        setImageFiles(data);
+      } catch (err) {
+        console.error('Error loading positions:', err);
+      }
+    };
+    fetchPositions();
+  }, []);
 
   return (
     <div className="EditPage">
-      <SavePositionsButton imageFiles={imageFiles} imageRefs={imageRefs} />
+      <SavePositionsButton
+        imageFiles={imageFiles}
+        imageRefs={imageRefs}
+        modelType="HomePosition"
+      />
       <div className="imageContainer">
         {imageFiles.map((file, index) => (
           <DraggableResizeableImage

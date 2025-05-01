@@ -1,25 +1,39 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv'
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-dotenv.config();
+// cache the connection to database across calls so u dont connect many times
+let isConnected = false;
+// let Position;
+const PositionSchema = new mongoose.Schema({
+  path: String,
+  alt: String,
+  ogWidth: Number,
+  ogHeight: Number,
+  defaultPosition: {
+    x: Number,
+    y: Number,
+    z: Number,
+    rotated: Number,
+    width: Number,
+    height: Number,
+  },
+});
 
-// cache the client across invocations
-let clientPromise;
-exports.handler = async function(event) {
-  if (!clientPromise) {
-    clientPromise = mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+module.exports.handler = async function(event, context) {
+  context.callbackWaitsForEmptyEventLoop = false;
+
+  if (!isConnected) {
+    await mongoose.connect(process.env.MONGODB_URI);
+    isConnected = true;
   }
-  const client = await clientPromise;
-  const db     = client.db(process.env.MONGODB_DB);
-  const coll   = db.collection('positions');
-
-  const data = JSON.parse(event.body); // your array of positions
-  // example: replace all entries
-  await coll.deleteMany({});
-  await coll.insertMany(data);
+  const {modelType, items} = JSON.parse(event.body);
+  console.log('items: ', items, '\n\n');
+  // reuse existing model or compile a new one with explicit collection name
+  const Position = mongoose.models[modelType]
+    ? mongoose.model(modelType)
+    : mongoose.model(modelType, PositionSchema, modelType);
+  await Position.deleteMany({});
+  await Position.insertMany(items);
 
   return {
     statusCode: 200,

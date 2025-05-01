@@ -1,21 +1,27 @@
 import React, {
   useState,
   forwardRef,
-  useImperativeHandle,
 } from 'react';
 
 // Module-scoped highest z-index counter
 let highestZ = 1;
 
 const DraggableImage = forwardRef(
-  ({ src, alt, width, height, initialPos = {x: 0, y: 0, z: 1} }, ref) => {
+  ({ 
+    src, 
+    alt, 
+    ogWidth, 
+    ogHeight,
+    initialPos = 
+      { x: 0, y: 0, z: 1, rotated: 0, width: ogWidth, height: ogHeight } 
+    }, ref) => {
     const [pos, setPos] = useState({ x: initialPos.x, y: initialPos.y });
     const [zIndex, setZIndex] = useState(initialPos.z);
 
     // expose getPosition() on the ref
-    useImperativeHandle(ref, () => ({
-      getPosition: () => ({ x: pos.x, y: pos.y, z: zIndex }),
-    }));
+    // useImperativeHandle(ref, () => ({
+    //   getPosition: () => ({ x: pos.x, y: pos.y, z: zIndex }),
+    // }));
 
     const onMouseDown = (e) => {
       e.preventDefault();
@@ -40,7 +46,8 @@ const DraggableImage = forwardRef(
           document.removeEventListener('mouseup', onMouseUp);
         }
         else {
-          //show resize box
+          //just clicked
+          //maybe route from here
         }
       };
 
@@ -50,21 +57,22 @@ const DraggableImage = forwardRef(
 
     return (
       <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        onMouseDown={onMouseDown}
-        draggable={false}
-        style={{
-          position: 'absolute',
-          left: pos.x,
-          top: pos.y,
-          zIndex,
-          cursor: 'grab',
-          userSelect: 'none'
-        }}
-      />
+      src={src}
+      alt={alt}
+      width={initialPos.width}
+      height={initialPos.height}
+      onMouseDown={onMouseDown}
+      draggable={false}
+      style={{
+        position: 'absolute',
+        left: pos.x,
+        top: pos.y,
+        zIndex: zIndex,
+        cursor: 'grab',
+        userSelect: 'none',
+        transform: `rotate(${initialPos.rotated}deg)`
+      }}
+    />
     );
   }
 );
