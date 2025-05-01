@@ -1,11 +1,9 @@
-import React, { useRef, useState, useEffect } from 'react';
-import DraggableResizeableImage from '../components/DraggableResizeable.tsx';
-import './EditPage.css';
-// imageFiles will be loaded dynamically via Netlify Function
-import SavePositionsButton from '../components/SavePositionsButton';
+import React, { useState, useEffect } from 'react';
+import DraggableImage from './components/Draggable';
+import './Home.css';
+// import imageFiles from './assets/homePageImages.json';
 
-function EditPage() {
-  const imageRefs = useRef([]);
+export default function Home() {
   const [imageFiles, setImageFiles] = useState([]);
 
   useEffect(() => {
@@ -28,29 +26,20 @@ function EditPage() {
   }, []);
 
   return (
-    <div className="EditPage">
-      <SavePositionsButton
-        imageFiles={imageFiles}
-        imageRefs={imageRefs}
-        modelType="HomePosition"
-      />
+    <div className="App">
       <div className="imageContainer">
         {imageFiles.map((file, index) => (
-          <DraggableResizeableImage
+          <DraggableImage
             key={index}
-            ref={el => imageRefs.current[index] = el}
             src={file.path} 
             alt={file.alt}
-            width={file.width} 
-            height={file.height}
-            rotated={file.defaultPosition.rotated}
+            ogWidth={file.ogWidth}
+            ogHeight={file.ogHeight}
             initialPos={file.defaultPosition}
-            className="draggable-resizeable-image"
+            className="draggable-image"
           />
         ))}        
       </div>
     </div>
   );
 }
-
-export default EditPage;

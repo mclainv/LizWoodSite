@@ -1,18 +1,24 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import App from './App';
+import Home from './Home';
+import PageLoader from './PageLoader';
+import EditLoader from './EditLoader';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import EditPage from './pages/EditPage';
+import EditPage from './pages/EditHome';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/edit" element={<EditPage />} />
+      {/* root */}
+      <Route path="/" element={<Home />} />
+      {/* any “/foo” */}
+      <Route path=":page" element={<PageLoader />} />
+      {/* any “/foo/edit” */}
+      <Route path=":page/edit" element={<EditLoader />} />
     </Routes>
   </BrowserRouter>
 );
