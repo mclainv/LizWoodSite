@@ -34,7 +34,7 @@ export default function DraggableResizeableImage(
     }),
   }));
 
-  const onMouseDown = (e: MouseEvent) => {
+  const onMouseDown = (e) => {
     e.preventDefault();
     // bring to front
     highestZ += 1;
@@ -62,7 +62,7 @@ export default function DraggableResizeableImage(
     document.addEventListener('mouseup', onMouseUpDrag);
   };
 
-  const resizeHandler = (e: MouseEvent) => {
+  const resizeHandler = (e) => {
     e.preventDefault();
     const startSize = { ...size };
     const startX = e.pageX;
@@ -81,7 +81,7 @@ export default function DraggableResizeableImage(
     document.addEventListener('mouseup', onMouseUpResize);
   };
 
-  const rotateHandler = (mouseDownEvent: MouseEvent) => {
+  const rotateHandler = (mouseDownEvent) => {
     const startRotation = rotation;
     const startPosition = { x: mouseDownEvent.pageX, y: mouseDownEvent.pageY };
 
