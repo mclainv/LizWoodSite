@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DraggableImage from './components/Draggable';
 import FixedImage from './components/FixedImage';
 import './Home.css';
-// import imageFiles from './assets/homePageImages.json';
-
+import paperBackground from './assets/paper-background.JPG';
 export default function Home() {
   const [draggableImageFiles, setDraggableImageFiles] = useState([]);
   const [fixedImageFiles, setFixedImageFiles] = useState([]);
@@ -31,7 +30,7 @@ export default function Home() {
   }, []);
   console.log("draggables are ", draggableImageFiles);
   return (
-    <div className="App">
+    <div className="Home" style={{ backgroundImage: `url(${paperBackground})` }}>
       <div className="imageContainer">
         {Array.isArray(draggableImageFiles) && draggableImageFiles.map((file, index) => (
           <DraggableImage
@@ -49,9 +48,16 @@ export default function Home() {
             key={index}
             src={file.path} 
             alt={file.alt}
-            width={file.width}
-            height={file.height}
-            style={{ position: 'absolute', top: file.position.top, left: file.position.left }}
+            width={file.defaultPosition.width}
+            height={file.defaultPosition.height}
+            style={{ 
+              cursor: 'default',
+              position: 'absolute', 
+              left: file.defaultPosition.x, 
+              top: file.defaultPosition.y,
+              zIndex: file.defaultPosition.z,
+              transform: `rotate(${file.defaultPosition.rotated}deg)`
+            }}
             className="fixed-image"
           />
         ))}

@@ -1,0 +1,1 @@
+export const paperBackground = require('./assets/paper-background.JPG');
