@@ -1,5 +1,6 @@
 {
   "name": "lizwood-client",
+  "homepage": "https://lizwood-client.netlify.app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
