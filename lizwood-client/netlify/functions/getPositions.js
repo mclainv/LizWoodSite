@@ -26,6 +26,9 @@ module.exports.handler = async function(event, context) {
     await mongoose.connect(process.env.MONGODB_URI);
     isConnected = true;
   }
+  if (isConnected) {
+    console.log("Connected to MongoDB");
+  }
 
   // parse dynamic modelType from the JSON body
   let modelType;
