@@ -1,5 +1,6 @@
 import React, { useState, useImperativeHandle } from 'react';
-import { ImageProps, Position } from '../types/types'; // Assuming Position exists
+import { ImageProps, Position } from '../../types/types.ts'; // Assuming Position exists
+import ImageEditorButtons from '../buttons/imageEditorButton.tsx'; // Import the new component
 
 // Module-scoped highest z-index counter
 let highestZ = 20;
@@ -7,10 +8,11 @@ let highestZ = 20;
 // No forwardRef needed; accept props directly
 export default function DraggableResizeableImage(
   { src, 
-    alt, 
+    alt,
     ogWidth, 
     ogHeight, 
-    initialPos = { x: 0, y: 0, z: 1, rotated: 0, width: ogWidth, height: ogHeight }, 
+    initialPos = { x: 0, y: 0, z: 1, rotated: 0, width: ogWidth, height: ogHeight },
+    onDeleteRequest, 
     ref }: ImageProps
   ) {
   // Draggable state
@@ -96,12 +98,24 @@ export default function DraggableResizeableImage(
     }
     function onMouseUpRotate() {
       document.removeEventListener("mousemove", onMouseMoveRotate);
+      document.removeEventListener("mouseup", onMouseUpRotate);
     }
     document.addEventListener("mousemove", onMouseMoveRotate);
-    document.addEventListener("mouseup", onMouseUpRotate, { once: true });
+    document.addEventListener("mouseup", onMouseUpRotate);
   };
 
-  const resetHandler = () => {
+  const deleteHandler = (event: globalThis.MouseEvent) => {
+    event.stopPropagation();
+    // TODO: Implement delete functionality
+    if (onDeleteRequest) {
+      onDeleteRequest();
+    } else {
+      console.log('No onDeleteRequest function provided');
+    }
+  };
+
+  const resetHandler = (event: globalThis.MouseEvent) => {
+    event.stopPropagation();
     // Ensure initialPos is defined before accessing its properties
     if (initialPos) {
         setSize({ x: initialPos.width, y: initialPos.height });
@@ -172,63 +186,15 @@ export default function DraggableResizeableImage(
             width={size.x} 
             height={size.y}
           />
-          <button 
-            id="draghandle" 
-            type="button" 
-            onMouseDown={resizeHandler}
-            style={{
-              position: 'absolute',
-              bottom: '5px',
-              right: '5px',
-              cursor: 'nwse-resize',
-              background: '#f0f0f0',
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              padding: buttonPadding,
-              fontSize: buttonFontSize,
-              zIndex: 10
-            }}
-          >
-            Resize
-          </button>
-          <button 
-            id="rotatehandle" 
-            type="button" 
-            onMouseDown={rotateHandler}
-            style={{
-              position: 'absolute',
-              top: '5px',
-              right: '5px',
-              cursor: 'alias',
-              background: '#f0f0f0',
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              padding: buttonPadding,
-              fontSize: buttonFontSize,
-              zIndex: 10
-            }}
-          >
-            Rotate
-          </button>
         </div>
-        <button 
-          id="clickable" 
-          type="button" 
-          onClick={resetHandler}
-          style={{
-            position: 'absolute',
-            bottom: '5px',
-            left: '5px',
-            background: '#f0f0f0',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-            padding: buttonPadding,
-            fontSize: buttonFontSize,
-            zIndex: 10
-          }}
-        >
-          Reset
-        </button>
+        <ImageEditorButtons 
+          onResize={resizeHandler}
+          onRotate={rotateHandler}
+          onReset={resetHandler}
+          onDelete={deleteHandler}
+          buttonPadding={buttonPadding}
+          buttonFontSize={buttonFontSize}
+        />
       </div>
     );
 }

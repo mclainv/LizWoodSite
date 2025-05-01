@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
-import DraggableResizeableImage from '../components/DraggableResizeable.tsx';
+import DraggableResizeableImage from '../components/images/DraggableResizeable.tsx';
 import './EditHome.css';
 import '../index.css';
 import paperBackground from '../assets/paper-background.JPG';
 // imageFiles will be loaded dynamically via Netlify Function
-import SavePositionsButton from '../components/SavePositionsButton.jsx';
+import SavePositionsButton from '../components/buttons/SavePositionsButton.jsx';
 
 export default function EditHome() {
   const draggableImageRefs = useRef([]);
@@ -12,6 +12,16 @@ export default function EditHome() {
   const [draggableImageFiles, setDraggableImageFiles] = useState([]);
   const [fixedImageFiles, setFixedImageFiles] = useState([]);
 
+  const handleDeleteRequest = (type, srcToDelete) => {
+    if (type === "draggable") {
+      setDraggableImageFiles(currentItems => currentItems.filter(item => item.path !== srcToDelete));
+      // Also remove the ref if you're managing them dynamically
+      delete draggableImageRefs.current[srcToDelete];
+    } else if (type === "fixed") {
+      setFixedImageFiles(currentItems => currentItems.filter(item => item.path !== srcToDelete));
+      delete fixedImageRefs.current[srcToDelete];
+    }
+  }
   useEffect(() => {
     // fetch saved positions dynamically
     const fetchPositions = async () => {
@@ -46,8 +56,9 @@ export default function EditHome() {
       <div className="imageContainer">
         {draggableImageFiles.map((file, index) => (
           <DraggableResizeableImage
-            key={index}
+            key={file.path}
             ref={el => draggableImageRefs.current[index] = el}
+            onDeleteRequest={() => handleDeleteRequest("draggable", file.path)}
             src={file.path} 
             alt={file.alt}
             width={file.width} 
@@ -61,7 +72,8 @@ export default function EditHome() {
           <DraggableResizeableImage
             key={index}
             ref={el => fixedImageRefs.current[index] = el}
-            src={file.path} 
+            onDeleteRequest={() => handleDeleteRequest("fixed", file.path)}
+            src={file.path}
             alt={file.alt}
             ogWidth={file.defaultPosition.width}
             ogHeight={file.defaultPosition.height}

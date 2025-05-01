@@ -12,5 +12,6 @@ export interface ImageProps {
   ogWidth: number;
   ogHeight: number;
   initialPos?: Position;
+  onDeleteRequest?: () => void;
   ref?: React.Ref<PositionHandle>;
 }
