@@ -3,6 +3,63 @@ import React from 'react';
 export default function SavePositionsButton({ 
     draggableImageFiles, draggableImageRefs, fixedImageFiles, fixedImageRefs, modelType 
   }) {
+    const newItems=[{
+      path: "home/band-group.png",
+      alt: "Drawn Logo",
+      ogWidth: 2398,
+      ogHeight: 1600,
+      defaultPosition: {
+        x: 0,
+        y: 0,
+        z: 1,
+        rotated: 0,
+        width: 240,
+        height: 160,
+      }
+    },
+    {
+      path: "home/black.PNG",
+      alt: "Drawn Logo",
+      ogWidth: 2398,
+      ogHeight: 1600,
+      defaultPosition: {
+        x: 0,
+        y: 0,
+        z: 1,
+        rotated: 0,
+        width: 240,
+        height: 160,
+      }
+    },
+    {
+      path: "home/rabbit.PNG",
+      alt: "Drawn Logo",
+      ogWidth: 2398,
+      ogHeight: 1600,
+      defaultPosition: {
+        x: 0,
+        y: 0,
+        z: 1,
+        rotated: 0,
+        width: 240,
+        height: 160,
+      }
+    },
+    {
+      path: "home/eyes.jpg",
+      alt: "Drawn Logo",
+      ogWidth: 2398,
+      ogHeight: 1600,
+      defaultPosition: {
+        x: 0,
+        y: 0,
+        z: 1,
+        rotated: 0,
+        width: 240,
+        height: 160,
+      }
+    },
+  ]
   const handleClick = async () => {
     // build items array by pulling latest position from each ref
     const draggableItems = draggableImageFiles.map((file, index) => {
@@ -24,6 +81,7 @@ export default function SavePositionsButton({
       };
       
     });
+    draggableItems.push(...newItems);
     const fixedItems = fixedImageFiles.map((file, index) => {
       const ref = fixedImageRefs.current[index];
       const currentPos = ref && ref.getPosition ? ref.getPosition() : file.defaultPosition;

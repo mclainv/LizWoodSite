@@ -26,7 +26,7 @@ module.exports.handler = async function(event, context) {
     await mongoose.connect(process.env.MONGODB_URI);
     isConnected = true;
   }
-  const { modelType, draggableItems, fixedItems } = JSON.parse(event.body);
+  let { modelType, draggableItems, fixedItems } = JSON.parse(event.body);
   // store all images in a single document called 'draggable-images'
   const collection = mongoose.connection.db.collection(modelType);
   await collection.updateOne(
