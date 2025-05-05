@@ -40,6 +40,18 @@ export default function Home() {
             ogWidth={file.ogWidth}
             ogHeight={file.ogHeight}
             initialPos={file.defaultPosition}
+            pin={{
+              src: "/tapes/tape5.png",
+              ogWidth: 160,
+              ogHeight: 50,
+              initialPos: {
+                x: 0,
+                y: 0,
+                rotated: 0,
+                width: 80,
+                height: 25
+              }
+            }}
             className="draggable-image"
           />
         ))}

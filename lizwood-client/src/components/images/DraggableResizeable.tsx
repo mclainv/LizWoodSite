@@ -12,6 +12,7 @@ export default function DraggableResizeableImage(
     ogWidth, 
     ogHeight, 
     initialPos = { x: 0, y: 0, z: 1, rotated: 0, width: ogWidth, height: ogHeight },
+    pin,
     onDeleteRequest, 
     ref }: ImageProps
   ) {
@@ -32,7 +33,13 @@ export default function DraggableResizeableImage(
       z: zIndex,
       rotated: rotation.deg,
       width: size.x,
-      height: size.y
+      height: size.y,
+      pin: pin ? {
+        src: pin.src,
+        width: pin.ogWidth,
+        height: pin.ogHeight,
+        initialPos: pin.initialPos
+      } : undefined
     }),
   }));
 
@@ -135,23 +142,40 @@ export default function DraggableResizeableImage(
 
     if (!isResizing) {
       return (
-        <img
-          src={src}
-          alt={alt}
-          width={size.x}
-          height={size.y}
-          onMouseDown={onMouseDown}
-          draggable={false}
-          style={{
-            position: 'absolute',
-            left: pos.x,
-            top: pos.y,
-            zIndex: zIndex,
-            cursor: 'grab',
-            userSelect: 'none',
-            transform: `rotate(${rotation.deg}deg)`
-          }}
-        />
+        <div style={{
+          position: 'absolute',
+          left: pos.x,
+          top: pos.y,
+          transform: `rotate(${rotation.deg}deg)`,
+          zIndex: zIndex,
+        }}> 
+          <img
+            src={src}
+            alt={alt}
+            width={size.x}
+            height={size.y}
+            onMouseDown={onMouseDown}
+            draggable={false}
+            style={{
+              cursor: 'grab',
+              userSelect: 'none',
+            }}
+          />
+          {pin && (
+            <img
+              src={pin.src}
+              alt="pin"
+              width={pin.initialPos.width}
+              height={pin.initialPos.height}
+              style={{
+                position: 'absolute',
+                left: pin.initialPos.x,
+                top: pin.initialPos.y,
+                zIndex: 1000,
+              }}
+            />
+          )}
+        </div>
       );
     }
     return (
@@ -186,6 +210,20 @@ export default function DraggableResizeableImage(
             width={size.x} 
             height={size.y}
           />
+          {pin && (
+          <img
+            src={pin.src}
+            alt="pin"
+            width={pin.initialPos.width}
+            height={pin.initialPos.height}
+            style={{
+              position: 'absolute',
+              left: pin.initialPos.x,
+              top: pin.initialPos.y,
+              zIndex: 1000,
+            }}
+          />
+          )}
         </div>
         <ImageEditorButtons 
           onResize={resizeHandler}

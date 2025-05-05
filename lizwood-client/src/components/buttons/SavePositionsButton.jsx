@@ -15,6 +15,12 @@ export default function SavePositionsButton({
         ogWidth:           file.ogWidth,
         ogHeight:          file.ogHeight,
         defaultPosition: currentPos,
+        pin: {
+          src: file.pin?.src,
+          ogWidth: file.pin?.ogWidth,
+          ogHeight: file.pin?.ogHeight,
+          defaultPosition: file.pin?.defaultPosition,
+        },
       };
       
     });
