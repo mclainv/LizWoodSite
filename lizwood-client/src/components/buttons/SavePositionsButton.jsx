@@ -81,7 +81,7 @@ export default function SavePositionsButton({
       };
       
     });
-    draggableItems.push(...newItems);
+    // draggableItems.push(...newItems);
     const fixedItems = fixedImageFiles.map((file, index) => {
       const ref = fixedImageRefs.current[index];
       const currentPos = ref && ref.getPosition ? ref.getPosition() : file.defaultPosition;
