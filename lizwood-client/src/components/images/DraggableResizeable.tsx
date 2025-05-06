@@ -1,5 +1,5 @@
 import React, { useState, useImperativeHandle, useCallback } from 'react';
-import { ImageProps, Position, PinSourceData, PinData } from '../../types/types.ts';
+import { ImageProps, Position, PinData } from '../../types/types.ts';
 import ImageEditorButtons from '../buttons/imageEditorButton.tsx';
 import { useDraggable } from '../../hooks/useDraggable.tsx';
 import { useResizable } from '../../hooks/useResizable.tsx';
@@ -10,8 +10,7 @@ import { availablePinSources } from '../../data/pinSources.ts'; // Verifying thi
 let highestZ = 20;
 
 // Default empty size/rotation for hooks when pin is absent
-const defaultSize = { x: 0, y: 0 };
-const defaultRotation = { deg: 0 };
+const defaultSize = { x: 0, y: 0 }
 
 // Placeholder - replace with your actual pin image URLs
 // Ensure the initial pin.src passed via props is included here!
@@ -35,37 +34,30 @@ export default function DraggableResizeableImage(
     minSize: { x: 30, y: 30 }
   });
   const [rotation, rotateHandler, resetRotation] = useRotatable({ 
-    initialRotation: { deg: initialPos.rotated } 
+    initialRotation: { deg: initialPos.rotated }
   });
 
   // --- Pin Hooks & State --- 
   const initialPinPos = pin ? { x: pin.initialPos.x, y: pin.initialPos.y } : undefined;
   const [pinPos, pinDragHandler] = useDraggable(initialPinPos);
 
-  // Function to find the initial pin source object
-  // IMPORTANT: Assumes availablePinSources is now an array of PinSourceData objects
-  const findInitialPinSource = useCallback((): PinSourceData => {
-    if (pin?.src) {
-      const found = availablePinSources.find(ps => ps.src === pin.src);
-      if (found) return found;
-      console.warn("Initial pin.src not found in availablePinSources. Falling back.");
-    }
-    return availablePinSources.length > 0 ? availablePinSources[0] : { src: '', ogWidth: 0, ogHeight: 0, rotated: 0 }; 
-  }, [pin?.src]); // Dependency on pin.src
+  let initialPinSource = pin?.src ? 
+    availablePinSources.find(ps => ps.src === pin?.src) : undefined;
+  initialPinSource = initialPinSource ? initialPinSource : availablePinSources[0];
   
-  const [currentPinSource, setCurrentPinSource] = useState<PinSourceData>(findInitialPinSource);
+  const [currentPinSource, setCurrentPinSource] = useState(initialPinSource);
 
-  const initialPinRotation = pin ? { deg: pin.initialPos.rotated } : defaultRotation;
+  // Initialize pin size based on the *initially* loaded pin source (for first mount of useResizable)
   const initialPinSize = pin ? { x: pin.initialPos.width, y: pin.initialPos.height } : defaultSize;
 
-  const [pinRotation, rotatePinHandler, resetPinRotation] = useRotatable({ initialRotation: initialPinRotation });
-
-  // Calculate the CURRENT aspect ratio on each render based on state
-  const currentPinAspectRatio = currentPinSource.ogWidth / currentPinSource.ogHeight;
+  // Calculate the CURRENT aspect ratio and initial rotation on each render based on currentPinSource state
+  const currentPinAspectRatio = (currentPinSource?.ogHeight && currentPinSource?.ogWidth) ? 
+    currentPinSource.ogWidth / currentPinSource.ogHeight : 1;
   
+  const [pinRotation, rotatePinHandler, resetPinRotation] = useRotatable({ initialRotation: {deg: pin?.initialPos.rotated || 0} }); // Pass dynamic initial rotation
   const [pinSize, resizePinHandler, resetPinSize, setPinSize] = useResizable({
-    initialSize: initialPinSize,       // Still use original initial size for first mount
-    aspectRatio: currentPinAspectRatio, // Pass the DYNAMIC aspect ratio
+    initialSize: initialPinSize,       
+    aspectRatio: currentPinAspectRatio, 
     minSize: { x: 10, y: 10 } 
   });
 
@@ -79,8 +71,8 @@ export default function DraggableResizeableImage(
     getPosition: (): Position & { pin?: PinData } => {
       const pinState: PinData | undefined = pin ? {
         src: currentPinSource.src, 
-        ogWidth: currentPinSource.ogWidth, 
-        ogHeight: currentPinSource.ogHeight,
+        ogWidth: currentPinSource?.ogWidth, 
+        ogHeight: currentPinSource?.ogHeight,
         initialPos: 
         {
           x: pinPos.x, 
@@ -184,7 +176,7 @@ export default function DraggableResizeableImage(
       e.stopPropagation(); 
       if (!pin || availablePinSources.length <= 1) return; 
 
-      const currentIndex = availablePinSources.findIndex(ps => ps.src === currentPinSource.src);
+      const currentIndex = availablePinSources.findIndex(ps => ps.src === currentPinSource?.src);
       const nextIndex = (currentIndex + 1) % availablePinSources.length;
       const nextPinSource = availablePinSources[nextIndex];
       
@@ -222,17 +214,17 @@ export default function DraggableResizeableImage(
     resetSize(); 
     resetRotation(); 
     
-    if (pin) { 
-      const originalSource = findInitialPinSource(); 
-      setCurrentPinSource(originalSource); 
-      resetPinRotation();
-      resetPinSize();
-      // Find the initial pin object again for reset
-      const initialSource = findInitialPinSource(); 
-      setCurrentPinSource(initialSource);
-      // TODO: Add reset for pin position if useDraggable is updated
+    if (pin) {  
+      setCurrentPinSource(initialPinSource); 
+      // Explicitly reset pin size to the original source's dimensions, 
+      // as useResizable's initialSize prop is set only once for the initial mount.
+      setPinSize({ x: pin.initialPos.width, y: pin.initialPos.height });
+      // Pin rotation will reset via useRotatable's useEffect reacting to currentPinInitialRotation changing
+      // So, resetPinRotation() may not be needed if the timing works out.
+      // For explicit control and clarity, it can be kept.
+      resetPinRotation(); // Keep for explicit reset
     }
-  }, [resetSize, resetRotation, resetPinRotation, pin, findInitialPinSource, resetPinSize]); // Added resetPinSize
+  }, [resetSize, resetRotation, pin, initialPinSource, setPinSize, resetPinRotation]); // Added setPinSize & resetPinRotation back
 
   // --- Style Calculations ---
   const isSmall = size.x < 100 || size.y < 100;
@@ -306,7 +298,7 @@ export default function DraggableResizeableImage(
     return (
       <div style={pinContainerStyle}>
         <img
-          src={currentPinSource.src} // Use src string from the state object
+          src={currentPinSource?.src} // Use src string from the state object
           alt="pin"
           width="100%" 
           height="100%"

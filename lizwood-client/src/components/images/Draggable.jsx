@@ -83,7 +83,9 @@ const DraggableImage = forwardRef(
           position: 'absolute',
           left: pin.initialPos.x,
           top: pin.initialPos.y,
-          zIndex: 1000,
+          zIndex: zIndex+1,
+          display: 'block',
+          transform: `rotate(${pin.initialPos.rotated}deg)`
         }}
       />
       </div>

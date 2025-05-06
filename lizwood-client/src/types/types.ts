@@ -31,14 +31,6 @@ export interface PinData {
   };
 }
 
-// Represents one available pin image source and its original properties
-export interface PinSourceData {
-  src: string;
-  ogWidth: number;
-  ogHeight: number;
-  rotated?: number; // Optional initial rotation for this specific source
-}
-
 // Props for the DraggableResizeableImage component
 export interface ImageProps {
   _id: string;       // Unique ID from database

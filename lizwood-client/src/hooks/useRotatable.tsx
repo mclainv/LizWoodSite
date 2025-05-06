@@ -68,12 +68,15 @@ export function useRotatable({
 
   // Effect to update rotation if initialRotation prop changes *externally*
   useEffect(() => {
-    if (initialRotation.deg !== rotation.deg) {
-        initialRotationRef.current = initialRotation;
-        setRotation(initialRotation);
+    // Only update state if the incoming prop degree is different from the stored initial degree
+    if (typeof initialRotation?.deg === 'number' && !isNaN(initialRotation.deg) && 
+        initialRotation.deg !== initialRotationRef.current.deg) {
+      console.log('[useRotatable Effect] Prop initialRotation.deg changed, updating state and ref:', initialRotation);
+      setRotation(initialRotation);
+      // Update the ref to store this new initial value for future comparisons
+      initialRotationRef.current = initialRotation;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps 
-  }, [initialRotation]); // Add initialRotation to dependency array
+  }, [initialRotation]); // Depend on the initialRotation object
 
   return [rotation, handleMouseDown, resetRotation]; // Return the reset function
 }
