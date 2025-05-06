@@ -1,10 +1,10 @@
 import React, { useState, useImperativeHandle, useEffect, useCallback } from 'react';
-import { ImageProps, Position } from '../../types/types.ts';
+import { ImageProps, Position, PinSourceData, PinData } from '../../types/types.ts';
 import ImageEditorButtons from '../buttons/imageEditorButton.tsx';
 import { useDraggable } from '../../hooks/useDraggable.tsx';
 import { useResizable } from '../../hooks/useResizable.tsx';
 import { useRotatable } from '../../hooks/useRotatable.tsx';
-import { availablePinSources } from '../../data/pinSources.ts'; // Try absolute path from src
+import { availablePinSources } from '../../data/pinSources.ts'; // Verifying this exact path
 
 // Module-scoped highest z-index counter
 let highestZ = 20;
@@ -23,7 +23,7 @@ export default function DraggableResizeableImage(
     ogWidth,
     ogHeight,
     initialPos = { x: 0, y: 0, z: 1, rotated: 0, width: ogWidth, height: ogHeight },
-    pin, // Pin data is optional
+    pin,
     onDeleteRequest,
     ref }: ImageProps
 ) {
@@ -42,46 +42,68 @@ export default function DraggableResizeableImage(
   const initialPinPos = pin ? { x: pin.initialPos.x, y: pin.initialPos.y } : undefined;
   const [pinPos, pinDragHandler] = useDraggable(initialPinPos);
 
+  // Function to find the initial pin source object
+  // IMPORTANT: Assumes availablePinSources is now an array of PinSourceData objects
+  const findInitialPinSource = useCallback((): PinSourceData => {
+    if (pin?.src) {
+      const found = availablePinSources.find(ps => ps.src === pin.src);
+      if (found) return found;
+      console.warn("Initial pin.src not found in availablePinSources. Falling back.");
+    }
+    return availablePinSources.length > 0 ? availablePinSources[0] : { src: '', ogWidth: 0, ogHeight: 0, rotated: 0 }; 
+  }, [pin?.src]); // Dependency on pin.src
+  
+  const [currentPinSource, setCurrentPinSource] = useState<PinSourceData>(findInitialPinSource);
+
+  // Initialize pin rotation/size based on the *initially* loaded pin source
+  const initialPinSource = findInitialPinSource(); // Get initial data once
   const initialPinRotation = pin ? { deg: pin.initialPos.rotated } : defaultRotation;
+  const initialPinSize = pin ? { x: pin.initialPos.width, y: pin.initialPos.height } : defaultSize;
+  const initialPinAspectRatio = pin ? pin.ogWidth / pin.ogHeight : 1;
+
   const [pinRotation, rotatePinHandler, resetPinRotation] = useRotatable({ initialRotation: initialPinRotation });
 
-  const initialPinSize = pin ? { x: pin.initialPos.width, y: pin.initialPos.height } : defaultSize;
-  const pinAspectRatio = (pin?.initialPos.height && pin?.initialPos.width) ? pin.initialPos.width / pin.initialPos.height : 1;
-  const [pinSize, resizePinHandler, resetPinSize] = useResizable({
-    initialSize: initialPinSize,
-    aspectRatio: pinAspectRatio,
+  // Calculate the CURRENT aspect ratio on each render based on state
+  const currentPinAspectRatio = currentPinSource.ogWidth / currentPinSource.ogHeight;
+  
+  const [pinSize, resizePinHandler, resetPinSize, setPinSize] = useResizable({
+    initialSize: initialPinSize,       // Still use original initial size for first mount
+    aspectRatio: currentPinAspectRatio, // Pass the DYNAMIC aspect ratio
     minSize: { x: 10, y: 10 } 
   });
-
-  // State for current pin image source
-  const [currentPinSrc, setCurrentPinSrc] = useState(pin?.src || availablePinSources[0]); // Default to first if pin.src is missing
 
   // --- Component State --- 
   const [zIndex, setZIndex] = useState(initialPos.z);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Expose getPosition() via useImperativeHandle using the ref from props
+  // Expose getPosition() via useImperativeHandle 
   useImperativeHandle(ref, () => ({
-    getPosition: (): Position => ({
-      x: pos.x,
-      y: pos.y,
-      z: zIndex,
-      rotated: rotation.deg,
-      width: size.x,
-      height: size.y,
-      pin: pin ? {
-        src: currentPinSrc, // Return CURRENT pin src
-        width: pin.ogWidth, 
-        height: pin.ogHeight, 
-        initialPos: { 
+    // Return the state structure matching the schema's defaultPosition field
+    getPosition: (): Position & { pin?: PinData } => {
+      const pinState: PinData | undefined = pin ? {
+        src: currentPinSource.src, 
+        ogWidth: currentPinSource.ogWidth, 
+        ogHeight: currentPinSource.ogHeight,
+        initialPos: 
+        {
           x: pinPos.x, 
           y: pinPos.y,
           rotated: pinRotation.deg, 
           width: pinSize.x, 
-          height: pinSize.y 
+          height: pinSize.y
         }
-      } : undefined
-    }),
+      } : undefined;
+      console.log("pinState", pinState);
+      return {
+        x: pos.x,
+        y: pos.y,
+        z: zIndex,
+        rotated: rotation.deg,
+        width: size.x,
+        height: size.y,
+        pin: pinState // This matches the structure within defaultPosition in the schema
+      };
+    }
   }));
 
   // --- Event Handlers --- 
@@ -162,12 +184,32 @@ export default function DraggableResizeableImage(
 
   // Pin cycle image handler (attached to pin cycle button)
   const cyclePinImage = (e: React.MouseEvent<Element, MouseEvent>) => {
-      e.stopPropagation(); // Prevent toggling edit mode
-      if (!pin || availablePinSources.length === 0) return; // Safety check
+      e.stopPropagation(); 
+      if (!pin || availablePinSources.length <= 1) return; 
 
-      const currentIndex = availablePinSources.indexOf(currentPinSrc);
+      const currentIndex = availablePinSources.findIndex(ps => ps.src === currentPinSource.src);
       const nextIndex = (currentIndex + 1) % availablePinSources.length;
-      setCurrentPinSrc(availablePinSources[nextIndex]);
+      const nextPinSource = availablePinSources[nextIndex];
+      
+      // Update the source state first
+      setCurrentPinSource(nextPinSource);
+
+      // Calculate new height based on current width and NEXT source's aspect ratio
+      const currentWidth = pinSize.x; 
+      const nextAspectRatio = (nextPinSource.ogHeight && nextPinSource.ogWidth) ? nextPinSource.ogWidth / nextPinSource.ogHeight : 1;
+      
+      let newHeight = currentWidth / nextAspectRatio; 
+      // Handle division by zero or invalid aspect ratio
+      if (isNaN(newHeight) || !isFinite(newHeight) || nextAspectRatio === 0) { 
+          newHeight = nextPinSource.ogHeight; // Fallback to original height of new image
+      }
+      
+      // Apply min height constraint
+      const minPinHeight = 10;
+      newHeight = Math.max(minPinHeight, newHeight);
+
+      // Programmatically set the new size
+      setPinSize({ x: currentWidth, y: newHeight });
   };
 
   const deleteHandler = useCallback((event: React.MouseEvent<Element, MouseEvent>) => {
@@ -180,15 +222,20 @@ export default function DraggableResizeableImage(
 
   const resetHandler = useCallback((event: React.MouseEvent<Element, MouseEvent>) => {
     event.stopPropagation();
-    resetSize();
-    resetRotation();
-    if (pin) { // Only reset pin if it exists
+    resetSize(); 
+    resetRotation(); 
+    
+    if (pin) { 
+      const originalSource = findInitialPinSource(); 
+      setCurrentPinSource(originalSource); 
       resetPinRotation();
       resetPinSize();
-      setCurrentPinSrc(pin.src); // Reset pin src to original
+      // Find the initial pin object again for reset
+      const initialSource = findInitialPinSource(); 
+      setCurrentPinSource(initialSource);
       // TODO: Add reset for pin position if useDraggable is updated
     }
-  }, [resetSize, resetRotation, resetPinRotation, resetPinSize, pin]); 
+  }, [resetSize, resetRotation, resetPinRotation, setPinSize, pin, findInitialPinSource]); // Added setPinSize, findInitialPinSource
 
   // --- Style Calculations ---
   const isSmall = size.x < 100 || size.y < 100;
@@ -262,7 +309,7 @@ export default function DraggableResizeableImage(
     return (
       <div style={pinContainerStyle}>
         <img
-          src={currentPinSrc} // Use state for current pin src
+          src={currentPinSource.src} // Use src string from the state object
           alt="pin"
           width="100%" 
           height="100%"

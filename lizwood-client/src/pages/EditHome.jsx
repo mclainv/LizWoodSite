@@ -108,18 +108,20 @@ export default function EditHome() {
               height={file.height}
               rotated={file.defaultPosition.rotated}
               initialPos={file.defaultPosition}
-              pin={{
-                src: "/tapes/tape5.png",
-                ogWidth: 160,
-                ogHeight: 50,
-                initialPos: {
-                  x: 0,
-                  y: 0,
-                  rotated: 0,
-                  width: 80,
-                  height: 25
+              pin={file.defaultPosition.pin ? file.defaultPosition.pin : 
+                {
+                  src: 'tapes/pink_pin.png',
+                  ogWidth: 89,
+                  ogHeight: 86,
+                  initialPos: {
+                    x: 0,
+                    y: 0,
+                    rotated: 0,
+                    width: 89,
+                    height: 86
+                  }
                 }
-              }}
+              }
               className="draggable-resizeable-image"
             />
           );

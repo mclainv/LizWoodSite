@@ -80,22 +80,11 @@ export default function SavePositionsButton({
         // Fallback to original data if ref is missing (should ideally not happen)
         currentPosData = item.defaultPosition;
       }
-
       // Construct the payload object matching the schema
       return {
         _id: item._id,
-        path:            item.path,
-        alt:             item.alt,
-        ogWidth:           item.ogWidth,
-        ogHeight:          item.ogHeight,
-        defaultPosition: currentPosData,
-        pin: {
-          src: item.pin?.src,
-          ogWidth: item.pin?.ogWidth,
-          ogHeight: item.pin?.ogHeight,
-          defaultPosition: item.pin?.defaultPosition,
-        },
-      };
+        positionData: currentPosData
+        }
     });
 
     // Process Fixed Items
@@ -115,28 +104,8 @@ export default function SavePositionsButton({
       // Construct the payload object matching the schema
       return {
         _id: item._id,
-        path: item.path,
-        alt: item.alt,
-        ogWidth: item.ogWidth,
-        ogHeight: item.ogHeight,
-        defaultPosition: {
-          x: currentPosData?.x ?? 0,
-          y: currentPosData?.y ?? 0,
-          z: currentPosData?.z ?? 1,
-          rotated: currentPosData?.rotated ?? 0,
-          width: currentPosData?.width ?? item.ogWidth ?? 100,
-          height: currentPosData?.height ?? item.ogHeight ?? 100,
-           // Fixed items might not have pins, handle if necessary
-          pin: item.pin ? {
-            src: item.pin.src,
-            x: item.pin.initialPos?.x, 
-            y: item.pin.initialPos?.y,
-            rotated: item.pin.initialPos?.rotated,
-            width: item.pin.initialPos?.width,
-            height: item.pin.initialPos?.height
-          } : undefined
+        positionData: currentPosData
         }
-      };
     });
     
 

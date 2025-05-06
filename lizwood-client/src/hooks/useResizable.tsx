@@ -15,10 +15,11 @@ interface UseResizableOptions {
 type UseResizableReturn = [
   Size, // current size
   (e: React.MouseEvent<Element, MouseEvent>) => void, // mousedown handler
-  () => void // reset function
+  () => void, // reset function
+  React.Dispatch<React.SetStateAction<Size>> // setSize function
 ];
 
-// Returns [current size, resize mousedown handler, reset function]
+// Returns [current size, resize mousedown handler, reset function, setSize function]
 export function useResizable({
   initialSize,
   aspectRatio = 1, // Default aspect ratio if none provided
@@ -111,7 +112,8 @@ export function useResizable({
        initialSizeRef.current = initialSize;
        setSize(initialSize);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialSize.x, initialSize.y]); // Rerun if initialSize values change
 
-  return [size, handleMouseDown, resetSize]; // Return the reset function
+  return [size, handleMouseDown, resetSize, setSize]; // Return the setSize function
 }
