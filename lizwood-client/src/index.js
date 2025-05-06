@@ -2,12 +2,11 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/home/Home';
-import EditHome from './pages/home/EditHome';
+import HomeEditor from './pages/home/HomeEditor';
 import NotFound from './pages/notfound/NotFound';
 
-import { PageLoader, EditorLoader } from './PageLoader';
-import { ProjectLoader, ProjectEditorLoader } from './ProjectLoader';
-// import reportWebVitals from './reportWebVitals';
+import { PageLoader, EditorLoader } from './PageLoader.tsx';
+import { ProjectLoader, ProjectEditorLoader } from './ProjectLoader.tsx';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -17,7 +16,7 @@ root.render(
       {/* home page */}
       <Route path="/" element={<Home />} />
       {/* edit home page */}
-      <Route path="/edit" element={<EditHome />} />
+      <Route path="/edit" element={<HomeEditor />} />
       {/* categories pages and editors*/}
       <Route path=":page" element={<PageLoader />} />
       <Route path=":page/edit" element={<EditorLoader />} />
@@ -33,4 +32,5 @@ root.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// import reportWebVitals from './reportWebVitals';
 // reportWebVitals();

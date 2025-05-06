@@ -1,34 +1,33 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import Project from './pages/projects/Project.ts'
+import Project from './pages/projects/Project.tsx'
 import ProjectEditor from './pages/projects/ProjectEditor.tsx'
 import NotFound from './pages/notfound/NotFound.jsx'
 
-const pages = [
-  "music",
-  "concepts",
-  "direction",
-  "fineart"
+const projects: { project: string, category: string }[] = [
+  {
+    project: "thesis",
+    category: "music"
+  }
 ];
 
 export function ProjectLoader() {
-  const { page } = useParams()
+  const { category, project } = useParams()
 
-  if (!page || !pages.includes(page)) {
+  if (!category || !project || !projects.includes({ project: project, category: category })) {
     console.warn('PageLoader: Invalid or missing page parameter in URL.');
     return <NotFound/>;
   }
 
-  return <Project modelType={page} />
+  return <Project category={category} project={project} />
 }
 
 export function ProjectEditorLoader() {
-  const { page } = useParams()
+  const { category, project } = useParams()
 
-  if (!page || !pages.includes(page)) {
-    console.warn('EditLoader: Invalid or missing page parameter in URL.');
-    return <NotFound />;
+  if (!category || !project || !projects.includes({ project: project, category: category })) {
+    console.warn('PageLoader: Invalid or missing page parameter in URL.');
+    return <NotFound/>;
   }
-  
-  return <ProjectEditor modelType={page} />
+  return <ProjectEditor category={category} project={project} />
 }

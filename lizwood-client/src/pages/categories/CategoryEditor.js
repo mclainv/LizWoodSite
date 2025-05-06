@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import DraggableResizeableImage from '../../components/images/DraggableResizeable.tsx';
-import './EditCategory.css';
+import './CategoryEditor.css';
 import '../../index.css';
 import paperBackground from '../../assets/paper-background.JPG';
 // imageFiles will be loaded dynamically via Netlify Function

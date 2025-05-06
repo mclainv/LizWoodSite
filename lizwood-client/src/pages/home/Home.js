@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import DraggableImage from './components/images/Draggable';
-import FixedImage from './components/images/Fixed';
+import DraggableImage from '../../components/images/Draggable';
+import FixedImage from '../../components/images/Fixed';
 import './Home.css';
-import paperBackground from './assets/paper-background.JPG';
+import paperBackground from '../../assets/paper-background.JPG';
 export default function Home() {
   const [draggableImageFiles, setDraggableImageFiles] = useState([]);
   const [fixedImageFiles, setFixedImageFiles] = useState([]);
