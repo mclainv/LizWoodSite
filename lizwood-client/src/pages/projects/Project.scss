@@ -1,0 +1,23 @@
+.Project {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  height: 100vh;
+}
+.Sidebar {
+  background-color:aquamarine;
+}
+.ImageGallery {
+  flex-grow: 3;
+  background-color: burlywood;
+}
+.category-header {
+
+}
+.project-links {
+  li {
+    color: blue;
+  }
+}
+.project-link {
+
+}
