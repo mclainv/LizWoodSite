@@ -54,18 +54,15 @@ export default function Home() {
                 }
               }
             }
-            className="draggable-image"
           />
         ))}
         {Array.isArray(fixedImageFiles) && fixedImageFiles.map((file, index) => (
           <FixedImage
-            key={index}
             src={file.path} 
             alt={file.alt}
             ogWidth={file.defaultPosition.width}
             ogHeight={file.defaultPosition.height}
             initialPos={file.defaultPosition}
-            className="fixed-image"
           />
         ))}
       </div>

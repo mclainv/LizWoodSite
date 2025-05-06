@@ -1,9 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/home/Home';
-import HomeEditor from './pages/home/HomeEditor';
-import NotFound from './pages/notfound/NotFound';
+import Home from './pages/home/Home.jsx';
+import HomeEditor from './pages/home/HomeEditor.jsx';
+import NotFound from './pages/notfound/NotFound.jsx';
 
 import { PageLoader, EditorLoader } from './PageLoader.tsx';
 import { ProjectLoader, ProjectEditorLoader } from './ProjectLoader.tsx';
@@ -21,8 +21,8 @@ root.render(
       <Route path=":page" element={<PageLoader />} />
       <Route path=":page/edit" element={<EditorLoader />} />
       {/* projects pages*/}
-      <Route path=":page/:project" element={<ProjectLoader />} />
-      <Route path=":page/:project/edit" element={<ProjectEditorLoader />} />
+      <Route path=":category/:project" element={<ProjectLoader />} />
+      <Route path=":category/:project/edit" element={<ProjectEditorLoader />} />
       {/* catch all for invalid routes */}
       <Route path="*" element={<NotFound />} />
     </Routes>

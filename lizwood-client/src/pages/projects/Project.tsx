@@ -1,7 +1,14 @@
 import React from 'react'
 
-export default function Project() {
+// Define props type
+interface ProjectProps {
+  category: string;
+  project: string;
+}
+
+// Accept props object and destructure
+export default function Project({ category, project }: ProjectProps) {
   return (
-    <div>Project</div>
+    <div>Project {category} {project}</div>
   );
 }
