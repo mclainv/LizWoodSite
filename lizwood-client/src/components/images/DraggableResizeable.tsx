@@ -1,34 +1,65 @@
-import React, { useState, useImperativeHandle } from 'react';
-import { ImageProps, Position } from '../../types/types.ts'; // Assuming Position exists
-import ImageEditorButtons from '../buttons/imageEditorButton.tsx'; // Import the new component
+import React, { useState, useImperativeHandle, useEffect, useCallback } from 'react';
+import { ImageProps, Position } from '../../types/types.ts';
+import ImageEditorButtons from '../buttons/imageEditorButton.tsx';
+import { useDraggable } from '../../hooks/useDraggable.tsx';
+import { useResizable } from '../../hooks/useResizable.tsx';
+import { useRotatable } from '../../hooks/useRotatable.tsx';
+import { availablePinSources } from '../../data/pinSources.ts'; // Try absolute path from src
 
 // Module-scoped highest z-index counter
 let highestZ = 20;
 
-// No forwardRef needed; accept props directly
+// Default empty size/rotation for hooks when pin is absent
+const defaultSize = { x: 0, y: 0 };
+const defaultRotation = { deg: 0 };
+
+// Placeholder - replace with your actual pin image URLs
+// Ensure the initial pin.src passed via props is included here!
+
 export default function DraggableResizeableImage(
   { _id,
-    src, 
+    src,
     alt,
-    ogWidth, 
-    ogHeight, 
+    ogWidth,
+    ogHeight,
     initialPos = { x: 0, y: 0, z: 1, rotated: 0, width: ogWidth, height: ogHeight },
-    pin,
-    onDeleteRequest, 
+    pin, // Pin data is optional
+    onDeleteRequest,
     ref }: ImageProps
-  ) {
-  // Draggable state
-  const [pos, setPos] = useState({ x: initialPos.x, y: initialPos.y });
+) {
+  // --- Main Image Hooks --- 
+  const [pos, dragHandler] = useDraggable({ x: initialPos.x, y: initialPos.y }); 
+  const [size, resizeHandler, resetSize] = useResizable({
+    initialSize: { x: initialPos.width, y: initialPos.height },
+    aspectRatio: (ogHeight && ogWidth) ? ogWidth / ogHeight : 1,
+    minSize: { x: 30, y: 30 }
+  });
+  const [rotation, rotateHandler, resetRotation] = useRotatable({ 
+    initialRotation: { deg: initialPos.rotated } 
+  });
+
+  // --- Pin Hooks & State --- 
+  const initialPinPos = pin ? { x: pin.initialPos.x, y: pin.initialPos.y } : undefined;
+  const [pinPos, pinDragHandler] = useDraggable(initialPinPos);
+
+  const initialPinRotation = pin ? { deg: pin.initialPos.rotated } : defaultRotation;
+  const [pinRotation, rotatePinHandler, resetPinRotation] = useRotatable({ initialRotation: initialPinRotation });
+
+  const initialPinSize = pin ? { x: pin.initialPos.width, y: pin.initialPos.height } : defaultSize;
+  const pinAspectRatio = (pin?.initialPos.height && pin?.initialPos.width) ? pin.initialPos.width / pin.initialPos.height : 1;
+  const [pinSize, resizePinHandler, resetPinSize] = useResizable({
+    initialSize: initialPinSize,
+    aspectRatio: pinAspectRatio,
+    minSize: { x: 10, y: 10 } 
+  });
+
+  // State for current pin image source
+  const [currentPinSrc, setCurrentPinSrc] = useState(pin?.src || availablePinSources[0]); // Default to first if pin.src is missing
+
+  // --- Component State --- 
   const [zIndex, setZIndex] = useState(initialPos.z);
-  const [isResizing, setIsResizing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
-  // Resizable state
-  const [size, setSize] = useState({ x: initialPos.width, y: initialPos.height });
-  const [rotation, setRotation] = useState({ deg: initialPos.rotated });
-
-  // Ensure ogWidth and ogHeight are available. Calculate ratio safely.
-  const aspectRatio = (ogHeight && ogWidth) ? ogWidth / ogHeight : 1; // Default to 1 if dimensions missing
-  console.log("ogWidth is ", ogWidth, "ogHeight is ", ogHeight);
   // Expose getPosition() via useImperativeHandle using the ref from props
   useImperativeHandle(ref, () => ({
     getPosition: (): Position => ({
@@ -39,241 +70,306 @@ export default function DraggableResizeableImage(
       width: size.x,
       height: size.y,
       pin: pin ? {
-        src: pin.src,
-        width: pin.ogWidth,
-        height: pin.ogHeight,
-        initialPos: pin.initialPos
+        src: currentPinSrc, // Return CURRENT pin src
+        width: pin.ogWidth, 
+        height: pin.ogHeight, 
+        initialPos: { 
+          x: pinPos.x, 
+          y: pinPos.y,
+          rotated: pinRotation.deg, 
+          width: pinSize.x, 
+          height: pinSize.y 
+        }
       } : undefined
     }),
   }));
 
-  const onMouseDown = (e) => {
-    e.preventDefault();
-    // bring to front
+  // --- Event Handlers --- 
+
+  // Main image drag start / click handler
+  const onMouseDown = (e: React.MouseEvent<Element, MouseEvent>) => {
     highestZ += 1;
     setZIndex(highestZ);
-
     let dragged = false;
-    const startX = e.pageX - pos.x;
-    const startY = e.pageY - pos.y;
-
-    const onMouseMoveDrag = (moveEvent: MouseEvent) => {
-      dragged = true;
-      setPos({ x: moveEvent.pageX - startX, y: moveEvent.pageY - startY });
+    const initialPageX = e.pageX;
+    const initialPageY = e.pageY;
+    const tempMoveHandler = (moveEvent: MouseEvent) => {
+      if (Math.abs(moveEvent.pageX - initialPageX) > 3 || Math.abs(moveEvent.pageY - initialPageY) > 3) {
+        dragged = true;
+        document.removeEventListener('mousemove', tempMoveHandler);
+        document.removeEventListener('mouseup', tempUpHandler);
+        dragHandler(e); 
+      }
     };
-
-    const onMouseUpDrag = () => {
-      document.removeEventListener('mousemove', onMouseMoveDrag);
-      document.removeEventListener('mouseup', onMouseUpDrag);
+    const tempUpHandler = () => {
+      document.removeEventListener('mousemove', tempMoveHandler);
+      document.removeEventListener('mouseup', tempUpHandler);
       if (!dragged) {
-        // click without drag toggles resize mode
-        setIsResizing(prev => !prev);
+        setIsEditing(prev => !prev);
       }
     };
-
-    document.addEventListener('mousemove', onMouseMoveDrag);
-    document.addEventListener('mouseup', onMouseUpDrag);
+    document.addEventListener('mousemove', tempMoveHandler);
+    document.addEventListener('mouseup', tempUpHandler);
   };
 
-  const resizeHandler = (e) => {
-    e.preventDefault();
-    const startSize = { ...size };
-    const startX = e.pageX;
-    const startY = e.pageY;
-
-    const onMouseMoveResize = (moveEvent: MouseEvent) => {
-      let newWidth = size.x;
-      let newHeight = size.y;
-
-      if (moveEvent.shiftKey && aspectRatio !== 0) { // Check shift key and valid aspect ratio
-        const deltaX = moveEvent.pageX - startX;
-        const deltaY = moveEvent.pageY - startY;
-
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-          newWidth = startSize.x + deltaX;
-          newHeight = newWidth / aspectRatio;
-        } else {
-          newHeight = startSize.y + deltaY;
-          newWidth = newHeight * aspectRatio;
+  // Pin drag start / click handler (attached to pin image)
+  const onPinMouseDown = (e: React.MouseEvent<Element, MouseEvent>) => {
+    e.stopPropagation(); 
+    highestZ += 1;
+    setZIndex(highestZ);
+    let dragged = false;
+    const initialPageX = e.pageX;
+    const initialPageY = e.pageY;
+    const tempMoveHandler = (moveEvent: MouseEvent) => {
+      // Check if movement exceeds a small threshold to differentiate click from drag
+      if (Math.abs(moveEvent.pageX - initialPageX) > 3 || Math.abs(moveEvent.pageY - initialPageY) > 3) {
+        dragged = true;
+        // If dragging starts, remove this temporary listener and let useDraggable take over
+        document.removeEventListener('mousemove', tempMoveHandler);
+        document.removeEventListener('mouseup', tempUpHandler);
+        if (pinDragHandler) { // Initialize the actual pin drag handler
+            pinDragHandler(e); 
         }
-
-        newWidth = Math.max(30, newWidth);
-        newHeight = Math.max(30, newHeight);
-
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-           newHeight = Math.max(30, newWidth / aspectRatio); 
-        } else {
-           newWidth = Math.max(30, newHeight * aspectRatio);
-        }
-
-      } else {
-        newWidth = Math.max(30, startSize.x + (moveEvent.pageX - startX));
-        newHeight = Math.max(30, startSize.y + (moveEvent.pageY - startY));
-      }
-
-      if (!isNaN(newWidth) && !isNaN(newHeight)) {
-         setSize({ x: newWidth, y: newHeight });
-      } else {
-         console.warn("Resize calculation resulted in NaN.");
       }
     };
-
-    const onMouseUpResize = () => {
-      document.removeEventListener('mousemove', onMouseMoveResize);
-      document.removeEventListener('mouseup', onMouseUpResize);
-    };
-
-    document.addEventListener('mousemove', onMouseMoveResize);
-    document.addEventListener('mouseup', onMouseUpResize);
-  };
-
-  const rotateHandler = (mouseDownEvent) => {
-    const startRotation = rotation;
-    const startPosition = { x: mouseDownEvent.pageX, y: mouseDownEvent.pageY };
-
-    function onMouseMoveRotate(mouseMoveEvent: MouseEvent) {
-      const deltaX = mouseMoveEvent.pageX - startPosition.x;
-      const deltaY = mouseMoveEvent.pageY - startPosition.y;
-      let newDeg = (startRotation.deg + deltaX + deltaY) % 360;
-      if (mouseDownEvent.shiftKey) {
-        newDeg = Math.round(newDeg / 10) * 10;
+    const tempUpHandler = () => {
+      document.removeEventListener('mousemove', tempMoveHandler);
+      document.removeEventListener('mouseup', tempUpHandler);
+      if (!dragged) {
+        // click without drag toggles main image edit mode
+        setIsEditing(prev => !prev);
       }
-      setRotation({ deg: newDeg });
-    }
-    function onMouseUpRotate() {
-      document.removeEventListener("mousemove", onMouseMoveRotate);
-      document.removeEventListener("mouseup", onMouseUpRotate);
-    }
-    document.addEventListener("mousemove", onMouseMoveRotate);
-    document.addEventListener("mouseup", onMouseUpRotate);
+    };
+    document.addEventListener('mousemove', tempMoveHandler);
+    document.addEventListener('mouseup', tempUpHandler);
   };
 
-  const deleteHandler = (event: globalThis.MouseEvent) => {
+  // Pin rotate start handler (attached to pin rotate handle)
+  const onPinRotateMouseDown = (e: React.MouseEvent<Element, MouseEvent>) => {
+    e.stopPropagation(); 
+    if (rotatePinHandler) {
+      rotatePinHandler(e); 
+    }
+  };
+
+  // Pin resize start handler (attached to pin resize handle)
+  const onPinResizeMouseDown = (e: React.MouseEvent<Element, MouseEvent>) => {
+    e.stopPropagation();
+    if (resizePinHandler) {
+      resizePinHandler(e);
+    }
+  };
+
+  // Pin cycle image handler (attached to pin cycle button)
+  const cyclePinImage = (e: React.MouseEvent<Element, MouseEvent>) => {
+      e.stopPropagation(); // Prevent toggling edit mode
+      if (!pin || availablePinSources.length === 0) return; // Safety check
+
+      const currentIndex = availablePinSources.indexOf(currentPinSrc);
+      const nextIndex = (currentIndex + 1) % availablePinSources.length;
+      setCurrentPinSrc(availablePinSources[nextIndex]);
+  };
+
+  const deleteHandler = useCallback((event: React.MouseEvent<Element, MouseEvent>) => {
     event.stopPropagation();
-    // TODO: Implement delete functionality
     if (onDeleteRequest) {
-      if(pin) {
-        onDeleteRequest('draggable', _id);
-      } else {
-        onDeleteRequest('fixed', _id);
-      }
-    } else {
-      console.log('No onDeleteRequest function provided');
+      const itemType = pin ? 'draggable' : 'fixed';
+      onDeleteRequest(itemType, _id);
     }
-  };
+  }, [onDeleteRequest, _id, pin]);
 
-  const resetHandler = (event: globalThis.MouseEvent) => {
+  const resetHandler = useCallback((event: React.MouseEvent<Element, MouseEvent>) => {
     event.stopPropagation();
-    // Ensure initialPos is defined before accessing its properties
-    if (initialPos) {
-        setSize({ x: initialPos.width, y: initialPos.height });
-        setRotation({ deg: initialPos.rotated });
+    resetSize();
+    resetRotation();
+    if (pin) { // Only reset pin if it exists
+      resetPinRotation();
+      resetPinSize();
+      setCurrentPinSrc(pin.src); // Reset pin src to original
+      // TODO: Add reset for pin position if useDraggable is updated
     }
-  };
+  }, [resetSize, resetRotation, resetPinRotation, resetPinSize, pin]); 
 
-    // determine if buttons should shrink for small sizes
-    const isSmall = size.x < 100 || size.y < 100;
-    const isTiny = size.x < 50 || size.y < 50;
-    let buttonPadding = isSmall ? '2px 4px' : '4px 8px';
-    let buttonFontSize = isSmall ? '0.75rem' : '1rem';
-    if(isTiny) {
-      buttonPadding = '1px 2px';
-      buttonFontSize = '0.5rem';
+  // --- Style Calculations ---
+  const isSmall = size.x < 100 || size.y < 100;
+  const isTiny = size.x < 50 || size.y < 50;
+  let buttonPadding = isSmall ? '2px 4px' : '4px 8px';
+  let buttonFontSize = isSmall ? '0.75rem' : '1rem';
+  if (isTiny) {
+    buttonPadding = '1px 2px';
+    buttonFontSize = '0.5rem';
+  }
+
+  // --- Render Logic ---
+
+  const renderPin = () => {
+    if (!pin) return null;
+
+    // Pin styles defined inside renderPin where pin is guaranteed non-null
+    const pinContainerStyle: React.CSSProperties = {
+        position: 'absolute',
+        left: pinPos.x,
+        top: pinPos.y,
+        width: pinSize.x, 
+        height: pinSize.y, 
+        zIndex: zIndex + 1, 
+        transform: `rotate(${pinRotation.deg}deg)`,
+        cursor: 'move',
+        userSelect: 'none',
+        border: isEditing ? '1px dashed rgba(255,255,255,0.5)' : 'none',
+    };
+
+    const pinHandleStyle: React.CSSProperties = {
+        position: 'absolute',
+        width: '10px',
+        height: '10px',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        border: '1px solid white',
+        zIndex: zIndex + 2, 
+        userSelect: 'none',
+        display: 'flex', // Use flexbox for centering symbol
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        fontSize: '8px', // Adjust symbol size
+        lineHeight: '1',
     }
 
-    if (!isResizing) {
-      return (
-        <div style={{
-          position: 'absolute',
-          left: pos.x,
-          top: pos.y,
-          transform: `rotate(${rotation.deg}deg)`,
-          zIndex: zIndex,
-        }}> 
-          <img
-            src={src}
-            alt={alt}
-            width={size.x}
-            height={size.y}
-            onMouseDown={onMouseDown}
-            draggable={false}
-            style={{
-              cursor: 'grab',
-              userSelect: 'none',
-            }}
-          />
-          {pin && (
-            <img
-              src={pin.src}
-              alt="pin"
-              width={pin.initialPos.width}
-              height={pin.initialPos.height}
-              style={{
-                position: 'absolute',
-                left: pin.initialPos.x,
-                top: pin.initialPos.y,
-                zIndex: 1000,
-              }}
-            />
-          )}
-        </div>
-      );
-    }
+    const pinRotateHandleStyle: React.CSSProperties = {
+        ...pinHandleStyle,
+        top: '-5px', 
+        right: '-5px', 
+        borderRadius: '50%',
+        cursor: 'alias',
+    };
+
+    const pinResizeHandleStyle: React.CSSProperties = {
+        ...pinHandleStyle,
+        bottom: '-5px', 
+        right: '-5px',
+        borderRadius: '0', 
+        cursor: 'nwse-resize',
+    };
+
+    const pinCycleHandleStyle: React.CSSProperties = {
+        ...pinHandleStyle,
+        top: '-5px',
+        left: '-5px',
+        borderRadius: '3px', // Slightly rounded square
+        cursor: 'pointer',
+    };
+
     return (
-      // <div style={{ width: size.x, height: size.y, position: 'absolute', left: pos.x, top: pos.y, zIndex, overflow: 'hidden', transform: `rotate(${rotation}deg)` }}>
-      //   <img src={src} alt={alt} width={size.x} height={size.y} draggable={false} style={{ display: 'block', width: '100%', height: '100%' }} />
-      //   <button onMouseDown={resizeHandler} style={{ position: 'absolute', bottom: 0, right: 0, cursor: 'nwse-resize' }}>Resize</button>
-      //   <button onClick={rotateHandler} style={{ position: 'absolute', top: 0, right: 0, cursor: 'pointer' }}>Rotate</button>
-      //   <button onClick={resetHandler} style={{ position: 'absolute', bottom: 0, left: 0, cursor: 'pointer' }}>Reset</button>
-      // </div>,
-      <div
-        style={{ 
-          width: size.x + 20, 
-          height: size.y + 20,
-          zIndex: zIndex,
-          position: 'absolute',
-          left: pos.x,
-          top: pos.y,
-          overflow: 'hidden',
-          transform: `rotate(${rotation.deg}deg)`
-        }}>
-        <div id="container" style={{ 
-          width: size.x, 
-          height: size.y,
-          position: 'relative',
-          border: '1px dashed #ccc',
-          overflow: 'hidden'
-        }}>
-          <img 
-            onMouseDown={onMouseDown}
-            src={src} 
-            alt={alt} 
-            width={size.x} 
-            height={size.y}
-          />
-          {pin && (
-          <img
-            src={pin.src}
-            alt="pin"
-            width={pin.initialPos.width}
-            height={pin.initialPos.height}
-            style={{
-              position: 'absolute',
-              left: pin.initialPos.x,
-              top: pin.initialPos.y,
-              zIndex: 1000,
-            }}
-          />
-          )}
-        </div>
-        <ImageEditorButtons 
-          onResize={resizeHandler}
-          onRotate={rotateHandler}
-          onReset={resetHandler}
-          onDelete={deleteHandler}
-          buttonPadding={buttonPadding}
-          buttonFontSize={buttonFontSize}
+      <div style={pinContainerStyle}>
+        <img
+          src={currentPinSrc} // Use state for current pin src
+          alt="pin"
+          width="100%" 
+          height="100%"
+          onMouseDown={onPinMouseDown} 
+          draggable={false}
+          style={{ display: 'block' }} 
         />
+        {isEditing && (
+          <>
+            {/* Pin Cycle Handle (Top Left) */}
+            <div 
+               style={pinCycleHandleStyle}
+               onClick={cyclePinImage} // Use onClick for simple action
+               title="Cycle Pin Image"
+            >
+              &#x21CC; {/* Rightwards arrows over leftwards arrows */} 
+            </div>
+            {/* Pin Rotate Handle (Top Right) */}
+            <div 
+               style={pinRotateHandleStyle}
+               onMouseDown={onPinRotateMouseDown} 
+               title="Rotate Pin"
+            >
+               &#x21BB; {/* Added symbol */} 
+            </div>
+            {/* Pin Resize Handle (Bottom Right) */}
+            <div
+               style={pinResizeHandleStyle}
+               onMouseDown={onPinResizeMouseDown}
+               title="Resize Pin (Hold Shift for aspect ratio)"
+            >
+               &#x21F2; {/* Added symbol */} 
+            </div>
+          </>
+        )}
       </div>
     );
+  }
+
+  if (!isEditing) {
+    // Non-editing mode render
+    return (
+      <div style={{
+        position: 'absolute',
+        left: pos.x,
+        top: pos.y,
+        transform: `rotate(${rotation.deg}deg)`,
+        zIndex: zIndex,
+        width: size.x, 
+        height: size.y,
+      }}> 
+        <img
+          src={src}
+          alt={alt}
+          width={size.x} 
+          height={size.y}
+          onMouseDown={onMouseDown} 
+          draggable={false}
+          style={{
+            cursor: 'grab',
+            userSelect: 'none',
+            display: 'block',
+          }}
+        />
+        {renderPin()} 
+      </div>
+    );
+  }
+
+  // Editing Mode Render
+  return (
+    <div
+      style={{
+        width: size.x + 2, 
+        height: size.y + 2,
+        zIndex: zIndex,
+        position: 'absolute',
+        left: pos.x,
+        top: pos.y,
+        transform: `rotate(${rotation.deg}deg)`,
+      }}>
+      <div id="image-container" style={{ 
+        width: size.x,
+        height: size.y,
+        position: 'relative',
+        border: '1px dashed #ccc',
+        // overflow: 'hidden' 
+      }}>
+        <img
+          onMouseDown={onMouseDown} 
+          src={src}
+          alt={alt}
+          width={size.x}
+          height={size.y}
+          draggable={false} 
+          style={{ display: 'block' }} 
+        />
+         {renderPin()} 
+      </div>
+      <ImageEditorButtons
+        onResize={resizeHandler} 
+        onRotate={rotateHandler} 
+        onReset={resetHandler}   
+        onDelete={deleteHandler} 
+        buttonPadding={buttonPadding}
+        buttonFontSize={buttonFontSize}
+      />
+    </div>
+  );
 }

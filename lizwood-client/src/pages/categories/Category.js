@@ -36,7 +36,7 @@ export default function Category({ modelType }) {
       <div className="imageContainer">
         {Array.isArray(draggableImageFiles) && draggableImageFiles.map((file, index) => (
           <DraggableImage
-            key={index}
+            key={file._id}
             src={file.path} 
             alt={file.alt}
             ogWidth={file.ogWidth}

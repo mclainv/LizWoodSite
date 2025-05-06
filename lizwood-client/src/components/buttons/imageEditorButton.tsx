@@ -1,105 +1,91 @@
 import React from 'react';
 
-interface ImageEditorButtonsProps {
-  onResize: (event: globalThis.MouseEvent) => void;
-  onRotate: (event: globalThis.MouseEvent) => void;
-  onReset: (event: globalThis.MouseEvent) => void;
-  onDelete: (event: globalThis.MouseEvent) => void;
+interface ButtonProps {
+  onResize: (event: React.MouseEvent<Element, MouseEvent>) => void;
+  onRotate: (event: React.MouseEvent<Element, MouseEvent>) => void;
+  onReset: React.MouseEventHandler<HTMLButtonElement>;
+  onDelete: React.MouseEventHandler<HTMLButtonElement>;
   buttonPadding: string;
   buttonFontSize: string;
 }
 
-const ImageEditorButtons = ({
+const ImageEditorButtons: React.FC<ButtonProps> = ({
   onResize,
   onRotate,
   onReset,
   onDelete,
   buttonPadding,
-  buttonFontSize,
-}: ImageEditorButtonsProps) => {
+  buttonFontSize
+}) => {
+  const buttonStyle: React.CSSProperties = {
+    position: 'absolute',
+    cursor: 'pointer',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '3px',
+    padding: buttonPadding,
+    fontSize: buttonFontSize,
+    lineHeight: '1',
+    zIndex: 1001,
+    userSelect: 'none',
+  };
+
   return (
     <>
-      {/* Resize Button (lives inside the image container for positioning) */}
+      {/* Resize Handle (Bottom Right) */}
       <button
-        id="draghandle"
-        type="button"
-        onMouseDown={onResize}
         style={{
-          position: 'absolute',
-          bottom: '5px',
-          right: '5px',
+          ...buttonStyle,
+          bottom: '-5px',
+          right: '-5px',
           cursor: 'nwse-resize',
-          background: '#f0f0f0',
-          border: '1px solid #ccc',
-          borderRadius: '4px',
-          padding: buttonPadding,
-          fontSize: buttonFontSize,
-          zIndex: 30, // Ensure buttons are above the image
         }}
+        onMouseDown={onResize}
+        title="Resize (Hold Shift for aspect ratio)"
       >
-        Resize
+        &#x21F2;
       </button>
 
-      {/* Rotate Button (lives inside the image container for positioning) */}
+      {/* Rotate Handle (Top Right) */}
       <button
-        id="rotatehandle"
-        type="button"
+        style={{
+          ...buttonStyle,
+          top: '-5px',
+          right: '-5px',
+          cursor: 'alias',
+        }}
         onMouseDown={onRotate}
-        style={{
-          position: 'absolute',
-          top: '5px',
-          right: '5px',
-          cursor: 'alias',
-          background: '#f0f0f0',
-          border: '1px solid #ccc',
-          borderRadius: '4px',
-          padding: buttonPadding,
-          fontSize: buttonFontSize,
-          zIndex: 30, // Ensure buttons are above the image
-        }}
+        title="Rotate (Hold Shift to snap)"
       >
-        Rotate
+        &#x21BB;
       </button>
 
-      {/* Delete Button (lives inside the image container) */}
+      {/* Reset Handle (Top Left) */}
       <button
-        id="deletehandle"
-        type="button"
-        onMouseDown={onDelete}
         style={{
-          position: 'absolute',
-          top: '5px',
-          left: '5px',
-          cursor: 'alias',
-          background: '#f0f0f0',
-          border: '1px solid #ccc',
-          borderRadius: '4px',
-          padding: buttonPadding,
-          fontSize: buttonFontSize,
-          zIndex: 30, // Ensure buttons are above the image
+          ...buttonStyle,
+          top: '-5px',
+          left: '-5px',
         }}
+        onClick={onReset}
+        title="Reset Size & Rotation"
       >
-        Delete
+        &#129192;
       </button>
 
-      {/* Reset Button (lives outside the inner image container but inside the main resizing div) */}
+      {/* Delete Handle (Bottom Left) */}
       <button
-        id="clickable"
-        type="button"
-        onClick={onReset} // Note: onClick for reset
         style={{
-          position: 'absolute',
-          bottom: '5px', // Position relative to the outer resizing div
-          left: '5px', // Position relative to the outer resizing div
-          background: '#f0f0f0',
-          border: '1px solid #ccc',
-          borderRadius: '4px',
-          padding: buttonPadding,
-          fontSize: buttonFontSize,
-          zIndex: 30, // Ensure buttons are above the image
+          ...buttonStyle,
+          bottom: '-5px',
+          left: '-5px',
+          backgroundColor: 'rgba(200, 0, 0, 0.7)',
         }}
+        onClick={onDelete}
+        title="Delete Item"
       >
-        Reset
+        &times;
       </button>
     </>
   );
