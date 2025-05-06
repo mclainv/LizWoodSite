@@ -26,6 +26,9 @@ export default function DraggableResizeableImage(
   const [size, setSize] = useState({ x: initialPos.width, y: initialPos.height });
   const [rotation, setRotation] = useState({ deg: initialPos.rotated });
 
+  // Ensure ogWidth and ogHeight are available. Calculate ratio safely.
+  const aspectRatio = (ogHeight && ogWidth) ? ogWidth / ogHeight : 1; // Default to 1 if dimensions missing
+  console.log("ogWidth is ", ogWidth, "ogHeight is ", ogHeight);
   // Expose getPosition() via useImperativeHandle using the ref from props
   useImperativeHandle(ref, () => ({
     getPosition: (): Position => ({
@@ -79,14 +82,47 @@ export default function DraggableResizeableImage(
     const startY = e.pageY;
 
     const onMouseMoveResize = (moveEvent: MouseEvent) => {
-      const newWidth = Math.max(30, startSize.x + (moveEvent.pageX - startX));
-      const newHeight = Math.max(30, startSize.y + (moveEvent.pageY - startY));
-      setSize({ x: newWidth, y: newHeight });
+      let newWidth = size.x;
+      let newHeight = size.y;
+
+      if (moveEvent.shiftKey && aspectRatio !== 0) { // Check shift key and valid aspect ratio
+        const deltaX = moveEvent.pageX - startX;
+        const deltaY = moveEvent.pageY - startY;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          newWidth = startSize.x + deltaX;
+          newHeight = newWidth / aspectRatio;
+        } else {
+          newHeight = startSize.y + deltaY;
+          newWidth = newHeight * aspectRatio;
+        }
+
+        newWidth = Math.max(30, newWidth);
+        newHeight = Math.max(30, newHeight);
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+           newHeight = Math.max(30, newWidth / aspectRatio); 
+        } else {
+           newWidth = Math.max(30, newHeight * aspectRatio);
+        }
+
+      } else {
+        newWidth = Math.max(30, startSize.x + (moveEvent.pageX - startX));
+        newHeight = Math.max(30, startSize.y + (moveEvent.pageY - startY));
+      }
+
+      if (!isNaN(newWidth) && !isNaN(newHeight)) {
+         setSize({ x: newWidth, y: newHeight });
+      } else {
+         console.warn("Resize calculation resulted in NaN.");
+      }
     };
+
     const onMouseUpResize = () => {
       document.removeEventListener('mousemove', onMouseMoveResize);
       document.removeEventListener('mouseup', onMouseUpResize);
     };
+
     document.addEventListener('mousemove', onMouseMoveResize);
     document.addEventListener('mouseup', onMouseUpResize);
   };

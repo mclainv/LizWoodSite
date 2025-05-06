@@ -7,6 +7,7 @@ import paperBackground from '../../assets/paper-background.JPG';
 export default function Category({ modelType }) {
   const [draggableImageFiles, setDraggableImageFiles] = useState([]);
   const [fixedImageFiles, setFixedImageFiles] = useState([]);
+  modelType = modelType.charAt(0).toUpperCase() + modelType.slice(1);
   console.log("modelType is ", modelType);
   useEffect(() => {
     // fetch saved positions dynamically
