@@ -4,7 +4,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/home/Home';
 import EditHome from './pages/home/EditHome';
 import NotFound from './pages/notfound/NotFound';
+
 import { PageLoader, EditorLoader } from './PageLoader';
+import { ProjectLoader, ProjectEditorLoader } from './ProjectLoader';
 // import reportWebVitals from './reportWebVitals';
 
 const container = document.getElementById('root');

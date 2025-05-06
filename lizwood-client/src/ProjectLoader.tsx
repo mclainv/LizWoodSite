@@ -11,7 +11,7 @@ const pages = [
   "fineart"
 ];
 
-export function PageLoader() {
+export function ProjectLoader() {
   const { page } = useParams()
 
   if (!page || !pages.includes(page)) {
@@ -22,7 +22,7 @@ export function PageLoader() {
   return <Project modelType={page} />
 }
 
-export function EditorLoader() {
+export function ProjectEditorLoader() {
   const { page } = useParams()
 
   if (!page || !pages.includes(page)) {
