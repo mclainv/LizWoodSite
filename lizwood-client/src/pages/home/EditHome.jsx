@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
-import DraggableResizeableImage from '../components/images/DraggableResizeable.tsx';
+import DraggableResizeableImage from '../../components/images/DraggableResizeable.tsx';
 import './EditHome.css';
 import '../index.css';
 import paperBackground from '../assets/paper-background.JPG';
 // imageFiles will be loaded dynamically via Netlify Function
-import SavePositionsButton from '../components/buttons/SavePositionsButton.jsx';
+import SavePositionsButton from '../../components/buttons/SavePositionsButton.jsx';
 
 export default function EditHome() {
   // Use objects for refs, keyed by item._id

@@ -1,25 +1,29 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css';
-import Home from './Home';
-import EditHome from './pages/EditHome';
-import PageLoader from './PageLoader';
-import EditLoader from './EditLoader';
-// import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/home/Home';
+import EditHome from './pages/home/EditHome';
+import NotFound from './pages/notfound/NotFound';
+import { PageLoader, EditorLoader } from './PageLoader';
+// import reportWebVitals from './reportWebVitals';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
   <BrowserRouter>
     <Routes>
-      {/* root */}
+      {/* home page */}
       <Route path="/" element={<Home />} />
-      {/* any “/foo” */}
+      {/* edit home page */}
       <Route path="/edit" element={<EditHome />} />
+      {/* categories pages and editors*/}
       <Route path=":page" element={<PageLoader />} />
-      {/* any “/foo/edit” */}
-      <Route path=":page/edit" element={<EditLoader />} />
+      <Route path=":page/edit" element={<EditorLoader />} />
+      {/* projects pages*/}
+      <Route path=":page/:project" element={<ProjectLoader />} />
+      <Route path=":page/:project/edit" element={<ProjectEditorLoader />} />
+      {/* catch all for invalid routes */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>
 );

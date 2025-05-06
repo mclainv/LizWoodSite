@@ -79,7 +79,7 @@ export default function EditCategory({ modelType }) {
   }, [modelType]);
 
   return (
-    <div className={`Edit${modelType} EditCategory`} style={{ backgroundImage: `url(${paperBackground})` }}>
+    <div className={`Edit${modelType} CategoryEditor`} style={{ backgroundImage: `url(${paperBackground})` }}>
       <SavePositionsButton
         // Pass the state arrays directly
         draggableItemsData={draggableImageFiles} 
