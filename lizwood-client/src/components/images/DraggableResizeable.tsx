@@ -1,4 +1,4 @@
-import React, { useState, useImperativeHandle, useEffect, useCallback } from 'react';
+import React, { useState, useImperativeHandle, useCallback } from 'react';
 import { ImageProps, Position, PinSourceData, PinData } from '../../types/types.ts';
 import ImageEditorButtons from '../buttons/imageEditorButton.tsx';
 import { useDraggable } from '../../hooks/useDraggable.tsx';
@@ -55,11 +55,8 @@ export default function DraggableResizeableImage(
   
   const [currentPinSource, setCurrentPinSource] = useState<PinSourceData>(findInitialPinSource);
 
-  // Initialize pin rotation/size based on the *initially* loaded pin source
-  const initialPinSource = findInitialPinSource(); // Get initial data once
   const initialPinRotation = pin ? { deg: pin.initialPos.rotated } : defaultRotation;
   const initialPinSize = pin ? { x: pin.initialPos.width, y: pin.initialPos.height } : defaultSize;
-  const initialPinAspectRatio = pin ? pin.ogWidth / pin.ogHeight : 1;
 
   const [pinRotation, rotatePinHandler, resetPinRotation] = useRotatable({ initialRotation: initialPinRotation });
 
@@ -235,7 +232,7 @@ export default function DraggableResizeableImage(
       setCurrentPinSource(initialSource);
       // TODO: Add reset for pin position if useDraggable is updated
     }
-  }, [resetSize, resetRotation, resetPinRotation, setPinSize, pin, findInitialPinSource]); // Added setPinSize, findInitialPinSource
+  }, [resetSize, resetRotation, resetPinRotation, pin, findInitialPinSource, resetPinSize]); // Added resetPinSize
 
   // --- Style Calculations ---
   const isSmall = size.x < 100 || size.y < 100;

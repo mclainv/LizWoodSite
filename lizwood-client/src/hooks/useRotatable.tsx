@@ -72,7 +72,8 @@ export function useRotatable({
         initialRotationRef.current = initialRotation;
         setRotation(initialRotation);
     }
-  }, [initialRotation.deg]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps 
+  }, [initialRotation]); // Add initialRotation to dependency array
 
   return [rotation, handleMouseDown, resetRotation]; // Return the reset function
 }
