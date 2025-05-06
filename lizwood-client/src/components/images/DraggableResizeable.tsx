@@ -7,7 +7,8 @@ let highestZ = 20;
 
 // No forwardRef needed; accept props directly
 export default function DraggableResizeableImage(
-  { src, 
+  { _id,
+    src, 
     alt,
     ogWidth, 
     ogHeight, 
@@ -115,7 +116,11 @@ export default function DraggableResizeableImage(
     event.stopPropagation();
     // TODO: Implement delete functionality
     if (onDeleteRequest) {
-      onDeleteRequest();
+      if(pin) {
+        onDeleteRequest('draggable', _id);
+      } else {
+        onDeleteRequest('fixed', _id);
+      }
     } else {
       console.log('No onDeleteRequest function provided');
     }

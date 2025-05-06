@@ -1,7 +1,11 @@
 import React from 'react';
 // import { connectToDatabase, savePositionsDB } from '../database/db';
 export default function SavePositionsButton({ 
-    draggableImageFiles, draggableImageRefs, fixedImageFiles, fixedImageRefs, modelType 
+    draggableItemsData, 
+    draggableItemRefs, 
+    fixedItemsData, 
+    fixedItemRefs, 
+    modelType 
   }) {
   //   const newItems=[{
   //     path: "home/band-group.png",
@@ -61,47 +65,90 @@ export default function SavePositionsButton({
   //   },
   // ]
   const handleClick = async () => {
-    // build items array by pulling latest position from each ref
-    const draggableItems = draggableImageFiles.map((file, index) => {
-      const ref = draggableImageRefs.current[index];
-      // getPosition returns { x, y, z, rotated }
-      const currentPos = ref && ref.getPosition ? ref.getPosition() : file.defaultPosition;
+    // Process Draggable Items
+    const draggableItems = draggableItemsData.map((item) => {
+      // Get ref using item._id
+      const ref = draggableItemRefs.current[item._id];
+      let currentPosData;
+
+      // Safely get position data from ref
+      if (ref && ref.current && typeof ref.current.getPosition === 'function') {
+        currentPosData = ref.current.getPosition(); 
+        // getPosition returns: { x, y, z, rotated, width, height, pin? }
+      } else {
+        console.warn(`Ref missing or invalid for draggable item ID: ${item._id}`);
+        // Fallback to original data if ref is missing (should ideally not happen)
+        currentPosData = item.defaultPosition;
+      }
+
+      // Construct the payload object matching the schema
       return {
-        path:            file.path,
-        alt:             file.alt,
-        ogWidth:           file.ogWidth,
-        ogHeight:          file.ogHeight,
-        defaultPosition: currentPos,
+        _id: item._id,
+        path:            item.path,
+        alt:             item.alt,
+        ogWidth:           item.ogWidth,
+        ogHeight:          item.ogHeight,
+        defaultPosition: currentPosData,
         pin: {
-          src: file.pin?.src,
-          ogWidth: file.pin?.ogWidth,
-          ogHeight: file.pin?.ogHeight,
-          defaultPosition: file.pin?.defaultPosition,
+          src: item.pin?.src,
+          ogWidth: item.pin?.ogWidth,
+          ogHeight: item.pin?.ogHeight,
+          defaultPosition: item.pin?.defaultPosition,
         },
       };
-      
     });
-    // draggableItems.push(...newItems);
-    const fixedItems = fixedImageFiles.map((file, index) => {
-      const ref = fixedImageRefs.current[index];
-      const currentPos = ref && ref.getPosition ? ref.getPosition() : file.defaultPosition;
+
+    // Process Fixed Items
+    const fixedItems = fixedItemsData.map((item) => {
+       // Get ref using item._id
+      const ref = fixedItemRefs.current[item._id];
+      let currentPosData;
+
+      // Safely get position data from ref
+      if (ref && ref.current && typeof ref.current.getPosition === 'function') {
+        currentPosData = ref.current.getPosition();
+      } else {
+        console.warn(`Ref missing or invalid for fixed item ID: ${item._id}`);
+        currentPosData = item.defaultPosition;
+      }
+
+      // Construct the payload object matching the schema
       return {
-        path: file.path,
-        alt: file.alt,
-        ogWidth: file.ogWidth,
-        ogHeight: file.ogHeight,
-        defaultPosition: currentPos,
+        _id: item._id,
+        path: item.path,
+        alt: item.alt,
+        ogWidth: item.ogWidth,
+        ogHeight: item.ogHeight,
+        defaultPosition: {
+          x: currentPosData?.x ?? 0,
+          y: currentPosData?.y ?? 0,
+          z: currentPosData?.z ?? 1,
+          rotated: currentPosData?.rotated ?? 0,
+          width: currentPosData?.width ?? item.ogWidth ?? 100,
+          height: currentPosData?.height ?? item.ogHeight ?? 100,
+           // Fixed items might not have pins, handle if necessary
+          pin: item.pin ? {
+            src: item.pin.src,
+            x: item.pin.initialPos?.x, 
+            y: item.pin.initialPos?.y,
+            rotated: item.pin.initialPos?.rotated,
+            width: item.pin.initialPos?.width,
+            height: item.pin.initialPos?.height
+          } : undefined
+        }
       };
     });
     
 
-    console.log("draggableItems are ", draggableItems);
-    // send clean payload to Netlify Function
+    console.log("Saving Draggable Items:", draggableItems);
+    console.log("Saving Fixed Items:", fixedItems);
+
+    // Send payload to Netlify Function
     try {
       const resp = await fetch('/.netlify/functions/savePositions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ modelType, draggableItems, fixedItems }),
+        body: JSON.stringify({ modelType, draggableItems, fixedItems }), // Send the processed arrays
       });
       if (resp.ok) {
         alert('Positions saved successfully.');

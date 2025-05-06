@@ -1,57 +1,74 @@
-// Add imports for Mongoose and dotenv
 const mongoose = require('mongoose');
-// require('dotenv').config();
-// cache the Mongoose connection and models across invocations
-let isConnected = false;
-// define a reusable schema for dynamic Position models
-// const PositionSchema = new mongoose.Schema({
-//   path: String,
-//   alt: String,
-//   ogWidth: Number,
-//   ogHeight: Number,
-//   defaultPosition: {
-//     x: Number,
-//     y: Number,
-//     z: Number,
-//     rotated: Number,
-//     width: Number,
-//     height: Number,
-//   },
-// });
+require('dotenv').config();
 
-module.exports.handler = async function(event, context) {
+// --- Database Connection Cache ---
+let isConnected = false;
+
+async function connectToDatabase() {
+  if (isConnected) {
+    console.log('=> using existing database connection');
+    return;
+  }
+  console.log('=> using new database connection');
+  await mongoose.connect(process.env.MONGODB_URI);
+  isConnected = true;
+  // No need to define specific models here if just fetching all
+}
+
+// --- Netlify Function Handler ---
+exports.handler = async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
-  if (!isConnected) {
-    await mongoose.connect(process.env.MONGODB_URI);
-    isConnected = true;
-  }
-  if (isConnected) {
-    console.log("Connected to MongoDB");
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  // parse dynamic modelType from the JSON body
   let modelType;
   try {
-    ({ modelType } = JSON.parse(event.body || '{}'));
-  } catch (err) {
-    return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON body' }) };
-  }
-  if (!modelType) {
-    return { statusCode: 400, body: JSON.stringify({ error: 'Missing modelType' }) };
+    const body = JSON.parse(event.body || '{}');
+    modelType = body.modelType;
+    if (!modelType) {
+      return { statusCode: 400, body: 'Bad Request: Missing modelType' };
+    }
+  } catch (e) {
+    console.error('Error parsing request body:', e);
+    return { statusCode: 400, body: 'Bad Request: Invalid JSON' };
   }
 
-  // fetch the single document with all image items
-  const collection = mongoose.connection.db.collection(modelType);
-  
-  const dragDoc = await collection.findOne({ _id: 'draggable-images' });
-  const fixedDoc = await collection.findOne({ _id: 'fixed-images' });
-  
-  const draggableImages = Array.isArray(dragDoc?.items) ? dragDoc.items : [];
-  const fixedImages = Array.isArray(fixedDoc?.items) ? fixedDoc.items : [];
-  return {
-    statusCode: 200,
-    // return both arrays as named properties
-    body: JSON.stringify({ draggableImages, fixedImages }),
-  };
+  try {
+    await connectToDatabase();
+
+    // Construct collection names dynamically
+    const draggableCollectionName = modelType + "Draggables";
+    const fixedCollectionName = modelType + "Fixeds";
+
+    console.log(`Fetching from collections: ${draggableCollectionName}, ${fixedCollectionName}`);
+
+    // Get collection references
+    const draggablesCollection = mongoose.connection.db.collection(draggableCollectionName);
+    const fixedsCollection = mongoose.connection.db.collection(fixedCollectionName);
+
+    // Fetch all documents from each collection
+    // Using .toArray() to get the results as arrays
+    const draggableImages = await draggablesCollection.find({}).toArray();
+    const fixedImages = await fixedsCollection.find({}).toArray();
+    console.log(`Fetched ${draggableImages.length} draggable and ${fixedImages.length} fixed images.`);
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ 
+        draggableImages: draggableImages || [], // Ensure array even if null/undefined
+        fixedImages: fixedImages || []       // Ensure array even if null/undefined
+      }),
+      headers: { 'Content-Type': 'application/json' },
+    };
+
+  } catch (error) {
+    console.error('Error fetching positions:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Failed to fetch positions', details: error.message }),
+      headers: { 'Content-Type': 'application/json' },
+    };
+  }
 };

@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 export interface Position {
   x: number; 
   y: number; 
@@ -24,6 +26,7 @@ export interface PositionHandle {
 }
 
 export interface ImageProps {
+  _id: mongoose.Types.ObjectId;
   src: string;
   alt: string;
   ogWidth: number;
@@ -41,7 +44,7 @@ export interface ImageProps {
       height: number;
     };
   };
-  onDeleteRequest?: () => void;
+  onDeleteRequest?: (type: string, id: mongoose.Types.ObjectId) => void;
   ref?: React.Ref<PositionHandle>;
 }
 
