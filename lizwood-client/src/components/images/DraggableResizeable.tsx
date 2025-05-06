@@ -55,6 +55,7 @@ export default function DraggableResizeableImage(
     currentPinSource.ogWidth / currentPinSource.ogHeight : 1;
   
   const [pinRotation, rotatePinHandler, resetPinRotation] = useRotatable({ initialRotation: {deg: pin?.initialPos.rotated || 0} }); // Pass dynamic initial rotation
+  
   const [pinSize, resizePinHandler, resetPinSize, setPinSize] = useResizable({
     initialSize: initialPinSize,       
     aspectRatio: currentPinAspectRatio, 
@@ -218,13 +219,13 @@ export default function DraggableResizeableImage(
       setCurrentPinSource(initialPinSource); 
       // Explicitly reset pin size to the original source's dimensions, 
       // as useResizable's initialSize prop is set only once for the initial mount.
-      setPinSize({ x: pin.initialPos.width, y: pin.initialPos.height });
+      resetPinSize();
       // Pin rotation will reset via useRotatable's useEffect reacting to currentPinInitialRotation changing
       // So, resetPinRotation() may not be needed if the timing works out.
       // For explicit control and clarity, it can be kept.
       resetPinRotation(); // Keep for explicit reset
     }
-  }, [resetSize, resetRotation, pin, initialPinSource, setPinSize, resetPinRotation]); // Added setPinSize & resetPinRotation back
+  }, [resetSize, resetRotation, pin, initialPinSource, resetPinSize, resetPinRotation]); // Added setPinSize & resetPinRotation back
 
   // --- Style Calculations ---
   const isSmall = size.x < 100 || size.y < 100;
