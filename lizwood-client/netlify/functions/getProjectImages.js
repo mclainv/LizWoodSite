@@ -5,12 +5,14 @@ exports.handler = async function(event, context) {
   try {
     const { category, project } = event.queryStringParameters;
     
-    // Use the public directory path
-    const projectDir = path.join(__dirname, '../../public/projects', category, project);
+    // In Netlify Functions, included files are copied to the function's directory
+    const projectDir = path.join(__dirname, 'public/projects', category, project);
     console.log('Function directory:', __dirname);
     console.log('Looking for project in:', projectDir);
-    console.log('Directory contents:', fs.readdirSync(path.join(__dirname, '../../public')));
-
+    
+    // List all files in the function directory to debug
+    console.log('Function directory contents:', fs.readdirSync(__dirname));
+    console.log('Netlify directory contents:', fs.readdirSync(path.join(__dirname, '../')));
     // Check if directory exists
     if (!fs.existsSync(projectDir)) {
       console.log('Project directory not found');
