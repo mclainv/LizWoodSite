@@ -4,10 +4,14 @@ const path = require('path');
 exports.handler = async function(event, context) {
   try {
     const { category, project } = event.queryStringParameters;
-    const projectDir = path.join(__dirname, '../../public/projects', category, project);
-    console.log(__dirname);
+    
+    // In Netlify Functions, included files are in the function's directory
+    const projectDir = path.join(__dirname, 'projects', category, project);
+    console.log('Looking for project in:', projectDir);
+
     // Check if directory exists
     if (!fs.existsSync(projectDir)) {
+      console.log('Project directory not found');
       return {
         statusCode: 404,
         body: JSON.stringify({ error: 'Project not found' })
@@ -22,6 +26,8 @@ exports.handler = async function(event, context) {
                /\.(jpg|jpeg|png|gif)$/i.test(file);
       });
 
+    console.log(`Found ${files.length} images in project directory`);
+
     // Create image data array
     const images = files.map(file => ({
       src: `/projects/${category}/${project}/${file}`,
@@ -33,6 +39,7 @@ exports.handler = async function(event, context) {
       body: JSON.stringify({ images })
     };
   } catch (error) {
+    console.error('Error in getProjectImages:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: 'Failed to read project images' })
