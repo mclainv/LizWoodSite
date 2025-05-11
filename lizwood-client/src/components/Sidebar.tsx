@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Sidebar.scss';
-import { menuStructure, MenuItem } from '../data/menuStructure';
+import { menuStructure } from '../data/menuStructure';
+import { MenuItem } from '../data/types';
 
 interface SidebarProps {
   category?: string;
