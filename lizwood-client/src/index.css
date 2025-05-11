@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   cursor: url('./assets/cursor-small.png'), auto;
+  overflow: hidden;
 }
 /*
 * Rip in page when you drag along paper, this svg is a tear
