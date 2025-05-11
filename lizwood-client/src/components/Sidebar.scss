@@ -1,7 +1,7 @@
 .Sidebar {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   padding-inline: 15%;
   padding-top: 2rem;
 
@@ -9,11 +9,13 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
+  a {
+    text-align: center;
+  }
   .logo {
-    width: 70%;
+    width: 50%;
     height: auto;
-    margin-bottom: 0;
+    margin-bottom: 3rem;
     transition: transform 0.3s ease;
   }
   .logo:hover {
@@ -28,7 +30,7 @@
 
       .category-image {
         align-self: center;
-        width: 100%;
+        width: 30%;
         height: auto;
         margin-bottom: 0;
       }
@@ -38,11 +40,11 @@
         padding: 0;
         margin: 0;
         max-height: 0;
-        overflow: hidden;
+        overflow: visible;
         transition: max-height 0.3s ease-out;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 0;
       }
 
       &:hover {
@@ -70,7 +72,7 @@
         display: block;
         padding: 0.25rem 0;
         transition: all 0.2s ease;
-
+        text-align: center;
         &:hover {
           transform: scale(1.05);
         }
@@ -81,7 +83,7 @@
       }
 
       .menu-thumbnail {
-        width: 100%;
+        width: 65%;
         height: auto;
         object-fit: contain;
         border-radius: 4px;
