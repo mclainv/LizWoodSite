@@ -47,6 +47,7 @@ export default function Category({ modelType }) {
             key={file._id}
             src={file.path} 
             alt={file.alt}
+            route={file.route}
             ogWidth={file.ogWidth}
             ogHeight={file.ogHeight}
             initialPos={file.defaultPosition}
