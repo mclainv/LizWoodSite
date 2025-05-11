@@ -13,6 +13,8 @@ exports.handler = async function(event, context) {
     // List all files in the function directory to debug
     console.log('Function directory contents:', fs.readdirSync(__dirname));
     console.log('Netlify directory contents:', fs.readdirSync(path.join(__dirname, '../')));
+    console.log('Even more directory contents:', fs.readdirSync(path.join(__dirname, '../../')));
+
     // Check if directory exists
     if (!fs.existsSync(projectDir)) {
       console.log('Project directory not found');
