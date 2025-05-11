@@ -3,9 +3,16 @@ export default function FixedImage(
     alt, 
     ogWidth, 
     ogHeight, 
+    onMenuOpen,
     initialPos = { x: 0, y: 0, z: 1, 
       rotated: 0, width: ogWidth, height: ogHeight } }
   ) {
+    let onClick;
+    if (src.toString()) {
+      onClick = () => {
+        onMenuOpen();
+      }
+    }
   return (
     <img
       src={src}
@@ -13,6 +20,7 @@ export default function FixedImage(
       width={initialPos.width}
       height={initialPos.height}
       draggable={false}
+      onClick={onClick}
       style={{
         position: 'absolute',
         left: initialPos.x,

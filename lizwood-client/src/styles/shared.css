@@ -1,0 +1,17 @@
+.pageContainer {
+  text-align: center;
+  height: 100vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.imageContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+} 

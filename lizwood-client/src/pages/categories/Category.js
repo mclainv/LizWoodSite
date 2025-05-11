@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Category.css';
 import DraggableImage from '../../components/images/Draggable';
 import FixedImage from '../../components/images/Fixed';
+import Menu from '../../components/menu.tsx';
 import paperBackground from '../../assets/paper-background.JPG';
 
 export default function Category({ modelType }) {
   const [draggableImageFiles, setDraggableImageFiles] = useState([]);
   const [fixedImageFiles, setFixedImageFiles] = useState([]);
+  const menuRef = useRef();
   modelType = modelType.charAt(0).toUpperCase() + modelType.slice(1);
   console.log("modelType is ", modelType);
   useEffect(() => {
@@ -31,8 +33,14 @@ export default function Category({ modelType }) {
     fetchPositions();
   }, [modelType]);
   console.log("draggables are ", draggableImageFiles);
+
+  const handleMenuOpen = () => {
+    menuRef.current.open();
+  };
+
   return (
-    <div className={`${modelType}Category Category`} style={{ backgroundImage: `url(${paperBackground})` }}>
+    <div className={`${modelType}Category pageContainer`} style={{ backgroundImage: `url(${paperBackground})` }}>
+      <Menu ref={menuRef} />
       <div className="imageContainer">
         {Array.isArray(draggableImageFiles) && draggableImageFiles.map((file, index) => (
           <DraggableImage
@@ -68,6 +76,7 @@ export default function Category({ modelType }) {
             ogHeight={file.defaultPosition.height}
             initialPos={file.defaultPosition}
             className="fixed-image"
+            onMenuOpen={handleMenuOpen}
           />
         ))}
       </div>

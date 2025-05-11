@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import DraggableImage from '../../components/images/Draggable';
 import FixedImage from '../../components/images/Fixed';
+import Menu from '../../components/menu.tsx';
 import './Home.css';
 import paperBackground from '../../assets/paper-background.JPG';
+
 export default function Home() {
   const [draggableImageFiles, setDraggableImageFiles] = useState([]);
   const [fixedImageFiles, setFixedImageFiles] = useState([]);
+  const menuRef = useRef();
+
+  const handleMenuOpen = () => {
+    menuRef.current.open();
+  };
 
   useEffect(() => {
     // fetch saved positions dynamically
@@ -28,9 +35,10 @@ export default function Home() {
     };
     fetchPositions();
   }, []);
-  console.log("draggables are ", draggableImageFiles);
+
   return (
-    <div className="Home" style={{ backgroundImage: `url(${paperBackground})` }}>
+    <div className="pageContainer" style={{ backgroundImage: `url(${paperBackground})` }}>
+      <Menu ref={menuRef} />
       <div className="imageContainer">
         {Array.isArray(draggableImageFiles) && draggableImageFiles.map((file, index) => (
           <DraggableImage
@@ -58,11 +66,13 @@ export default function Home() {
         ))}
         {Array.isArray(fixedImageFiles) && fixedImageFiles.map((file, index) => (
           <FixedImage
+            key={index}
             src={file.path} 
             alt={file.alt}
             ogWidth={file.defaultPosition.width}
             ogHeight={file.defaultPosition.height}
             initialPos={file.defaultPosition}
+            onMenuOpen={handleMenuOpen}
           />
         ))}
       </div>
