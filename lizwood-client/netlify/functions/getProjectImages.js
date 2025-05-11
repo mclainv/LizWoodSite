@@ -5,7 +5,7 @@ exports.handler = async function(event, context) {
   try {
     const { category, project } = event.queryStringParameters;
     const projectDir = path.join(__dirname, '../../public/projects', category, project);
-
+    console.log(__dirname);
     // Check if directory exists
     if (!fs.existsSync(projectDir)) {
       return {
