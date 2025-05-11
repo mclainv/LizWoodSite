@@ -1,10 +1,10 @@
 import React, { useState, useImperativeHandle, useCallback } from 'react';
-import { ImageProps, Position, PinData } from '../../types/types.ts';
-import ImageEditorButtons from '../buttons/imageEditorButton.tsx';
-import { useDraggable } from '../../hooks/useDraggable.tsx';
-import { useResizable } from '../../hooks/useResizable.tsx';
-import { useRotatable } from '../../hooks/useRotatable.tsx';
-import { availablePinSources } from '../../data/pinSources.ts'; // Verifying this exact path
+import { ImageProps, Position, PinData } from '../../types/types';
+import ImageEditorButtons from '../buttons/imageEditorButton';
+import { useDraggable } from '../../hooks/useDraggable';
+import { useResizable } from '../../hooks/useResizable';
+import { useRotatable } from '../../hooks/useRotatable';
+import { availablePinSources } from '../../data/pinSources'; // Verifying this exact path
 
 // Module-scoped highest z-index counter
 let highestZ = 20;

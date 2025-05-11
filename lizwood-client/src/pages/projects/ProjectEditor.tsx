@@ -1,7 +1,12 @@
 import React from 'react'
 
-export default function ProjectEditor() {
+interface ProjectProps {
+  category: string;
+  project: string;
+}
+
+export default function ProjectEditor({ category, project }: ProjectProps) {
   return (
-    <div class="ProjectEditor">ProjectEditor</div>
+    <div className="ProjectEditor">ProjectEditor</div>
   );
 }

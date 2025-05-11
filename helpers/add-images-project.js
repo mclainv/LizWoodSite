@@ -7,7 +7,7 @@ require('dotenv').config();
 
 // --- Configuration --- PLEASE EDIT THESE ---
 const TARGET_FOLDER = '../lizwood-client/public/conceptdevelopment'; // <<< Path to the folder containing images (relative to this script)
-const MODEL_TYPE = 'Concepts';      // <<< Category name (e.g., 'Home', 'Direction') - used for collection name and asset path
+const MODEL_TYPE = 'Concepts';      // <<< Category name (e.g., 'Home', 'Production') - used for collection name and asset path
 const COLLECTION_SUFFIX = 'Draggables'; // <<< Set to 'Draggables' or 'Fixeds'
 const ASSETS_BASE_PATH = '/conceptdevelopment';   // <<< Base path where images are served from (relative to public root)
 // --- End Configuration ---

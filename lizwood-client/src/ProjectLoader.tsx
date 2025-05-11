@@ -1,20 +1,20 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import Project from './pages/projects/Project.tsx'
-import ProjectEditor from './pages/projects/ProjectEditor.tsx'
+import Project from './pages/projects/Project'
+import ProjectEditor from './pages/projects/ProjectEditor'
 import NotFound from './pages/notfound/NotFound.jsx'
 
 const projects: { category: string, project: string }[] = [
   {
-    category: "direction",
+    category: "production",
     project: "thesis"
   },
   {
-    category: "direction",
+    category: "production",
     project: "clam"
   },
   {
-    category: "direction",
+    category: "production",
     project: "sex"
   }
 ];

@@ -7,7 +7,7 @@ import NotFound from './pages/notfound/NotFound.jsx'
 const pages = [
   "music",
   "concepts",
-  "direction",
+  "production",
   "fineart"
 ];
 

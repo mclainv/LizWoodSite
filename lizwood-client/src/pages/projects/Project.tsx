@@ -40,8 +40,8 @@ export default function Project({ category, project }: ProjectProps) {
       ]
     },
     {
-      text: "Direction",
-      path: "/direction",
+      text: "Production",
+      path: "/production",
       isBold: true,
       children: [
         { text: "Thesis", isBold: false, path: "/thesis" },

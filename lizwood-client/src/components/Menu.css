@@ -1,24 +1,26 @@
 .Menu {
   position: fixed;
   top: 0;
-  left: -250px; /* Start off-screen */
-  width: 250px;
-  height: 100vh;
+  left: -300px; /* Start off-screen */
+  width: 300px;
+  height: 80vh;
   background-color: transparent;
-  background-size: cover;
-  background-position: center;
+  background-size: auto 100%; /* Cover the entire container */
+  background-position: top;
   background-repeat: no-repeat;
   transition: left 0.3s ease-in-out;
   z-index: 1000;
   box-shadow: none;
   border: none;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  /* padding-top: 2vh; */
   justify-content: center;
+  padding-bottom: 2vh;
 }
 
 .Menu.active {
-  left: 0;
+  left: -20px;
 }
 
 .Menu ul {
@@ -28,21 +30,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  justify-content: space-between;
   background: transparent;
-  position: relative;
-  top: -20px; /* Adjust this value to move links up/down */
+  height: 100%; /* Take up most of the viewport height */
+  width: 100%;
 }
 
 .Menu li {
   margin: 0;
   background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
+/* .Menu li:nth-child(2) {
+  padding-left: 3vw;
+} */
 
 .Menu a {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.2s ease;
   background: transparent;
+  width: 100%;
+  height: 100%;
 }
 
 .Menu a:hover {
@@ -50,8 +63,24 @@
 }
 
 .menu-icon {
-  width: 50px;
-  height: 50px;
+  width: 100%; /* Scale with viewport height */
+  height: 15vh;
+  max-height: 80px;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+}
+.fineart-icon {
+  width: 100%; /* Scale with viewport height */
+  height: 15vh;
+  max-height: 100px;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+}
+
+.menu-icon-sm {
+  width: 100%; /* Scale with viewport height */
+  height: 15vh;
+  max-height: 40px;
   object-fit: contain;
   transition: opacity 0.2s ease;
 }
@@ -66,7 +95,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.01);
+  background-color: transparent;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;

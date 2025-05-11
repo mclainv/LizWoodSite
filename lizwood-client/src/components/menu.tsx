@@ -11,8 +11,8 @@ const Menu = forwardRef((props, ref) => {
     }));
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (isOpen && !event.target.closest('.Menu')) {
+        const handleClickOutside = (event: globalThis.MouseEvent) => {
+            if (isOpen && !(event.target as Element).closest('.Menu')) {
                 setIsOpen(false);
             }
         };
@@ -28,21 +28,38 @@ const Menu = forwardRef((props, ref) => {
             <div className={`menu-overlay ${isOpen ? 'active' : ''}`} onClick={() => setIsOpen(false)} />
             <nav className={`Menu ${isOpen ? 'active' : ''}`} style={{ backgroundImage: `url(${menuPaper})` }}>
                 <ul>
+                    <div className="spacer" style={{ height: "0px" }}></div>
                     <li>
-                        <Link to="/" onClick={() => setIsOpen(false)}>
-                            <img src="/images/home-icon.png" alt="Home" className="menu-icon" />
+                        <Link to="/production" onClick={() => setIsOpen(false)}>
+                            <img src="/menu/production.png" alt="Production" className="menu-icon" />
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/concepts" onClick={() => setIsOpen(false)}>
+                            <img src="/menu/concepts.png" alt="Concepts" className="menu-icon" />
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/fineart" onClick={() => setIsOpen(false)}>
+                            <img src="/menu/fineart.png" alt="Fineart" className="fineart-icon menu-icon" />
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/music" onClick={() => setIsOpen(false)}>
+                            <img src="/menu/music.png" alt="Music" className="menu-icon" />
                         </Link>
                     </li>
                     <li>
                         <Link to="/about" onClick={() => setIsOpen(false)}>
-                            <img src="/images/about-icon.png" alt="About" className="menu-icon" />
+                            <img src="/menu/about.png" alt="About" className="menu-icon-sm" />
                         </Link>
                     </li>
                     <li>
                         <Link to="/contact" onClick={() => setIsOpen(false)}>
-                            <img src="/images/contact-icon.png" alt="Contact" className="menu-icon" />
+                            <img src="/menu/contact.png" alt="Contact" className="menu-icon-sm" />
                         </Link>
                     </li>
+                    <div className="spacer" style={{ height: "20px" }}></div>
                 </ul>
             </nav>
         </>

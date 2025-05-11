@@ -8,7 +8,7 @@ export default function FixedImage(
       rotated: 0, width: ogWidth, height: ogHeight } }
   ) {
     let onClick;
-    if (src.toString()) {
+    if (src.toString().includes('EXPLORE')) {
       onClick = () => {
         onMenuOpen();
       }

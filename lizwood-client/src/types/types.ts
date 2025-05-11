@@ -1,3 +1,5 @@
+import './images.d';
+
 export interface Point {
   x: number;
   y: number;
