@@ -26,11 +26,13 @@ module.exports.handler = async function(event, context) {
         console.warn('Skipping item due to missing _id or positionData:', item);
         return null; // Skip invalid items
     }
+    const stringId = item._id.toString();
+    // const objectId = new mongoose.Types.ObjectId(stringId);
     return {
         updateOne: {
-            filter: { _id: item._id }, 
+            filter: { _id: stringId }, 
             // Update ONLY the defaultPosition field with the received positionData
-            update: { $set: { defaultPosition: item.positionData } },     
+            update: { $set: { defaultPosition: item.positionData, _id: stringId } },     
         }
     };
   }).filter(op => op !== null); // Remove null ops from skipped items

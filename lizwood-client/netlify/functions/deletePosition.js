@@ -36,7 +36,7 @@ exports.handler = async (event, context) => {
 
     console.log(`Attempting to delete document with _id: ${idToDelete} from collection: ${collectionName}`);
 
-    const result = await collection.deleteOne({ _id: new mongoose.Types.ObjectId(idToDelete) }); // Convert string ID to ObjectId
+    const result = await collection.deleteOne({ _id: idToDelete}); // Convert string ID to ObjectId
 
     if (result.deletedCount === 1) {
       console.log(`Successfully deleted document with _id: ${idToDelete}`);
