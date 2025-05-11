@@ -34,24 +34,30 @@ const DraggableImage = forwardRef(
       setZIndex(highestZ);
 
       let dragged = false;
+      const startX = e.pageX;
+      const startY = e.pageY;
 
       // Calculate offset between mouse and image top-left
-      const startX = e.pageX - pos.x;
-      const startY = e.pageY - pos.y;
+      const offsetX = startX - pos.x;
+      const offsetY = startY - pos.y;
 
       const onMouseMove = (e) => {
-        dragged = true;
-        setPos({ x: e.pageX - startX, y: e.pageY - startY });
+        // Check if mouse moved more than 5 pixels in any direction
+        if (Math.abs(e.pageX - startX) > 5 || Math.abs(e.pageY - startY) > 5) {
+          dragged = true;
+        }
+        if (dragged) {
+          setPos({ x: e.pageX - offsetX, y: e.pageY - offsetY });
+        }
       };
 
       const onMouseUp = () => {
-        if(dragged) {
-          document.removeEventListener('mousemove', onMouseMove);
-          document.removeEventListener('mouseup', onMouseUp);
-        }
-        else {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+        
+        if (!dragged) {
           //just clicked
-          //maybe route from here
+          console.log('Image clicked!');
         }
       };
 
