@@ -5,9 +5,11 @@ exports.handler = async function(event, context) {
   try {
     const { category, project } = event.queryStringParameters;
     
-    // In Netlify Functions, included files are in the function's directory
+    // Files are copied directly to the function's directory, not under 'public'
     const projectDir = path.join(__dirname, 'projects', category, project);
+    console.log('Function directory:', __dirname);
     console.log('Looking for project in:', projectDir);
+    console.log('Directory contents:', fs.readdirSync(__dirname));
 
     // Check if directory exists
     if (!fs.existsSync(projectDir)) {
