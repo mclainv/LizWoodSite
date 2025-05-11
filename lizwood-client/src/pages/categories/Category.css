@@ -1,16 +1,24 @@
 .Category {
   text-align: center;
   height: 100vh;
-  overflow-y: hidden;
-  overflow-x: hidden;
+  overflow: hidden;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  position: relative;
 }
+
 .imageContainer {
+  position: absolute;
+  top: 65%;
+  left: 30%;
+  transform-origin: center;
+  transform: scale(0.8) translate(-50%, -50%);
+  width: 982px;
+  height: 1512px;
   display: flex;
-  flex-wrap: wrap; /* Allows items to wrap to the next line if they exceed the container's width */
-  justify-content: flex-start; /* Aligns items to the start of the container */
-  align-items: flex-start; /* Aligns items to the start of the container vertically */
-  gap: 10px; /* Adds space between items */
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
 }
