@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import './Project.scss';
 import Sidebar from '../../components/Sidebar';
+import { projectImages } from '../../data/projectImages';
 
 // Define props type
 interface ProjectProps {
@@ -15,7 +16,6 @@ interface ImageData {
 
 // Accept props object and destructure
 export default function Project({ category, project }: ProjectProps) {
-  const [imageGallery, setImageGallery] = useState<ImageData[]>([]);
   const [selectedImage, setSelectedImage] = useState<ImageData | null>(null);
 
   /* This uses netlify functions to pull project data from mongoose */
@@ -43,21 +43,25 @@ export default function Project({ category, project }: ProjectProps) {
   // }, [category, project]);
   
   /* This uses netlify to poll file structure */
-  useEffect(() => {
-    const fetchProjectImages = async () => {
-      try {
-        const response = await fetch(`/.netlify/functions/getProjectImages?category=${category}&project=${project}`);
-        if (!response.ok) throw new Error('Failed to fetch project images');
-        const data = await response.json();
-        setImageGallery(data.images);
-      } catch (error) {
-        console.error('Error loading project images:', error);
-      }
-    };
 
-    fetchProjectImages();
-  }, [category, project]);
-  
+  /* This uses netlify to poll project images */
+    // useEffect(() => {
+  //   const fetchProjectImages = async () => {
+  //     try {
+  //       const response = await fetch(`/.netlify/functions/getProjectImages?category=${category}&project=${project}`);
+  //       if (!response.ok) throw new Error('Failed to fetch project images');
+  //       const data = await response.json();
+  //       setImageGallery(data.images);
+  //     } catch (error) {
+  //       console.error('Error loading project images:', error);
+  //     }
+  //   };
+
+  //   fetchProjectImages();
+  // }, [category, project]);
+
+  // Get images from the generated data
+  const imageGallery = projectImages[category]?.[project] || [];
   const handleImageClick = (image: ImageData) => {
     setSelectedImage(image);
   };

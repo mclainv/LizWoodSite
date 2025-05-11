@@ -25,7 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prebuild": "node scripts/generateMenuStructure.js"
+    "prebuild": "node scripts/generateMenuStructure.js && node scripts/generateProjectImages.js"
   },
   "eslintConfig": {
     "extends": [
