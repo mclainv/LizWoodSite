@@ -9,6 +9,3 @@
 [functions]
       directory = "netlify/functions"
       node_bundler = "esbuild"
-
-[functions.getProjectImages]
-  include_files = ["public/sidebar/**/*"]

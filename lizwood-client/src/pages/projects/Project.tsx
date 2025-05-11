@@ -79,6 +79,8 @@ export default function Project({ category, project }: ProjectProps) {
             key={index} 
             src={image.src} 
             alt={image.alt} 
+            width="100%"
+            height="auto"
             style={{ width: '100%', height: 'auto', display: 'block', cursor: 'pointer' }} 
             onClick={() => handleImageClick(image)}
           />
