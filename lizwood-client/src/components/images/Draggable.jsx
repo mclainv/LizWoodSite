@@ -1,7 +1,8 @@
 import React, {
   useState,
-  forwardRef,
+  forwardRef
 } from 'react';
+import { useFall } from '../../hooks/useFall.tsx';
 
 // Module-scoped highest z-index counter
 let highestZ = 1;
@@ -18,12 +19,15 @@ const DraggableImage = forwardRef(
     }, ref) => {
     const [pos, setPos] = useState({ x: initialPos.x, y: initialPos.y });
     const [zIndex, setZIndex] = useState(initialPos.z);
-    // expose getPosition() on the ref
-    // useImperativeHandle(ref, () => ({
-    //   getPosition: () => ({ x: pos.x, y: pos.y, z: zIndex }),
-    // }));
+    const [isFalling, setIsFalling] = useState(false);
+
+    // Initialize the falling animation hook
+    useFall();
 
     const onMouseDown = (e) => {
+      // Don't allow dragging if the image is falling
+      if (isFalling) return;
+      
       e.preventDefault();
       // Bring this image to front
       highestZ += 1;
@@ -55,13 +59,18 @@ const DraggableImage = forwardRef(
       document.addEventListener('mouseup', onMouseUp);
     };
 
+    const onPinClick = (e) => {
+      e.stopPropagation(); // Prevent triggering the image's onMouseDown
+      setIsFalling(true);
+    };
+
     return (
       <div style={{
         position: 'absolute',
         left: pos.x,
         top: pos.y,
         zIndex: zIndex,
-        cursor: 'grab',
+        cursor: isFalling ? 'default' : 'grab',
         userSelect: 'none',
         transform: `rotate(${initialPos.rotated}deg)`
         }}>
@@ -85,8 +94,11 @@ const DraggableImage = forwardRef(
           top: pin.initialPos.y,
           zIndex: zIndex+1,
           display: 'block',
-          transform: `rotate(${pin.initialPos.rotated}deg)`
+          transform: `rotate(${pin.initialPos.rotated}deg)`,
+          cursor: 'pointer'
         }}
+        onClick={onPinClick}
+        draggable={false}
       />
       </div>
     );
