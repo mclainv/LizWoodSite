@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import './Project.scss';
 // Define props type
 interface ProjectProps {
@@ -8,6 +8,28 @@ interface ProjectProps {
 
 // Accept props object and destructure
 export default function Project({ category, project }: ProjectProps) {
+  const [imageGallery, setImageGallery] = useState([]);
+  // const [projectText, setProjectText] = useState({});
+  useEffect(() => {
+    // fetch saved positions dynamically
+    const fetchData = async () => {
+      try {
+        const resp = await fetch('/.netlify/functions/getProjectData', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ category: category, project: project }),
+        });
+        if (!resp.ok) throw new Error(resp.statusText);
+        const data = await resp.json();
+        const projectData = data.data;
+        setImageGallery(projectData.pictures);
+        // setProjectText(projectData.text);
+      } catch (err) {
+        console.error('Error loading positions:', err);
+      }
+    };
+    fetchData();
+  }, [category, project]);
   const menuItems = [
     {
       text: "Liz Wood",
@@ -19,10 +41,11 @@ export default function Project({ category, project }: ProjectProps) {
     },
     {
       text: "Direction",
+      path: "/direction",
       isBold: true,
       children: [
         { text: "Thesis", isBold: false, path: "/thesis" },
-        { text: "Clam", isBold: true, isHighlighted: true, path: "/clam" },
+        { text: "Clam", isBold: false, path: "/clam" },
         { text: "Sex", isBold: false, path: "/sex" }
       ]
     }
@@ -48,16 +71,22 @@ export default function Project({ category, project }: ProjectProps) {
               </p>
               {item.children && item.children.length > 0 && (
                 <ul className="project-links">
-                  {item.children.map((child, childIndex) => (
-                    <li key={childIndex}>
-                      <a 
-                        href={child.path} 
-                        className={`${child.isBold ? 'bold' : ''} ${child.isHighlighted ? 'highlighted' : ''}`}
-                      >
-                        {child.text}
-                      </a>
-                    </li>
-                  ))}
+                  {item.children.map((child, childIndex) => {
+                    const currentPath = "/" + category + "/" + project;
+                    console.log("currentPath", currentPath);
+                    console.log("item.path + child.path", item.path + child.path);
+                    const isCurrentPath = currentPath === (item.path + child.path);
+                    return (
+                      <li key={childIndex}>
+                        <a 
+                          href={item.path + child.path} 
+                          className={`${child.isBold ? 'bold' : ''} ${isCurrentPath ? 'highlighted' : ''}`}
+                        >
+                          {child.text}
+                        </a>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </div>
@@ -65,12 +94,12 @@ export default function Project({ category, project }: ProjectProps) {
         </div>
       </nav>
       <div className="ImageGallery">
-        {[...Array(10)].map((_, index) => (
+        {imageGallery.map((image, index) => (
           <img 
             key={index} 
-            src={`https://picsum.photos/600/400?random=${index}`} 
-            alt={`Random placeholder ${index + 1}`} 
-            style={{ width: '100%', height: 'auto', marginBottom: '10px', display: 'block' }} 
+            src={image.src} 
+            alt={image.alt} 
+            style={{ width: '100%', height: 'auto', display: 'block' }} 
           />
         ))}
       </div>

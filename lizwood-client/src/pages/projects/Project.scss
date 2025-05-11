@@ -8,30 +8,78 @@ body {
   height: 100vh;
 }
 .Sidebar {
-  background-color:aquamarine;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-inline: 15%
+  padding-inline: 15%;
+  padding-top: 2rem;
+
+  background-image: url('../../assets/paper-background.JPG');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .ImageGallery {
   flex-grow: 3;
-  background-color: burlywood;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-block: 0;
+
+  background-image: url('../../assets/paper-background.JPG');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .text-area {
+  width: 100%;
+  margin-top: 2rem;
 }
 .category-header {
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+  color: #1a1a1a;
 }
 .project-links {
+  margin-bottom: 2rem;
+  
   li {
     list-style: none;
+    margin-bottom: 0.5rem;
+    
     a {
-      color: black;
+      color: #333;
       font-size: 1.125rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-block;
+      padding: 0.25rem 0;
+      
+      &:hover {
+        color: #000;
+        transform: translateX(5px);
+      }
+      
+      &.bold {
+        font-weight: 600;
+      }
+      
+      &.highlighted {
+        color: #000;
+        font-weight: 600;
+        position: relative;
+        
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 1px;
+          background-color: #000;
+        }
+      }
     }
   }
 }

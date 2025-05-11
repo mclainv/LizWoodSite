@@ -8,6 +8,14 @@ const projects: { category: string, project: string }[] = [
   {
     category: "direction",
     project: "thesis"
+  },
+  {
+    category: "direction",
+    project: "clam"
+  },
+  {
+    category: "direction",
+    project: "sex"
   }
 ];
 
