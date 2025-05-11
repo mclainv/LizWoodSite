@@ -2,15 +2,15 @@ const fs = require('fs/promises');
 const path = require('path');
 const { imageSizeFromFile } = require('image-size/fromFile');
 
-const tapesDir = path.join(__dirname, '../lizwood-client', 'public', 'tapes');
+const imagesDir = path.join(__dirname, '../lizwood-client', 'public', 'assets');
 const outputArray = [];
 
-async function processTapes() {
+async function processImages() {
   try {
-    const files = await fs.readdir(tapesDir);
+    const files = await fs.readdir(imagesDir);
 
     for (const file of files) {
-      const filePath = path.join(tapesDir, file);
+      const filePath = path.join(imagesDir, file);
       try {
         const stats = await fs.stat(filePath);
         if (stats.isFile()) {
@@ -20,7 +20,7 @@ async function processTapes() {
              const dimensions = await imageSizeFromFile(filePath);
              if (dimensions) {
                 outputArray.push({
-                  src: `/tapes/${file}`, // Path relative to public root
+                  src: `/images/${file}`, // Path relative to public root
                   ogWidth: dimensions.width,
                   ogHeight: dimensions.height,
                 });
@@ -40,8 +40,8 @@ async function processTapes() {
     console.log(JSON.stringify(outputArray, null, 2));
 
   } catch (err) {
-    console.error('Error reading tapes directory:', err);
+    console.error('Error reading images directory:', err);
   }
 }
 
-processTapes(); 
+processImages(); 
