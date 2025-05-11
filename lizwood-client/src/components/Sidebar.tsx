@@ -22,17 +22,19 @@ export default function Sidebar({ category, project }: SidebarProps) {
         {menuItems.map((item) => (
           <div key={item.name} className="menu-group">
             {item.thumbnail && (
-              <img
-                src={item.thumbnail}
-                alt={item.name}
-                className="category-image"
-              />
+              <a href={`/${item.name}`}>
+                <img
+                  src={item.thumbnail}
+                  alt={item.name}
+                  className="category-image"
+                />
+              </a>
             )}
             <ul className="project-links">
               {item.children.map((child) => (
                 <li key={child.name}>
                   <a
-                    href={`${item.path}/${child.name}`}
+                    href={`/${item.name}/${child.name}`}
                     className={child.name === project ? 'highlighted' : ''}
                   >
                     <img
