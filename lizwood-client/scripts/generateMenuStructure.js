@@ -23,7 +23,7 @@ function generateMenuStructure() {
       .filter(file => !file.toLowerCase().match(`${category.toLowerCase()}.png`))
       .map(file => ({
         name: path.parse(file).name,
-        path: `/sidebar/${category}/${file}`
+        path: `/${category}/${file}`
       }));
 
     menuItems.push({
