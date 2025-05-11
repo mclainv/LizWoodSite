@@ -11,4 +11,4 @@
       node_bundler = "esbuild"
 
 [functions.getProjectImages]
-  include_files = ["public/**/*"]
+  include_files = ["public/sidebar/**/*"]
