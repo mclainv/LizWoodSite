@@ -26,16 +26,17 @@ exports.handler = async function(event, context) {
                  /\.(jpg|jpeg|png|gif)$/i.test(file);
         });
 
-      const children = files.map(file => ({
-        text: path.parse(file).name,
-        path: `/${file}`,
-        isBold: false
-      }));
-
+      const children = files.filter(file => !path.parse(file).name.match(`${folder}`))
+        .map(file => ({
+          text: path.parse(file).name,
+          path: `/${file}`,
+          isBold: false
+        }));
       menuItems.push({
         text: folder.charAt(0).toUpperCase() + folder.slice(1),
         path: `/${folder}`,
         isBold: true,
+        image: `/sidebar/${folder}/${folder}.PNG`,
         children
       });
     }

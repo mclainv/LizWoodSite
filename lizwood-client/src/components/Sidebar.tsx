@@ -10,6 +10,7 @@ interface MenuItem {
   text: string;
   path: string;
   isBold: boolean;
+  image?: string;
   children?: MenuItem[];
 }
 
@@ -33,19 +34,27 @@ export default function Sidebar({ category, project }: SidebarProps) {
   console.log(menuItems);
   return (
     <nav className="Sidebar">
-      <img
-        className="logo"
-        src="/assets/LW-LOGO.png"
-        alt="Liz Wood Logo"
-        width="100%"
-        height="auto"
-      />
-      <div className="text-area">
+      <a href="/">
+        <img
+          className="logo"
+          src="/assets/LW-LOGO.png"
+          alt="Liz Wood Logo"
+          width="100%"
+          height="auto"
+        />
+      </a>
+      <div className="menu-area">
         {menuItems.map((item, index) => (
           <div key={index} className="menu-group">
-            <p className="category-header">
-              {item.text}
-            </p>
+            <a href={item.path} className="category-image-link">
+              <img 
+                src={item.image} 
+                alt={item.text} 
+                className="category-image"
+                width="100%"
+                height="auto"
+              />
+            </a>
             {item.children && item.children.length > 0 && (
               <ul className="project-links">
                 {item.children.map((child, childIndex) => {

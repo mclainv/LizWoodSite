@@ -14,24 +14,23 @@
     width: 70%;
     height: auto;
     margin-bottom: 0;
+    transition: transform 0.3s ease;
   }
-
-  .text-area {
+  .logo:hover {
+    transform: scale(1.05);
+  }
+  .menu-area {
     width: 100%;
 
     .menu-group {
       margin-bottom: 1rem;
       position: relative;
 
-      .category-header {
-        font-weight: bold;
-        cursor: pointer;
-        padding: 0.5rem 0;
-        transition: all 0.3s ease;
-        
-        &:hover {
-          color: #666;
-        }
+      .category-image {
+        align-self: center;
+        width: 40%;
+        height: auto;
+        margin-bottom: 0;
       }
 
       .project-links {
