@@ -13,6 +13,7 @@ const DraggableImage = forwardRef(
     alt, 
     ogWidth, 
     ogHeight,
+    route,
     initialPos = 
       { x: 0, y: 0, z: 1, rotated: 0, width: ogWidth, height: ogHeight },
     pin,
@@ -57,6 +58,9 @@ const DraggableImage = forwardRef(
         
         if (!dragged) {
           //just clicked
+          if (route) {
+            window.location.href = route;
+          }
           console.log('Image clicked!');
         }
       };

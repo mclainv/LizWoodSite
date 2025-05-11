@@ -38,6 +38,7 @@ export interface ImageProps {
   _id: string;       // Unique ID from database
   src: string;        // Source URL of the main image
   alt: string;        // Alt text for the main image
+  route?: string;     // Optional route to navigate to
   ogWidth: number;    // Original width of the main image
   ogHeight: number;   // Original height of the main image
   initialPos: Position; // Initial state (position, size, rotation, z-index)

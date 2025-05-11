@@ -45,6 +45,7 @@ export default function Home() {
             key={index}
             src={file.path} 
             alt={file.alt}
+            route={file.route}
             ogWidth={file.ogWidth}
             ogHeight={file.ogHeight}
             initialPos={file.defaultPosition}
