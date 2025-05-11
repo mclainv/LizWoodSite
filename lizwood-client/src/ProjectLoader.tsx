@@ -22,10 +22,14 @@ const projects: { category: string, project: string }[] = [
 export function ProjectLoader() {
   const { category, project } = useParams()
 
-  if (!category ||!project || !projects.some(p => p.category === category && p.project === project)) {
-    console.warn('PageLoader: Project or category not found or missing.');
+  if (!category ||!project) {
+    console.warn('PageLoader: Project or category missing.');
     return <NotFound/>;
   }
+  // if (!projects.some(p => p.category === category && p.project === project)) {
+  //   console.warn('PageLoader: Project or category not found.');
+  //   return <NotFound/>;
+  // }
 
   return <Project category={category} project={project} />
 }
