@@ -8,7 +8,8 @@ const pages = [
   "music",
   "concepts",
   "production",
-  "fineart"
+  "fineart",
+  "about"
 ];
 
 export function PageLoader() {
