@@ -13,6 +13,11 @@ export default function FixedImage(
         onMenuOpen();
       }
     }
+    if (src.toString().includes('LW-LOGO')) {
+      onClick = () => {
+        window.location.href = '/';
+      }
+    }
   return (
     <img
       src={src}
