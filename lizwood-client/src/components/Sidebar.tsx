@@ -17,7 +17,9 @@ export default function Sidebar({ category, project }: SidebarProps) {
 
   return (
     <div className="Sidebar">
-      <img src="/assets/LW-LOGO.PNG" alt="Liz Wood Logo" className="logo" />
+      <a href="/">
+        <img src="/assets/LW-LOGO.PNG" alt="Liz Wood Logo" className="logo" />
+      </a>
       <div className="menu-area">
         {menuItems.map((item) => (
           <div key={item.name} className="menu-group">
