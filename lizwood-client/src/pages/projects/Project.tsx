@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './Project.scss';
+import Sidebar from '../../components/Sidebar';
+
 // Define props type
 interface ProjectProps {
   category: string;
@@ -30,69 +32,10 @@ export default function Project({ category, project }: ProjectProps) {
     };
     fetchData();
   }, [category, project]);
-  const menuItems = [
-    {
-      text: "Liz Wood",
-      isBold: true,
-      children: [
-        { text: "About", isBold: false, path: "/about" },
-        { text: "Contact", isBold: false, path: "/contact" }
-      ]
-    },
-    {
-      text: "Production",
-      path: "/production",
-      isBold: true,
-      children: [
-        { text: "Thesis", isBold: false, path: "/thesis" },
-        { text: "Clam", isBold: false, path: "/clam" },
-        { text: "Sex", isBold: false, path: "/sex" }
-      ]
-    }
-  ];
   
   return (
     <div className="Project">
-      <nav className="Sidebar">
-        <img
-          src="/home/LW-LOGO.png"
-          alt="Liz Wood Logo"
-          width="300rem"
-          height="auto"
-        >
-        </img>
-        <div className="text-area">
-          {menuItems.map((item, index) => (
-            <div key={index} className="menu-group">
-              <p 
-                className={`category-header`}
-              >
-                {item.text}
-              </p>
-              {item.children && item.children.length > 0 && (
-                <ul className="project-links">
-                  {item.children.map((child, childIndex) => {
-                    const currentPath = "/" + category + "/" + project;
-                    console.log("currentPath", currentPath);
-                    console.log("item.path + child.path", item.path + child.path);
-                    const isCurrentPath = currentPath === (item.path + child.path);
-                    return (
-                      <li key={childIndex}>
-                        <a 
-                          href={item.path + child.path} 
-                          className={`${child.isBold ? 'bold' : ''} ${isCurrentPath ? 'highlighted' : ''}`}
-                        >
-                          {child.text}
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            </div>
-          ))}
-        </div>
-      </nav>
+      <Sidebar category={category} project={project} />
       <div className="ImageGallery">
         {imageGallery.map((image, index) => (
           <img 

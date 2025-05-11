@@ -1,0 +1,57 @@
+.Sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 300px;
+  height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+
+  img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .text-area {
+    .menu-group {
+      margin-bottom: 20px;
+
+      .category-header {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .project-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin: 5px 0;
+
+          a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.2s ease;
+
+            &:hover {
+              color: #666;
+            }
+
+            &.bold {
+              font-weight: bold;
+            }
+
+            &.highlighted {
+              color: #000;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+} 
