@@ -21,11 +21,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run dev:setup && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prebuild": "node scripts/generateMenuStructure.js && node scripts/generateProjectImages.js"
+    "prebuild": "node scripts/generateMenuStructure.js && node scripts/generateProjectImages.js",
+    "dev:setup": "node scripts/generateMenuStructure.js && node scripts/generateProjectImages.js"
   },
   "eslintConfig": {
     "extends": [
