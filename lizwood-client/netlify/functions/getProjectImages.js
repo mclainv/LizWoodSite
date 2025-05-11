@@ -6,7 +6,7 @@ exports.handler = async function(event, context) {
     const { category, project } = event.queryStringParameters;
     
     // In Netlify Functions, included files are copied to the function's directory
-    const projectDir = path.join(__dirname, 'public/projects', category, project);
+    const projectDir = path.join(__dirname, '../../../lizwood-client/public/projects', category, project);
     console.log('Function directory:', __dirname);
     console.log('Looking for project in:', projectDir);
     
@@ -15,7 +15,7 @@ exports.handler = async function(event, context) {
     console.log('Netlify directory contents:', fs.readdirSync(path.join(__dirname, '../')));
     console.log('Even more directory contents:', fs.readdirSync(path.join(__dirname, '../../')));
     console.log('Even more directory contents:', fs.readdirSync(path.join(__dirname, '../../../')));
-
+    console.log('lizwood-client directory contents:', fs.readdirSync(path.join(__dirname, '../../../lizwood-client')));
     // Check if directory exists
     if (!fs.existsSync(projectDir)) {
       console.log('Project directory not found');
