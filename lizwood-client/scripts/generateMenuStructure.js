@@ -32,13 +32,13 @@ function generateMenuStructure() {
       .filter(file => !file.toLowerCase().match(`${category.toLowerCase()}.png`))
       .map(file => ({
         name: path.parse(file).name,
-        path: `/sidebar/${category}/${file}`
+        path: `/${category}/${file}`
       }));
     console.log(`Found ${children.length} child items`);
 
     menuItems.push({
       name: category,
-      path: `/sidebar/${category}`,
+      path: `/${category}`,
       thumbnail: categoryThumbnail ? `/sidebar/${category}/${categoryThumbnail}` : null,
       children
     });
