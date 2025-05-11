@@ -5,11 +5,11 @@ exports.handler = async function(event, context) {
   try {
     const { category, project } = event.queryStringParameters;
     
-    // Files are copied directly to the function's directory, not under 'public'
-    const projectDir = path.join(__dirname, 'projects', category, project);
+    // Use the public directory path
+    const projectDir = path.join(__dirname, '../../public/projects', category, project);
     console.log('Function directory:', __dirname);
     console.log('Looking for project in:', projectDir);
-    console.log('Directory contents:', fs.readdirSync(__dirname));
+    console.log('Directory contents:', fs.readdirSync(path.join(__dirname, '../../public')));
 
     // Check if directory exists
     if (!fs.existsSync(projectDir)) {
