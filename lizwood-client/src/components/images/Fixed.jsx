@@ -18,6 +18,11 @@ export default function FixedImage(
         window.location.href = '/';
       }
     }
+    if (src.toString().includes('CONTACT')) {
+      onClick = () => {
+        window.location.href = 'mailto:lizwood224@gmail.com';
+      }
+    }
   return (
     <img
       src={src}
