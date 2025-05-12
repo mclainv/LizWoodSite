@@ -7,6 +7,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  
 }
 
 .imageContainer {
@@ -17,16 +18,17 @@
   gap: 10px;
   padding-bottom: 2rem; /* Add some padding at the bottom */
   height: 100%;
-  @media (max-height: 860px) {
-    transform: scale(0.8);
-    transform-origin: center;
-  }
-  @media (max-height: 920px) {
+  @media (min-height: 760px) {
     transform: scale(0.9);
     transform-origin: center;
   }
-  @media (max-width: 980px) {
+  @media (min-height: 800px) {
+    transform: scale(0.95);
+    transform-origin: center;
+  }
+  @media (min-height: 860px) {
     transform: scale(1);
     transform-origin: center;
   }
+
 } 

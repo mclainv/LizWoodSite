@@ -25,6 +25,7 @@ root.render(
       <Route path=":category/:project/edit" element={<ProjectEditorLoader />} />
       {/* catch all for invalid routes */}
       <Route path="*" element={<NotFound />} />
+      <Route path="//" element={<NotFound />} />
     </Routes>
   </BrowserRouter>
 );

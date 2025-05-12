@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './Category.scss';
+import './Category.css';
 import DraggableImage from '../../components/images/Draggable';
 import FixedImage from '../../components/images/Fixed';
 import Menu from '../../components/menu.tsx';
