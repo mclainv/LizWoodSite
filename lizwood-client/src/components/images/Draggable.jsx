@@ -3,6 +3,8 @@ import React, {
   forwardRef
 } from 'react';
 import { useFall } from '../../hooks/useFall.tsx';
+import cursorImage from '../../assets/cursor-small.png';
+import grabbingImage from '../../assets/grabbing-small.png';
 
 // Module-scoped highest z-index counter
 let highestZ = 1;
@@ -92,6 +94,9 @@ const DraggableImage = forwardRef(
         height={initialPos.height}
         onMouseDown={onMouseDown}
         draggable={false}
+        style={{
+          cursor: `url(${grabbingImage}) 15 15, pointer`
+        }}
       />
       <img
         src={pin.src}
@@ -105,7 +110,7 @@ const DraggableImage = forwardRef(
           zIndex: zIndex+1,
           display: 'block',
           transform: `rotate(${pin.initialPos.rotated}deg)`,
-          cursor: 'pointer'
+          cursor: `url(${cursorImage}), pointer`
         }}
         onClick={onPinClick}
         draggable={false}
