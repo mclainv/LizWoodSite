@@ -18,6 +18,18 @@
   gap: 10px;
   padding-bottom: 2rem; /* Add some padding at the bottom */
   height: 100%;
+  @media (min-height: 500px) {
+    transform: scale(0.60);
+    transform-origin: center;
+  }
+  @media (min-height: 600px) {
+    transform: scale(0.80);
+    transform-origin: center;
+  }
+  @media (min-height: 700px) {
+    transform: scale(0.85);
+    transform-origin: center;
+  }
   @media (min-height: 760px) {
     transform: scale(0.9);
     transform-origin: center;
@@ -38,5 +50,29 @@
     transform: scale(1.15);
     transform-origin:left;
   }
+    transform: scale(1.20);
+    transform-origin:left;
+  }
+  @media (min-height: 1050px) {
+    transform: scale(1.225);
+    transform-origin:left;
+  }
+  @media (min-height: 1150px) {
+    transform: scale(1.35);
+    transform-origin:left;
+  }
+  @media (min-height: 1200px) {
+    transform: scale(1.4);
+    transform-origin:left;
+  }
+  @media (min-height: 1250px) {
+    transform: scale(1.45);
+    transform-origin:left;
+  }
+  @media (min-height: 1300px) {
+    transform: scale(1.5);
+    transform-origin:left;
+  }
+  
 
 } 
