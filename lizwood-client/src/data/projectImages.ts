@@ -94,8 +94,8 @@ export const projectImages: ProjectImages = {
     ],
     "friends-who-skate": [
       {
-        "src": "/projects/fineart/friends-who-skate/sun-queen.jpg",
-        "alt": "sun-queen"
+        "src": "/projects/fineart/friends-who-skate/skateboard.jpg",
+        "alt": "skateboard"
       }
     ],
     "organ-installation": [
