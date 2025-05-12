@@ -31,8 +31,8 @@
     transform-origin: center;
   }
   @media (min-height: 950px) {
-    transform: scale(1.05);
-    transform-origin: center;
+    transform: scale(1.1);
+    transform-origin:right;
   }
 
 } 
