@@ -3,6 +3,7 @@ import ReactPlayer from 'react-player'
 import './Project.scss';
 import Sidebar from '../../components/Sidebar';
 import { projectImages } from '../../data/projectImages';
+import pointerImage from '../../assets/pointer-small.png';
 
 // Define props type
 interface ProjectProps {
@@ -84,7 +85,7 @@ export default function Project({ category, project }: ProjectProps) {
               alt={image.alt} 
               width="100%"
               height="auto"
-              style={{ width: '100%', height: 'auto', display: 'block', cursor: 'pointer' }} 
+              style={{ width: '100%', height: 'auto', display: 'block', cursor: `url(${pointerImage}) 10 0, pointer` }} 
               onClick={() => handleImageClick(image)}
             />
           ) : image.src.includes('MP4') ? (
@@ -98,14 +99,14 @@ export default function Project({ category, project }: ProjectProps) {
                 muted={true}
                 width="100%"
                 height="auto"
-                style={{ width: '100%', height: 'auto', display: 'block', cursor: 'pointer' }}
+                style={{ width: '100%', height: 'auto', display: 'block', cursor: `url(${pointerImage}) 10 0, pointer` }}
               />
             </div>
           ) : null
         ))}
       </div>
       {selectedImage && (
-        <div className="fullscreen-overlay" onClick={handleCloseFullscreen}>
+        <div className="fullscreen-overlay" style={{ cursor: `url(${pointerImage}) 10 0, pointer` }} onClick={handleCloseFullscreen}>
           <div className="fullscreen-content">
             <img 
               src={selectedImage.src} 

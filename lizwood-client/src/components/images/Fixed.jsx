@@ -1,5 +1,5 @@
 import cursorImage from '../../assets/cursor-small.png';
-
+import pointerImage from '../../assets/pointer-small.png';
 export default function FixedImage(
   { src, 
     alt, 
@@ -53,7 +53,7 @@ export default function FixedImage(
         left: initialPos.x,
         top: initialPos.y,
         zIndex: initialPos.z,
-        cursor: onClick ? 'pointer' : `url(${cursorImage}), pointer`,
+        cursor: onClick ? `url(${pointerImage}) 10 0, pointer` : `url(${cursorImage}), auto`,
         userSelect: 'none',
         transform: `rotate(${initialPos.rotated}deg)`
     }}

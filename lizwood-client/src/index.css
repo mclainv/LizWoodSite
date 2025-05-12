@@ -7,11 +7,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   cursor: url('./assets/cursor-small.png'), auto;
   overflow: hidden;
+  cursor: url('./assets/cursor-small.png'), auto;
 }
 /*
 * Rip in page when you drag along paper, this svg is a tear
 */
 /* https://s3-us-west-2.amazonaws.com/s.cdpn.io/23618/rip.svg*/
+a {
+  cursor: url('./assets/pointer-small.png') 10 0, pointer !important;
+}
 .page {
   height: 100%;
   overflow-x: hidden;

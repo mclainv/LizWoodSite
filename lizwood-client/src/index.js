@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/home/Home.jsx';
 import HomeEditor from './pages/home/HomeEditor.jsx';
 import NotFound from './pages/notfound/NotFound.jsx';
+import './index.css';
 
 import { PageLoader, EditorLoader } from './PageLoader.tsx';
 import { ProjectLoader, ProjectEditorLoader } from './ProjectLoader.tsx';

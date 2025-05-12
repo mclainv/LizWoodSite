@@ -52,24 +52,24 @@ export const projectImages: ProjectImages = {
     ],
     "pretty-on-the-inside": [
       {
-        "src": "/projects/concepts/pretty-on-the-inside/scrapbook-cover.png",
-        "alt": "scrapbook-cover"
+        "src": "/projects/concepts/pretty-on-the-inside/1scrapbook-cover.png",
+        "alt": "1scrapbook-cover"
       },
       {
-        "src": "/projects/concepts/pretty-on-the-inside/scrapbook-end.png",
-        "alt": "scrapbook-end"
+        "src": "/projects/concepts/pretty-on-the-inside/2scrapbook-page-lettering.png",
+        "alt": "2scrapbook-page-lettering"
       },
       {
-        "src": "/projects/concepts/pretty-on-the-inside/scrapbook-full-page.png",
-        "alt": "scrapbook-full-page"
+        "src": "/projects/concepts/pretty-on-the-inside/3scrapbook-split-pages.png",
+        "alt": "3scrapbook-split-pages"
       },
       {
-        "src": "/projects/concepts/pretty-on-the-inside/scrapbook-page-lettering.png",
-        "alt": "scrapbook-page-lettering"
+        "src": "/projects/concepts/pretty-on-the-inside/4scrapbook-full-page.png",
+        "alt": "4scrapbook-full-page"
       },
       {
-        "src": "/projects/concepts/pretty-on-the-inside/scrapbook-split-pages.png",
-        "alt": "scrapbook-split-pages"
+        "src": "/projects/concepts/pretty-on-the-inside/5scrapbook-end.png",
+        "alt": "5scrapbook-end"
       }
     ]
   },
@@ -100,7 +100,7 @@ export const projectImages: ProjectImages = {
     ],
     "organ-installation": [
       {
-        "src": "/projects/fineart/organ-installation/my_spiral.MP4",
+        "src": "/projects/fineart/organ-installation/my_spiral.mp4",
         "alt": "my_spiral"
       }
     ],

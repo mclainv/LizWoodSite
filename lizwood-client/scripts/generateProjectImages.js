@@ -19,7 +19,9 @@ function generateProjectImages() {
     console.log(`\nProcessing category: ${category}`);
     const categoryPath = path.join(projectsDir, category);
     const projects = fs.readdirSync(categoryPath)
-      .filter(file => fs.statSync(path.join(categoryPath, file)).isDirectory());
+      .filter(file => fs.statSync(path.join(categoryPath, file)).isDirectory())
+        .sort(function(a, b) {
+          return a < b ? -1 : 1; });
     
     console.log(`Found ${projects.length} projects in ${category}`);
 

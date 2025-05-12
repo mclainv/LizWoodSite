@@ -5,6 +5,7 @@ import React, {
 import { useFall } from '../../hooks/useFall.tsx';
 import cursorImage from '../../assets/cursor-small.png';
 import grabbingImage from '../../assets/grabbing-small.png';
+import pointerImage from '../../assets/pointer-small.png';
 
 // Module-scoped highest z-index counter
 let highestZ = 1;
@@ -82,7 +83,7 @@ const DraggableImage = forwardRef(
         left: pos.x,
         top: pos.y,
         zIndex: zIndex,
-        cursor: isFalling ? 'default' : 'grab',
+        cursor: isFalling ? `url(${cursorImage}) 10 0, pointer` : `url(${grabbingImage}) 15 15, grab`,
         userSelect: 'none',
         transform: `rotate(${initialPos.rotated}deg)`
         }}>
@@ -110,7 +111,7 @@ const DraggableImage = forwardRef(
           zIndex: zIndex+1,
           display: 'block',
           transform: `rotate(${pin.initialPos.rotated}deg)`,
-          cursor: `url(${cursorImage}), pointer`
+          cursor: `url(${pointerImage}) 10 0, pointer`
         }}
         onClick={onPinClick}
         draggable={false}
