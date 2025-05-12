@@ -4,58 +4,58 @@ export const projectImages: ProjectImages = {
   "concepts": {
     "man-skirts": [
       {
-        "src": "/projects/concepts/man-skirts/man-skirt-collage.jpg",
-        "alt": "man-skirt-collage"
+        "src": "/projects/concepts/man-skirts/1man-skirt-cover.jpg",
+        "alt": "1man-skirt-cover"
       },
       {
-        "src": "/projects/concepts/man-skirts/man-skirt-cover.jpg",
-        "alt": "man-skirt-cover"
+        "src": "/projects/concepts/man-skirts/2man-skirt-graphic.jpg",
+        "alt": "2man-skirt-graphic"
       },
       {
-        "src": "/projects/concepts/man-skirts/man-skirt-graphic.jpg",
-        "alt": "man-skirt-graphic"
+        "src": "/projects/concepts/man-skirts/2Skirts Description.png",
+        "alt": "2Skirts Description"
       },
       {
-        "src": "/projects/concepts/man-skirts/man-skirt-plaid-design.JPG",
-        "alt": "man-skirt-plaid-design"
+        "src": "/projects/concepts/man-skirts/3man-skirt-collage.jpg",
+        "alt": "3man-skirt-collage"
       },
       {
-        "src": "/projects/concepts/man-skirts/Skirts Description.png",
-        "alt": "Skirts Description"
+        "src": "/projects/concepts/man-skirts/4man-skirt-plaid-design.JPG",
+        "alt": "4man-skirt-plaid-design"
       }
     ],
     "paint-it-black": [
       {
-        "src": "/projects/concepts/paint-it-black/big-collage.png",
-        "alt": "big-collage"
+        "src": "/projects/concepts/paint-it-black/1paint-black.png",
+        "alt": "1paint-black"
       },
       {
-        "src": "/projects/concepts/paint-it-black/Black Description.png",
-        "alt": "Black Description"
+        "src": "/projects/concepts/paint-it-black/2Black Description.png",
+        "alt": "2Black Description"
       },
       {
-        "src": "/projects/concepts/paint-it-black/boardwalk.png",
-        "alt": "boardwalk"
+        "src": "/projects/concepts/paint-it-black/3new-yorkers-question.png",
+        "alt": "3new-yorkers-question"
       },
       {
-        "src": "/projects/concepts/paint-it-black/chair-and-dog-collage.png",
-        "alt": "chair-and-dog-collage"
+        "src": "/projects/concepts/paint-it-black/4stoop.png",
+        "alt": "4stoop"
       },
       {
-        "src": "/projects/concepts/paint-it-black/hand-photo.png",
-        "alt": "hand-photo"
+        "src": "/projects/concepts/paint-it-black/5hand-photo.png",
+        "alt": "5hand-photo"
       },
       {
-        "src": "/projects/concepts/paint-it-black/new-yorkers-question.png",
-        "alt": "new-yorkers-question"
+        "src": "/projects/concepts/paint-it-black/6chair-and-dog-collage.png",
+        "alt": "6chair-and-dog-collage"
       },
       {
-        "src": "/projects/concepts/paint-it-black/paint-black.png",
-        "alt": "paint-black"
+        "src": "/projects/concepts/paint-it-black/7big-collage.png",
+        "alt": "7big-collage"
       },
       {
-        "src": "/projects/concepts/paint-it-black/stoop.png",
-        "alt": "stoop"
+        "src": "/projects/concepts/paint-it-black/8boardwalk.png",
+        "alt": "8boardwalk"
       }
     ],
     "pretty-on-the-inside": [
@@ -174,24 +174,24 @@ export const projectImages: ProjectImages = {
     ],
     "band-styling": [
       {
-        "src": "/projects/music/band-styling/Band styling description.png",
-        "alt": "Band styling description"
+        "src": "/projects/music/band-styling/1band-singers.png",
+        "alt": "1band-singers"
       },
       {
-        "src": "/projects/music/band-styling/band-bass.png",
-        "alt": "band-bass"
+        "src": "/projects/music/band-styling/2Band styling description.png",
+        "alt": "2Band styling description"
       },
       {
-        "src": "/projects/music/band-styling/band-guitarist.png",
-        "alt": "band-guitarist"
+        "src": "/projects/music/band-styling/3singer-portrait.png",
+        "alt": "3singer-portrait"
       },
       {
-        "src": "/projects/music/band-styling/band-singers.png",
-        "alt": "band-singers"
+        "src": "/projects/music/band-styling/4band-guitarist.png",
+        "alt": "4band-guitarist"
       },
       {
-        "src": "/projects/music/band-styling/singer-portrait.png",
-        "alt": "singer-portrait"
+        "src": "/projects/music/band-styling/5band-bass.png",
+        "alt": "5band-bass"
       }
     ],
     "empty-campaign": [
@@ -210,20 +210,20 @@ export const projectImages: ProjectImages = {
     ],
     "hole-merch": [
       {
-        "src": "/projects/music/hole-merch/baby-tee.png",
-        "alt": "baby-tee"
+        "src": "/projects/music/hole-merch/1hearts-tanktop.png",
+        "alt": "1hearts-tanktop"
       },
       {
-        "src": "/projects/music/hole-merch/hearts-tanktop.png",
-        "alt": "hearts-tanktop"
+        "src": "/projects/music/hole-merch/2Hole merch Description.png",
+        "alt": "2Hole merch Description"
       },
       {
-        "src": "/projects/music/hole-merch/Hole merch.png",
-        "alt": "Hole merch"
+        "src": "/projects/music/hole-merch/3shirt-heart.png",
+        "alt": "3shirt-heart"
       },
       {
-        "src": "/projects/music/hole-merch/shirt-heart.png",
-        "alt": "shirt-heart"
+        "src": "/projects/music/hole-merch/4baby-tee.png",
+        "alt": "4baby-tee"
       }
     ],
     "running-on-empty-poster": [
@@ -246,28 +246,28 @@ export const projectImages: ProjectImages = {
         "alt": "shirt-television"
       },
       {
-        "src": "/projects/music/television-merch/Television merch.png",
-        "alt": "Television merch"
+        "src": "/projects/music/television-merch/Television merch Description.png",
+        "alt": "Television merch Description"
       }
     ]
   },
   "production": {
     "capstone-location-shoot": [
       {
-        "src": "/projects/production/capstone-location-shoot/frolic.jpg",
-        "alt": "frolic"
+        "src": "/projects/production/capstone-location-shoot/1pole.jpg",
+        "alt": "1pole"
       },
       {
-        "src": "/projects/production/capstone-location-shoot/pole.jpg",
-        "alt": "pole"
+        "src": "/projects/production/capstone-location-shoot/2Thesis Description.png",
+        "alt": "2Thesis Description"
       },
       {
-        "src": "/projects/production/capstone-location-shoot/stoop.jpg",
-        "alt": "stoop"
+        "src": "/projects/production/capstone-location-shoot/3toop.jpg",
+        "alt": "3toop"
       },
       {
-        "src": "/projects/production/capstone-location-shoot/Thesis Description.png",
-        "alt": "Thesis Description"
+        "src": "/projects/production/capstone-location-shoot/4frolic.jpg",
+        "alt": "4frolic"
       }
     ],
     "capstone-studio-shoot": [
