@@ -65,8 +65,10 @@ export default function Project({ category, project }: ProjectProps) {
   // Get images from the generated data
   const imageGallery = projectImages[category]?.[project] || [];
   
-  // Ensure description image is second
+  // Ensure description image is second and non-description is first
   const sortedGallery = [...imageGallery];
+  
+  // Find description image
   const descIndex = sortedGallery.findIndex(img => 
     img.src.toLowerCase().includes('description')
   );
