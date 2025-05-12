@@ -103,7 +103,7 @@ export default function Project({ category, project }: ProjectProps) {
               style={{ width: '100%', height: 'auto', display: 'block', cursor: `url(${pointerImage}) 10 0, pointer` }} 
               onClick={() => handleImageClick(image)}
             />
-          ) : image.src.includes('MP4') ? (
+          ) : image.src.includes('mp4') ? (
             <div className="video-container">
               <ReactPlayer 
                 key={index} 
