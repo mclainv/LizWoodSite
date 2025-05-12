@@ -64,6 +64,17 @@ export default function Project({ category, project }: ProjectProps) {
 
   // Get images from the generated data
   const imageGallery = projectImages[category]?.[project] || [];
+  
+  // Sort images to ensure description is second
+  const sortedGallery = [...imageGallery].sort((a, b) => {
+    // If a is description, it should be second
+    if (a.src.includes('Description')) return 1;
+    // If b is description, it should be second
+    if (b.src.includes('Description')) return -1;
+    // Otherwise maintain original order
+    return 0;
+  });
+
   const handleImageClick = (image: ImageData) => {
     setSelectedImage(image);
   };
@@ -76,7 +87,7 @@ export default function Project({ category, project }: ProjectProps) {
     <div className="Project">
       <Sidebar category={category} project={project} />
       <div className="ImageGallery">
-        {imageGallery.map((image, index) => (
+        {sortedGallery.map((image, index) => (
           //here
           !image.src.includes('mp4') && !image.src.includes('MP4') ? (
             <img 
