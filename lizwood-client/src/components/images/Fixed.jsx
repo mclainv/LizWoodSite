@@ -23,6 +23,16 @@ export default function FixedImage(
         window.location.href = 'mailto:lizwood224@gmail.com';
       }
     }
+    if (src.toString().includes('linkedin')) {
+      onClick = () => {
+        window.open('https://www.linkedin.com/in/llizwood/', '_blank');
+      }
+    }
+    if (src.toString().includes('insta')) {
+      onClick = () => {
+        window.open('https://www.instagram.com/llizwood/', '_blank');
+      }
+    }
   return (
     <img
       src={src}
