@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import DraggableImage from '../../components/images/Draggable';
 import FixedImage from '../../components/images/Fixed';
 import Menu from '../../components/menu.tsx';
-import './Home.css';
+import './Home.scss';
 import paperBackground from '../../assets/paper-background.JPG';
 
 export default function Home() {
