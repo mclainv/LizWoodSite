@@ -130,12 +130,28 @@ export const projectImages: ProjectImages = {
     ],
     "empty-campaign": [
       {
+        "src": "/projects/music/empty-campaign/band-bass.png",
+        "alt": "band-bass"
+      },
+      {
         "src": "/projects/music/empty-campaign/band-car.png",
         "alt": "band-car"
       },
       {
+        "src": "/projects/music/empty-campaign/band-guitarist.png",
+        "alt": "band-guitarist"
+      },
+      {
         "src": "/projects/music/empty-campaign/band-portrait.png",
         "alt": "band-portrait"
+      },
+      {
+        "src": "/projects/music/empty-campaign/band-singers.png",
+        "alt": "band-singers"
+      },
+      {
+        "src": "/projects/music/empty-campaign/singer-portrait.png",
+        "alt": "singer-portrait"
       }
     ],
     "hole-merch": [

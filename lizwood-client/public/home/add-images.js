@@ -6,10 +6,10 @@ const { imageSizeFromFile } = require('image-size/fromFile')
 require('dotenv').config();
 
 // --- Configuration --- PLEASE EDIT THESE ---
-const TARGET_FOLDER = '../lizwood-client/public/assets/new'; // <<< Path to the folder containing images (relative to this script)
-const MODEL_TYPE = 'About';      // <<< Category name (e.g., 'Home', 'Direction') - used for collection name and asset path
+const TARGET_FOLDER = '../lizwood-client/public/home/new'; // <<< Path to the folder containing images (relative to this script)
+const MODEL_TYPE = 'HomePosition';      // <<< Category name (e.g., 'Home', 'Direction') - used for collection name and asset path
 const COLLECTION_SUFFIX = 'Fixeds'; // <<< Set to 'Draggables' or 'Fixeds'
-const ASSETS_BASE_PATH = '/assets';   // <<< Base path where images are served from (relative to public root)
+const ASSETS_BASE_PATH = '/home';   // <<< Base path where images are served from (relative to public root)
 // --- End Configuration ---
 
 // Schema definition (make sure it matches your functions)
