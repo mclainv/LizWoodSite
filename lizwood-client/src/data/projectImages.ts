@@ -100,8 +100,8 @@ export const projectImages: ProjectImages = {
     ],
     "organ-installation": [
       {
-        "src": "/projects/fineart/organ-installation/install.png",
-        "alt": "install"
+        "src": "/projects/fineart/organ-installation/my_spiral.MP4",
+        "alt": "my_spiral"
       }
     ],
     "strange-brew": [

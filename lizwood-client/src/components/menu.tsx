@@ -54,7 +54,7 @@ const Menu = forwardRef((props, ref) => {
                             <img src="/menu/about.png" alt="About" className="menu-icon-sm" />
                         </Link>
                     </li>
-                    <li>
+                    <li className="hidden-li">
                         <Link to="/contact" onClick={() => setIsOpen(false)}>
                             <img src="/menu/contact.png" alt="Contact" className="menu-icon-sm" />
                         </Link>

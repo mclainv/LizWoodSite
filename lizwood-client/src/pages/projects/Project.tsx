@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import ReactPlayer from 'react-player'
 import './Project.scss';
 import Sidebar from '../../components/Sidebar';
 import { projectImages } from '../../data/projectImages';
@@ -75,15 +76,32 @@ export default function Project({ category, project }: ProjectProps) {
       <Sidebar category={category} project={project} />
       <div className="ImageGallery">
         {imageGallery.map((image, index) => (
-          <img 
-            key={index} 
-            src={image.src} 
-            alt={image.alt} 
-            width="100%"
-            height="auto"
-            style={{ width: '100%', height: 'auto', display: 'block', cursor: 'pointer' }} 
-            onClick={() => handleImageClick(image)}
-          />
+          //here
+          !image.src.includes('mp4') && !image.src.includes('MP4') ? (
+            <img 
+              key={index} 
+              src={image.src} 
+              alt={image.alt} 
+              width="100%"
+              height="auto"
+              style={{ width: '100%', height: 'auto', display: 'block', cursor: 'pointer' }} 
+              onClick={() => handleImageClick(image)}
+            />
+          ) : image.src.includes('MP4') ? (
+            <div className="video-container">
+              <ReactPlayer 
+                key={index} 
+                url={image.src}
+                controls
+                playing={true}
+                onReady={() => console.log('ready')}
+                muted={true}
+                width="100%"
+                height="auto"
+                style={{ width: '100%', height: 'auto', display: 'block', cursor: 'pointer' }}
+              />
+            </div>
+          ) : null
         ))}
       </div>
       {selectedImage && (

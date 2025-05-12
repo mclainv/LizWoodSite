@@ -35,6 +35,11 @@ export default function FixedImage(
         window.open('https://www.instagram.com/llizwood/', '_blank');
       }
     }
+    if (src.toString().includes('liz-print')) {
+      onClick = () => {
+        window.location.href = '/about';
+      }
+    }
   return (
     <img
       src={src}

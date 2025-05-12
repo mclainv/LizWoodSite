@@ -29,7 +29,7 @@ function generateProjectImages() {
         .filter(file => {
           const filePath = path.join(projectPath, file);
           return fs.statSync(filePath).isFile() && 
-                 /\.(jpg|jpeg|png|gif)$/i.test(file);
+                 /\.(jpg|jpeg|png|gif|mp4|mov)$/i.test(file);
         });
 
       console.log(`Found ${files.length} images in project ${project}`);

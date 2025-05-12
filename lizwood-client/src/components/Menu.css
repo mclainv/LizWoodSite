@@ -44,9 +44,9 @@
   justify-content: center;
   width: 100%;
 }
-/* .Menu li:nth-child(2) {
-  padding-left: 3vw;
-} */
+.Menu .hidden-li {
+  display: none;
+}
 
 .Menu a {
   display: flex;
