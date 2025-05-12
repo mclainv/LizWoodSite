@@ -18,12 +18,20 @@ export const projectImages: ProjectImages = {
       {
         "src": "/projects/concepts/man-skirts/man-skirt-plaid-design.JPG",
         "alt": "man-skirt-plaid-design"
+      },
+      {
+        "src": "/projects/concepts/man-skirts/Skirts Description.png",
+        "alt": "Skirts Description"
       }
     ],
     "paint-it-black": [
       {
         "src": "/projects/concepts/paint-it-black/big-collage.png",
         "alt": "big-collage"
+      },
+      {
+        "src": "/projects/concepts/paint-it-black/Black Description.png",
+        "alt": "Black Description"
       },
       {
         "src": "/projects/concepts/paint-it-black/boardwalk.png",
@@ -70,6 +78,10 @@ export const projectImages: ProjectImages = {
       {
         "src": "/projects/concepts/pretty-on-the-inside/5scrapbook-end.png",
         "alt": "5scrapbook-end"
+      },
+      {
+        "src": "/projects/concepts/pretty-on-the-inside/Pretty Description.png",
+        "alt": "Pretty Description"
       }
     ]
   },
@@ -78,21 +90,37 @@ export const projectImages: ProjectImages = {
       {
         "src": "/projects/fineart/boys-with-hoops/boys-with-hoops.jpg",
         "alt": "boys-with-hoops"
+      },
+      {
+        "src": "/projects/fineart/boys-with-hoops/Hoops Description.png",
+        "alt": "Hoops Description"
       }
     ],
     "eyes-without-a-face": [
       {
         "src": "/projects/fineart/eyes-without-a-face/eyes-without-a-face.jpg",
         "alt": "eyes-without-a-face"
+      },
+      {
+        "src": "/projects/fineart/eyes-without-a-face/Face description.png",
+        "alt": "Face description"
       }
     ],
     "figure-study": [
+      {
+        "src": "/projects/fineart/figure-study/Figure description.png",
+        "alt": "Figure description"
+      },
       {
         "src": "/projects/fineart/figure-study/figure-study.jpg",
         "alt": "figure-study"
       }
     ],
     "friends-who-skate": [
+      {
+        "src": "/projects/fineart/friends-who-skate/Skate Description.png",
+        "alt": "Skate Description"
+      },
       {
         "src": "/projects/fineart/friends-who-skate/skateboard.jpg",
         "alt": "skateboard"
@@ -102,15 +130,27 @@ export const projectImages: ProjectImages = {
       {
         "src": "/projects/fineart/organ-installation/my_spiral.mp4",
         "alt": "my_spiral"
+      },
+      {
+        "src": "/projects/fineart/organ-installation/Organ Description.png",
+        "alt": "Organ Description"
       }
     ],
     "strange-brew": [
       {
         "src": "/projects/fineart/strange-brew/screen-printing.jpg",
         "alt": "screen-printing"
+      },
+      {
+        "src": "/projects/fineart/strange-brew/Screenprint Description.png",
+        "alt": "Screenprint Description"
       }
     ],
     "sun-queen": [
+      {
+        "src": "/projects/fineart/sun-queen/Sun description.png",
+        "alt": "Sun description"
+      },
       {
         "src": "/projects/fineart/sun-queen/sun-queen.jpg",
         "alt": "sun-queen"
@@ -120,6 +160,10 @@ export const projectImages: ProjectImages = {
   "music": {
     "amyl-and-the-sniffers-merch": [
       {
+        "src": "/projects/music/amyl-and-the-sniffers-merch/Amyl Description.png",
+        "alt": "Amyl Description"
+      },
+      {
         "src": "/projects/music/amyl-and-the-sniffers-merch/shirt-casino.png",
         "alt": "shirt-casino"
       },
@@ -128,30 +172,40 @@ export const projectImages: ProjectImages = {
         "alt": "tanktop"
       }
     ],
-    "empty-campaign": [
+    "band-styling": [
       {
-        "src": "/projects/music/empty-campaign/band-bass.png",
+        "src": "/projects/music/band-styling/Band styling description.png",
+        "alt": "Band styling description"
+      },
+      {
+        "src": "/projects/music/band-styling/band-bass.png",
         "alt": "band-bass"
       },
       {
-        "src": "/projects/music/empty-campaign/band-car.png",
-        "alt": "band-car"
+        "src": "/projects/music/band-styling/band-guitarist.png",
+        "alt": "band-guitarist"
       },
       {
-        "src": "/projects/music/empty-campaign/band-guitarist.png",
-        "alt": "band-guitarist"
+        "src": "/projects/music/band-styling/band-singers.png",
+        "alt": "band-singers"
+      },
+      {
+        "src": "/projects/music/band-styling/singer-portrait.png",
+        "alt": "singer-portrait"
+      }
+    ],
+    "empty-campaign": [
+      {
+        "src": "/projects/music/empty-campaign/band-car.png",
+        "alt": "band-car"
       },
       {
         "src": "/projects/music/empty-campaign/band-portrait.png",
         "alt": "band-portrait"
       },
       {
-        "src": "/projects/music/empty-campaign/band-singers.png",
-        "alt": "band-singers"
-      },
-      {
-        "src": "/projects/music/empty-campaign/singer-portrait.png",
-        "alt": "singer-portrait"
+        "src": "/projects/music/empty-campaign/Empty description.png",
+        "alt": "Empty description"
       }
     ],
     "hole-merch": [
@@ -164,11 +218,19 @@ export const projectImages: ProjectImages = {
         "alt": "hearts-tanktop"
       },
       {
+        "src": "/projects/music/hole-merch/Hole merch.png",
+        "alt": "Hole merch"
+      },
+      {
         "src": "/projects/music/hole-merch/shirt-heart.png",
         "alt": "shirt-heart"
       }
     ],
     "running-on-empty-poster": [
+      {
+        "src": "/projects/music/running-on-empty-poster/Poster description.png",
+        "alt": "Poster description"
+      },
       {
         "src": "/projects/music/running-on-empty-poster/poster.png",
         "alt": "poster"
@@ -182,6 +244,10 @@ export const projectImages: ProjectImages = {
       {
         "src": "/projects/music/television-merch/shirt-television.png",
         "alt": "shirt-television"
+      },
+      {
+        "src": "/projects/music/television-merch/Television merch.png",
+        "alt": "Television merch"
       }
     ]
   },
@@ -198,6 +264,10 @@ export const projectImages: ProjectImages = {
       {
         "src": "/projects/production/capstone-location-shoot/stoop.jpg",
         "alt": "stoop"
+      },
+      {
+        "src": "/projects/production/capstone-location-shoot/Thesis Description.png",
+        "alt": "Thesis Description"
       }
     ],
     "capstone-studio-shoot": [
@@ -212,9 +282,17 @@ export const projectImages: ProjectImages = {
       {
         "src": "/projects/production/capstone-studio-shoot/sarai.jpg",
         "alt": "sarai"
+      },
+      {
+        "src": "/projects/production/capstone-studio-shoot/Thesis Description.png",
+        "alt": "Thesis Description"
       }
     ],
     "cassidy's-dreamland": [
+      {
+        "src": "/projects/production/cassidy's-dreamland/Cass description.png",
+        "alt": "Cass description"
+      },
       {
         "src": "/projects/production/cassidy's-dreamland/clam.jpeg",
         "alt": "clam"
@@ -238,6 +316,10 @@ export const projectImages: ProjectImages = {
         "alt": "cape"
       },
       {
+        "src": "/projects/production/homage-to-new-york/Homage description.png",
+        "alt": "Homage description"
+      },
+      {
         "src": "/projects/production/homage-to-new-york/running.jpg",
         "alt": "running"
       },
@@ -254,6 +336,10 @@ export const projectImages: ProjectImages = {
       {
         "src": "/projects/production/problem-child/gate.png",
         "alt": "gate"
+      },
+      {
+        "src": "/projects/production/problem-child/Problem Description.png",
+        "alt": "Problem Description"
       },
       {
         "src": "/projects/production/problem-child/scrapbook.png",

@@ -65,15 +65,19 @@ export default function Project({ category, project }: ProjectProps) {
   // Get images from the generated data
   const imageGallery = projectImages[category]?.[project] || [];
   
-  // Sort images to ensure description is second
-  const sortedGallery = [...imageGallery].sort((a, b) => {
-    // If a is description, it should be second
-    if (a.src.includes('Description')) return 1;
-    // If b is description, it should be second
-    if (b.src.includes('Description')) return -1;
-    // Otherwise maintain original order
-    return 0;
-  });
+  // Ensure description image is second
+  const sortedGallery = [...imageGallery];
+  const descIndex = sortedGallery.findIndex(img => 
+    img.src.toLowerCase().includes('description')
+  );
+  
+  // If we found a description image and it's not already at index 1 (second position)
+  if (descIndex > -1 && descIndex !== 1) {
+    // Remove the description image
+    const descImage = sortedGallery.splice(descIndex, 1)[0];
+    // Insert it at index 1 (second position)
+    sortedGallery.splice(1, 0, descImage);
+  }
 
   const handleImageClick = (image: ImageData) => {
     setSelectedImage(image);

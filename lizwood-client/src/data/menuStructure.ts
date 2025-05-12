@@ -65,6 +65,10 @@ export const menuStructure: MenuItem[] = [
         "path": "/sidebar/music/amyl-and-the-sniffers-merch.png"
       },
       {
+        "name": "band-styling",
+        "path": "/sidebar/music/band-styling.png"
+      },
+      {
         "name": "empty-campaign",
         "path": "/sidebar/music/empty-campaign.png"
       },
