@@ -1,0 +1,3 @@
+![A short animated gif dislaying the site's capacity for and panel where the artist may redesign each page, changing the default placement and transformations of items like images and their cosmetic pins, which can be switched for different pins, tacks, and paperclips.](admin_edit.gif)
+![A short animated gif demonstrating the website's feature where images act as if they are pinned to a corkboard, and can be moved around freely and dropped such that they fall off the screen.](drag_and_drop.gif)
+![A short animated gif demonstrating navigation of the website, including a handwritten paper navigation menu, and a section for viewing project photos in full size.](site_nav.gif)
